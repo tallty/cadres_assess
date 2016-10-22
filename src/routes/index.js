@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Router, Route, IndexRoute, Link, Redirect } from 'react-router'
 import { Application } from '../layouts/Application'
-import { Login } from '../components/login/Login'
+import Login from '../components/login/Login'
 import { AssessOne } from '../components/assess_one/AssessOne'
 import { AssessTwo } from '../components/assess_two/AssessTwo'
 import { AssessThree } from '../components/assess_three/AssessThree'
