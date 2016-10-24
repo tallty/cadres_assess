@@ -10,16 +10,7 @@ const RadioGroup = Radio.Group;
 export class StepOne extends Component {
 
 	componentDidMount() {
-		// Agent
-		// 	.get("")
-		// 	.set('Accept', 'applition/json')
-		// 	.end((err, res) => {
-		// 		if (!err || err === null) {
-				
-		// 		} else {
-		// 			console.dir(err)
-		// 		}
-		// 	})
+
 	}
 
 	getFormItems() {
@@ -30,14 +21,14 @@ export class StepOne extends Component {
 			let des = item.description
 			list.push(
 				<div className={css.box} key={item.id}>
-					<div className={css.item}>{item.id}</div>
-					<div className={css.flex_item}>{item.description}</div>
+					<div className={css.item0}>{item.id}</div>
+					<div className={css.item1}>{item.description}</div>
 					{getFieldDecorator(item.id+"", { initialValue: 'good' })(
             <RadioGroup>
-              <Radio value="perfect" className={css.item}></Radio>
-              <Radio value="good" className={css.item}></Radio>
-              <Radio value="normal" className={css.item}></Radio>
-              <Radio value="bad" className={css.item}></Radio>
+              <Radio value="perfect" className={css.item0}></Radio>
+              <Radio value="good" className={css.item0}></Radio>
+              <Radio value="normal" className={css.item0}></Radio>
+              <Radio value="bad" className={css.item0}></Radio>
             </RadioGroup>
           )}
 				</div>
@@ -63,12 +54,12 @@ export class StepOne extends Component {
 				<Col span={15} className={css.form_container}>
 					<p className={css.title}>中层干部年度考核等级表——自我评价</p>
 					<div className={css.box} style={{background: '#006EC6', color: '#fff'}}>
-						<div className={css.item}>序号</div>
-						<div className={css.flex_item}>履行岗位职责情况</div>
-						<div className={css.item}>优秀</div>
-						<div className={css.item}>良好</div>
-						<div className={css.item}>一般</div>
-						<div className={css.item}>较差</div>
+						<div className={css.item0}>序号</div>
+						<div className={css.item1}>履行岗位职责情况</div>
+						<div className={css.item0}>优秀</div>
+						<div className={css.item0}>良好</div>
+						<div className={css.item0}>一般</div>
+						<div className={css.item0}>较差</div>
 					</div>
 					{/* form */}
 					<Form horizontal onSubmit={this.handleSubmit.bind(this)}>

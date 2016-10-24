@@ -10,7 +10,7 @@ const Step = Steps.Step;
 
 export class Assess extends Component {
 	state = {
-		step: 0,
+		step: 1,
 		user: {
 			name: '胡国盛',
 			sex: '男',
@@ -51,7 +51,7 @@ export class Assess extends Component {
 					{/* 进度条 */}
 					<div className={css.steps}>
 						<Steps current={step}>
-					    <Step title="提交审核登记表" description="05-01 —— 06-31" />
+					    <Step title="提交审核登记表" description="05-01 —— 06-31" className={css.tttt} />
 					    <Step title="在线考核评分" description="05-01 —— 06-31" />
 					    <Step title="考核结果统计" description="05-01 —— 06-31" />
 					  </Steps>

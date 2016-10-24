@@ -4,6 +4,7 @@
   html, body, #root {
     height: 100%;
     background-color: #f8f8f8;
+    color: #4A4A4A;
   }
 
   body {
@@ -31,6 +32,46 @@
   }
   .pull-left {
     float: left;
+  }
+
+  // flex
+  .box {
+    display: -webkit-flex;
+    display: flex;
+    // 水平
+    .item0 {
+      flex-flow: row nowrap;
+      flex-grow: 0;
+    }
+    .item1 {
+      flex-flow: row nowrap;
+      flex-grow: 1;
+    }
+    .item2 {
+      flex-flow: row nowrap;
+      flex-grow: 2;
+    }
+    .item3 {
+      flex-flow: row nowrap;
+      flex-grow: 3;
+    }
+    // 垂直
+    .item0 {
+      flex-flow: column nowrap;
+      flex-grow: 0;
+    }
+    .item1 {
+      flex-flow: column nowrap;
+      flex-grow: 1;
+    }
+    .item2 {
+      flex-flow: column nowrap;
+      flex-grow: 2;
+    }
+    .item3 {
+      flex-flow: column nowrap;
+      flex-grow: 3;
+    }
   }
 
   // 满屏
