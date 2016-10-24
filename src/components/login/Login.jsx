@@ -45,6 +45,9 @@ class Login extends Component {
 					message.error("登录失败，请检查登录信息是否正确");
 				}
 			})
+
+		// redirect
+		// this.props.router.replace('/assess_one');
   }
 
   checkNumber(e) {

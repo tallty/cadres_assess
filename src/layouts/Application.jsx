@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import css from './application.less';
-import { AssessOne } from '../components/assess_one/AssessOne'
+import { AssessOne } from '../components/assess_one/AssessOne';
+import { Icon } from 'antd';
 
 export class Application extends Component {
+	signOut() {
+		location.href = '/'
+	}
+
 	render() {
 		let header_bg = location.pathname === '/' ? '#3C3C3C' : '#006EC6';
 
@@ -11,6 +16,18 @@ export class Application extends Component {
 				<div className={css.header} style={{background: header_bg}}>
 					上海电子信息职业技术学院中层干部考核系统后台管理
 				</div>
+				
+				{
+					location.pathname === '/' ? null :
+						<div className={css.toolbar}>
+							<span>
+								<a onClick={this.signOut}>[退出]</a>
+							</span>
+							<span>胡国盛</span>
+							<span><Icon type="user"/> 12345678</span>
+						</div>
+				}
+				
 
 				{ this.props.children || <AssessOne /> }
 
