@@ -10,7 +10,7 @@ const Step = Steps.Step;
 
 export class Assess extends Component {
 	state = {
-		step: 1,
+		step: 3,
 		user: {
 			name: '胡国盛',
 			sex: '男',
@@ -25,11 +25,11 @@ export class Assess extends Component {
 
 	getStepOperation() {
 		let { step } = this.state
-		if (step === 0) {
+		if (step === 1) {
 			return <StepOne next={this.toNext.bind(this)}/>
-		} else if (step === 1) {
-			return <StepTwo next={this.toNext.bind(this)}/>
 		} else if (step === 2) {
+			return <StepTwo next={this.toNext.bind(this)}/>
+		} else if (step === 3) {
 			return <StepThree next={this.toNext.bind(this)}/>
 		}
 	}
@@ -50,7 +50,7 @@ export class Assess extends Component {
 				<div className={css.assess_container}>
 					{/* 进度条 */}
 					<div className={css.steps}>
-						<Steps current={step}>
+						<Steps current={step - 1}>
 					    <Step title="提交审核登记表" description="05-01 —— 06-31" className={css.tttt} />
 					    <Step title="在线考核评分" description="05-01 —— 06-31" />
 					    <Step title="考核结果统计" description="05-01 —— 06-31" />

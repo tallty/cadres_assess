@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import css from './application.less';
-import { AssessOne } from '../components/assess_one/AssessOne';
+import { Assess } from '../components/assess/Assess';
 import { Icon } from 'antd';
 
 export class Application extends Component {
