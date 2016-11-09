@@ -6,6 +6,7 @@ import { Assess } from '../components/assess/Assess';
 import Admin from '../components/admin/Admin';
 import AdminLogIn from '../components/Admin/AdminLogIn';
 import Statistics from '../components/admin/Statistics/Statistics';
+import StatisticsD from '../components/admin/Statistics/StatisticsD';
 import UserSet from '../components/admin/UserSet/UserSet';
 import TestSet from '../components/admin/TestSet/TestSet';
 
@@ -27,6 +28,7 @@ export class Routes extends Component {
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />
         <Route path="/statistics" component={Statistics} />
+          <Route path="/statistics_d" component={StatisticsD} />
         <Route path="/user_set" component={UserSet} />
         <Route path="/test_set" component={TestSet} />
 		  </Router>

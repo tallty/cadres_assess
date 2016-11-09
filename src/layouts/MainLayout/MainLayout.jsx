@@ -18,7 +18,7 @@ const MainLayout = ({ children }) => {
   return (
     <div className={styles.normal}>
       <div className={styles.head}>
-        {local_url == '/admin'?<h1>上海电子信息职业技术学院会议预约系统后台管理</h1>:<h1>上海电子信息职业技术学院会议预约系统</h1>}
+        {local_url == '/admin'?<h1>上海电子信息职业技术学院中层干部考核系统后台管理</h1>:<h1>上海电子信息职业技术学院中层干部考核系统后台管理</h1>}
       </div>
       <div className={styles.main}>
         {children}

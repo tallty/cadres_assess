@@ -13,33 +13,33 @@ class AdminLogIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      phone: '',
+      email: '',
       password: '',
     }
   }
 
   componentWillMount() {
-    localStorage.phone = ''
+    localStorage.email = ''
     localStorage.password = ''     
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const value = this.props.form.getFieldsValue()
-    var phone = value.phone
+    var email = value.email
     var password = value.password
-    this.pushAppoint(phone, password )
+    this.pushAppoint(email, password )
   }
 
   // 预约
-  pushAppoint(phone, password){
-    var url = "http://114.55.172.35:5555/administrators/sign_in"
+  pushAppoint(email, password){
+    var url = "http://114.55.172.35:3232/admins/sign_in"
     SuperAgent.post(url)
               .set('Accept', 'application/json')
-              .send({'administrator': {'phone': phone, 'password': password}})
+              .send({'admin': {'email': email, 'password': password}})
               .end( (err, res) => {
                 if (res.ok) {
-                  localStorage.phone = phone
+                  localStorage.email = email
                   localStorage.token = res.body.authentication_token
                   this.props.router.replace('/statistics')
                 }
@@ -58,7 +58,7 @@ class AdminLogIn extends Component {
               </Col>
               <Col span={24} className={css.login_input}>
                 <FormItem id="control-input1" >
-                  {getFieldDecorator('phone', { initialValue: '' })(
+                  {getFieldDecorator('email', { initialValue: '' })(
                     <Input id="control-input1" placeholder="用户邮箱"/>
                   )}
                 </FormItem>
