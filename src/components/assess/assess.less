@@ -106,6 +106,18 @@
 	// font-style: Heiti-SC;
 	padding: 0 130px;
 	font-size: 14px;
+}
+.print_table {
+	@media print { 
+		.print_btn_two, .print_btn_one {
+			display: none;
+		} 
+	}
+	@media print {
+		.nextpage {
+			page-break-after:always;
+		}
+	}
 	.table_title {
 		text-align: center;
 		color: #006EC6;
@@ -154,7 +166,7 @@
 			}
 			.row_height {
 				td {
-					height: 200px;
+					height: 190px;
 					position: relative;
 					.sign_name {
 						position: absolute;
@@ -189,8 +201,11 @@
 		.sign_name_school {
 			position: absolute;
 			right: 0;
-			bottom: 155px;
+			bottom: -30px;
 		}
+	}
+	.btn_content {
+		text-align: center;
 		.print_btn_two {
 			margin: 80px 0 60px 0;
 			padding: 4px 40px;
