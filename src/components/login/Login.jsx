@@ -39,15 +39,14 @@ class Login extends Component {
 				if (!err || err === null) {
 					console.log(res.body);
 					this.setState({ loading: false });
+					// 登录成功跳转
+					this.props.router.replace('/assess');
 				} else {
 					console.dir(err);
 					this.setState({ loading: false });
 					message.error("登录失败，请检查登录信息是否正确");
 				}
 			})
-
-		// redirect
-		// this.props.router.replace('/assess_one');
   }
 
   checkNumber(e) {
