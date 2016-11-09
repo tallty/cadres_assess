@@ -1,0 +1,46 @@
+.holyGrail_body {
+  display: flex;
+  height: 100%;
+}
+
+.holyGrail_content {
+  flex: 1;
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.holyGrail_nav {
+  /* 两个边栏的宽度设为12em */
+  flex: 0 0 16vw;
+  background-color: #525252;
+  span {
+    padding-left: 12px;
+  }
+  .holyGrail_list:hover {
+    border-left: 3px solid #FFCB1A;
+    background-color: #3C414D;
+  }
+  .holyGrail_list {
+    color: #fff;
+    padding: 15px 0 15px 5vw;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #1F1F1F;
+    margin-bottom: 1px; 
+    background-color: #2A2D34;
+  }
+  .holyGrail_list_active {
+    border-left: 3px solid #FFCB1A;
+    background-color: #3C414D;
+  }
+}
+
+.holyGrail_nav {
+  /* 导航放到最左边 */
+  order: -1;
+}

@@ -1,0 +1,37 @@
+.background_pic {
+  width: 100vw;
+  height: 100vh;
+  // background: url('../../images/bg.png');
+  background: url('../../images/background.jpg');
+  -moz-background-size:100% 100%; /* 老版本的 Firefox */
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  .login_container {
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    width: 20vw;
+    top: 30vh;
+    right: 23vw;
+    .login_title {
+      border-radius: 5px 5px 0 0;
+      background-color: RGBA(244, 244, 244, 1.00);
+      text-align: center;
+      padding: 6px 0;
+      margin-bottom: 20px;
+      label {
+        font-size: 16px;
+      }
+    }
+    .login_input {
+      padding: 8px 2vw;
+    }
+    .login_submit_btn {
+      text-align: center;
+      padding: 0 2vw;
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
