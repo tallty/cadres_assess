@@ -28,7 +28,8 @@ class AdminLogIn extends Component {
     const value = this.props.form.getFieldsValue()
     var email = value.email
     var password = value.password
-    this.pushAppoint(email, password )
+    this.props.router.replace('/statistics')
+    // this.pushAppoint(email, password )
   }
 
   // 预约
@@ -43,7 +44,7 @@ class AdminLogIn extends Component {
                   localStorage.token = res.body.authentication_token
                   this.props.router.replace('/statistics')
                 }
-              })       
+              })
   }
 
   render() {

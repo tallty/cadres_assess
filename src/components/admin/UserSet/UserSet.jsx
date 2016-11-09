@@ -5,7 +5,7 @@ import css from './UserSet.less'
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link } from 'react-router'
-import { Icon } from 'antd'
+import { Icon, Button } from 'antd'
 
 class UserSet extends Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class UserSet extends Component {
     return (
       <Admin>
         <div className={css.card_content}>
-          UserSet
+          <div className={css.title_name}>年度考核名单总表</div>
+          <div className={css.btn_content}><Button className={css.file_btn} type="primary" icon="plus">选择文件</Button><Button type="primary" icon="plus">导入考核名单</Button></div>
         </div>
       </Admin>
     )

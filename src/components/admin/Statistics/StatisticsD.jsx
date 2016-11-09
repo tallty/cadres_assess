@@ -159,7 +159,7 @@ class StatisticsD extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <div><Link to="/Statistics"><Button type="primary" icon="left">返回总表</Button></Link></div>
+          <div><Link to="/statistics"><Button type="primary" icon="left">返回总表</Button></Link></div>
           <div className={css.table_title}><span>{nameD[id]}</span>考核成绩表</div>
           <Table columns={columns} bordered dataSource={data} onRowClick={this.detail_cell} pagination={{ pageSize: 9 }} onChange={onChange} />
         </div>
