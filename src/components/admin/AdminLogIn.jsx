@@ -41,7 +41,7 @@ class AdminLogIn extends Component {
                 if (res.ok) {
                   localStorage.phone = phone
                   localStorage.token = res.body.authentication_token
-                  this.props.router.replace('/admin_home')
+                  this.props.router.replace('/statistics')
                 }
               })       
   }

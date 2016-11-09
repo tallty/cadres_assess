@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="33px" viewBox="0 0 32 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>分数统计</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="中层干部考核系统" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="后台_分数统计" transform="translate(-44.000000, -77.000000)" fill="#FFFFFF">
+            <g id="左侧边栏" transform="translate(-4.000000, 63.000000)">
+                <g id="分数统计" transform="translate(48.000000, 14.000000)">
+                    <polygon id="Shape" points="10.3987182 5.86028448 0.0100508951 15.8798138 0.0100508951 15.8798138 10.5210135 8.77271359 21.2250741 11.7689073 29.4832278 4.94531783 31.9355712 7.08453568 31.9870639 0.00965253864 24.8617513 0.641108427 27.2304189 2.715892 20.8388782 8.35389084"></polygon>
+                    <polygon id="Shape" points="11.6216716 33 20.4204995 33 20.4848654 15.7058413 11.6216716 13.3475469"></polygon>
+                    <polygon id="Shape" points="1.06565277 33 9.86448066 33 9.86448066 13.6697183 1.06565277 19.6621056"></polygon>
+                    <polygon id="Shape" points="22.184127 33 30.9829548 33 30.9829548 8.47631593 22.184127 15.686511"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

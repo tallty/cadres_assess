@@ -31,10 +31,9 @@ const Admin = ({ children }) => {
     <MainLayout>
       <div className={css.holyGrail_body}>
         <nav className={css.holyGrail_nav}>
-          <Link to="/admin_home"><div className={url=='/admin_home'?list_style1:list_style2}><img src="src/images/home.svg" alt=""/><span>主页</span></div></Link>
-          <Link to="/admin_order_list"><div className={url=='/admin_order_list'?list_style1:list_style2}><img src="src/images/order.svg" alt=""/><span>预约申请</span></div></Link>
-          <Link to="/admin_meeting_plan"><div className={url=='/admin_meeting_plan'?list_style1:list_style2}><img src="src/images/meeting_plan.svg" alt=""/><span>会议议程</span></div></Link>
-          <Link to="/admin_meeting_room_set"><div className={url=='/admin_meeting_room_set'?list_style1:list_style2}><img src="src/images/room_seting.svg" alt=""/><span>会议室设置</span></div></Link>
+          <Link to="/statistics"><div className={url=='/statistics'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div></Link>
+          <Link to="/user_set"><div className={url=='/user_set'?list_style1:list_style2}><img src="src/images/setting.svg" alt=""/><span>用户设置</span></div></Link>
+          <Link to="/test_set"><div className={url=='/test_set'?list_style1:list_style2}><img src="src/images/testSetting.svg" alt=""/><span>考核设置</span></div></Link>
         </nav>
         <main className={css.holyGrail_content}>
           {children}

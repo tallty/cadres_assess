@@ -1,13 +1,13 @@
-// 通用AdminHome组件
+// 通用Statistics组件
 import React, { Component, PropTypes } from 'react'
 import SuperAgent from 'superagent';
-import css from './AdminHome.less'
+import css from './Statistics.less'
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link } from 'react-router'
 import { Icon } from 'antd'
 
-class AdminHome extends Component {
+class Statistics extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,20 +59,11 @@ class AdminHome extends Component {
     return (
       <Admin>
         <div className={css.card_content}>
-          <div className={css.tips_card}>
-            <img src="src/images/approval.svg" alt=""/>
-            <div className={css.card_pad}><p className={css.card_name1}>待审批</p><p><span className={css.card_number1}>{this.state.checking_data}</span>项预约申请</p></div>
-            <Link className={css.card_link} to="/admin_order_list">查看</Link>
-          </div>
-          <div className={css.tips_card}>
-            <img src="src/images/success.svg" alt=""/>
-            <div><p className={css.card_name2}>预定成功</p><p><span className={css.card_number2}>{this.state.success_data}</span>个会议将于未来举行</p></div>
-            <Link className={css.card_link} to="/admin_meeting_plan">查看</Link>
-          </div>
+          分数统计
         </div>
       </Admin>
     )
   }
 }
 
-export default AdminHome
+export default Statistics
