@@ -7,6 +7,10 @@ export class StepTwo extends Component {
 		visible: false
 	}
 
+	componentDidMount() {
+		
+	}
+
 	getList() {
 		let data = [
 			{id: 1, name: '张三', department: '计算机系', state: true},
@@ -33,7 +37,7 @@ export class StepTwo extends Component {
 
 	handleAssess() {
 		let now_date = new Date();
-		let begin_date = new Date("2016-10-31");
+		let begin_date = new Date("2016-11-11");
 		if (now_date > begin_date) {
 
 		} else {
@@ -58,8 +62,9 @@ export class StepTwo extends Component {
 		}
 		let modal_footer = (
 			<div className="text-center">
-				<Button type="primary" size="large" 
-								onClick={this.handleOk.bind(this)}>&nbsp;&nbsp;&nbsp;&nbsp;确 定&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+				<Button type="primary" size="large" onClick={this.handleOk.bind(this)}>
+					&nbsp;&nbsp;&nbsp;&nbsp;确 定&nbsp;&nbsp;&nbsp;&nbsp;
+				</Button>
 			</div>
 		)
 

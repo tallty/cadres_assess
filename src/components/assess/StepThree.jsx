@@ -52,7 +52,7 @@ export class StepThree extends Component {
                   </tr>
                   <tr>
                     <td className={css.td_long} colSpan={3} rowSpan={2}><p>履行岗位职责情况</p><p className={css.sub_text}>（主要工作）每项不超过十五个字符</p></td>
-                    <td colSpan={4}>自我评价意义</td>
+                    <td colSpan={4}>自我评价意见</td>
                   </tr>
                   <tr className={css.tr_one}>
                     <td>优秀</td>

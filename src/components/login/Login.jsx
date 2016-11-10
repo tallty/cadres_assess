@@ -32,7 +32,7 @@ class Login extends Component {
 		}
 		// 开始登录
 		SuperAgent
-			.get("http://114.55.172.35:3232/users/sign_in")
+			.post("http://114.55.172.35:3232/users/sign_in")
 			.set('Accept', 'application/json')
 			.send({user: { job_num: num.number, password: pwd.password }})
 			.end((err, res) => {
@@ -111,6 +111,7 @@ class Login extends Component {
 				<Row>
 					<Col span={12} className={css.col}>
 						<div className={css.timeContent} style={{marginTop: timeTop}}>
+							<p>2016年考核流程说明图</p>
 							<img src="src/images/timeline.svg" alt="时间线"/>
 							<div className={css.timeOne}>05-01 —— 06-31</div>
 							<div className={css.timeTwo}>07-01 —— 07-31</div>

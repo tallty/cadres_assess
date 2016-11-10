@@ -46,7 +46,7 @@ export class Assess extends Component {
 					{/* 进度条 */}
 					<div className={css.steps}>
 						<Steps current={step - 1}>
-					    <Step onClick={this.change_time.bind(this, 1)} title="提交审核登记表" description="05-01 —— 06-31" className={css.tttt} />
+					    <Step onClick={this.change_time.bind(this, 1)} title="提交审核登记表" description="05-01 —— 06-31" />
 					    <Step onClick={this.change_time.bind(this, 2)} title="在线考核评分" description="05-01 —— 06-31" />
 					    <Step onClick={this.change_time.bind(this, 3)} title="考核结果统计" description="05-01 —— 06-31" />
 					  </Steps>
