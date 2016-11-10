@@ -5,7 +5,8 @@ import { Icon } from 'antd';
 
 export class Application extends Component {
 	signOut() {
-		location.href = '/'
+		localStorage.clear();
+		location.href = '/';
 	}
 
 	render() {
@@ -14,7 +15,7 @@ export class Application extends Component {
 		return (
 			<div className={css.container}>
 				<div className={css.header} style={{background: header_bg}}>
-					上海电子信息职业技术学院中层干部考核系统后台管理
+					上海电子信息职业技术学院中层干部考核系统
 				</div>
 				
 				{

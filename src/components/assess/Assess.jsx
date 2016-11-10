@@ -11,16 +11,7 @@ const Step = Steps.Step;
 export class Assess extends Component {
 	state = {
 		step: 3,
-		user: {
-			name: '胡国盛',
-			sex: '男',
-			birth: '1970-09-23',
-			political_status: '中共党员',
-			degree: '硕士',
-			officeholding_time: '2015-02',
-			department: '计算机应用系、副主任',
-			job: '基层党建工作'
-		}
+		user: {}
 	}
 
 	getStepOperation() {
@@ -48,7 +39,7 @@ export class Assess extends Component {
 		return (
 			<div>
 				{/* 用户信息 */}
-				<UserInfo user={user} />
+				<UserInfo />
 		
 				{/* 步骤主体 */}
 				<div className={css.assess_container}>

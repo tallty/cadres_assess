@@ -38,7 +38,14 @@ class Login extends Component {
 			.end((err, res) => {
 				if (!err || err === null) {
 					console.log(res.body);
+					let obj = res.body;
 					this.setState({ loading: false });
+					// 保存数据
+					localStorage.setItem('id', obj.id);
+					localStorage.setItem('token', obj.authentication_token);
+					localStorage.setItem('number', obj.job_num);
+					localStorage.setItem('user_type', obj.user_type);
+					localStorage.setItem('take_part_in', obj.take_part_in);
 					// 登录成功跳转
 					this.props.router.replace('/assess');
 				} else {
