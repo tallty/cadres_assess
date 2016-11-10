@@ -10,7 +10,7 @@ const Step = Steps.Step;
 
 export class Assess extends Component {
 	state = {
-		step: 3,
+		step: 2,
 		user: {}
 	}
 

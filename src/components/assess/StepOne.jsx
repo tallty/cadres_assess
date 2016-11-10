@@ -23,7 +23,7 @@ export class StepOne extends Component {
 				<div className={css.box} key={item.id}>
 					<div className={css.item0}>{item.id}</div>
 					<div className={css.item1}>{item.description}</div>
-					{getFieldDecorator(item.id+"", { initialValue: 'good' })(
+					{getFieldDecorator(item.id+"", { initialValue: ''})(
             <RadioGroup>
               <Radio value="perfect" className={css.item0}></Radio>
               <Radio value="good" className={css.item0}></Radio>
@@ -39,8 +39,21 @@ export class StepOne extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-    console.log('Received values of form:', this.props.form.getFieldsValue());
-    this.props.next();
+		let params = this.props.form.getFieldsValue();
+    console.dir(params);
+    if (this.isValidSubmit(params)) {
+			this.props.next();
+    } else {
+    	alert("请完善评分");
+    }
+	}
+
+	isValidSubmit(params) {
+		let count = 0;
+		for(let value of Object.values(params)) {
+			if (value != "") count++;
+		}
+		return count === 12;
 	}
 
 	render() {
