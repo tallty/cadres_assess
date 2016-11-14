@@ -10,31 +10,26 @@ message.config({ top: 75, duration: 3 });
 class Login extends Component {
 	height = document.body.clientHeight - 105;
 	state = {
-		loading: false,
-		num: {
-			number: null,
-			isValid: null,
-			error: null
-		},
-		pwd: {
-			password: null,
-			isValid: null,
-			error: null
-		}
+		loading: false
 	}
 
 	handleSubmit(e) {
     e.preventDefault();
-    console.log('Received values of form:', this.props.form.getFieldsValue());
-		const { loading, num, pwd } = this.state;
-		if (num.isValid && pwd.isValid) {
-			this.setState({ loading: true })
-		}
-		// 开始登录
+		this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        this.setState({ loading: true });
+				this.beginLogin(values);
+      }
+    });
+  }
+
+  beginLogin(values) {
+  	// 开始登录
 		SuperAgent
 			.post("http://114.55.172.35:3232/users/sign_in")
 			.set('Accept', 'application/json')
-			.send({user: { job_num: num.number, password: pwd.password }})
+			.send({user: { job_num: values.number, password: values.password }})
 			.end((err, res) => {
 				if (!err || err === null) {
 					console.log(res.body);
@@ -56,55 +51,29 @@ class Login extends Component {
 			})
   }
 
-  checkNumber(e) {
-		e.preventDefault();
-		let value = e.target.value
-
-		if (value.length < 6) {
-			this.setState({
-				num: { number: value, isValid: false, error: '工号格式不正确' }
-			})
-		} else {
-			this.setState({
-				num: { number: value, isValid: true, error: null }
-			})
-		}
+  checkNumber(rule, value, callback) {
+    const form = this.props.form;
+    if (value) {
+      callback();
+    } else {
+      callback("请输入登录账号");
+    }
   }
 
-  checkPassword(e) {
-		e.preventDefault();
-		let value = e.target.value
-
-		if (value.length < 6) {
-			this.setState({
-				pwd: { password: value, isValid: false, error: '密码长度不足' }
-			})
-		} else {
-			this.setState({
-				pwd: { password: value, isValid: true, error: null }
-			})
-		}
-  }
-
-  checkInputState(item) {
-  	switch(item.isValid) {
-  		case true:
-  			return 'success';
-  			break;
-  		case false:
-  			return 'error';
-  			break;
-  		default:
-  			return null;
-  			break;
-  	}
+  checkPassword(rule, value, callback) {
+    const form = this.props.form;
+    if (value) {
+      callback();
+    } else {
+      callback("请输入登录密码");
+    }
   }
 
 	render() {
 		let timeTop = ( this.height - 410 ) / 2;
 		let formTop = ( this.height - 380 ) / 2;
 		const { getFieldDecorator } = this.props.form;
-		const { loading, disabled, num, pwd } = this.state;
+		const { loading } = this.state;
 
 		return (
 			<div className={css.loginContainer} style={{height: this.height}}>
@@ -125,20 +94,28 @@ class Login extends Component {
 
 							<Form onSubmit={this.handleSubmit.bind(this)}>
 				        <FormItem className={css.input_item}
-				        					validateStatus={this.checkInputState(num)}
-				        					help={num.error}
 				        					hasFeedback >
-				          {getFieldDecorator('number')(
-				          	<Input placeholder="输入工号" onChange={this.checkNumber.bind(this)}/>
+				          {getFieldDecorator('number', {
+				          	rules: [{  
+				          		required: true, message: '请输入登录账号'
+					          }, {
+					          	validator: this.checkNumber.bind(this),
+					          }]
+				          })(
+				          	<Input placeholder="输入工号" type="text"/>
 				          )}
 				          <Icon type="user" />
 				        </FormItem>
 				        <FormItem className={css.input_item}
-									        validateStatus={this.checkInputState(pwd)}
-									        help={pwd.error}
 				        					hasFeedback >
-				          {getFieldDecorator('password')(
-				          	<Input type="password" placeholder="输入随机密码" onChange={this.checkPassword.bind(this)} />
+				          {getFieldDecorator('password', {
+				          	rules: [{
+				          		required: true, message: '请输入登录密码',
+				          	}, {
+				          		validator: this.checkPassword.bind(this),
+				          	}]
+				          })(
+				          	<Input type="password" placeholder="输入登录密码"/>
 				          )}
 				          <Icon type="lock" />
 				        </FormItem>
