@@ -5,6 +5,7 @@ import Login from '../components/login/Login';
 import { Assess } from '../components/assess/Assess';
 import Admin from '../components/admin/Admin';
 import AdminLogIn from '../components/Admin/AdminLogIn';
+import Review from '../components/review/Review';
 import Statistics from '../components/admin/Statistics/Statistics';
 import StatisticsD from '../components/admin/Statistics/StatisticsD';
 import UserSet from '../components/admin/UserSet/UserSet';
@@ -26,6 +27,9 @@ export class Routes extends Component {
           <IndexRoute component={Login} />
           {/* 考核过程 */}
           <Route path="/assess" component={Assess} onEnter={this.requireAuth}/>          
+          {/* 考核表格 */}
+          <Route path="/review" component={Review} />
+
         </Route>
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />

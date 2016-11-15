@@ -44,7 +44,6 @@ export class Assess extends Component {
 			<div>
 				{/* 用户信息 */}
 				{/* <UserInfo /> */}
-		
 				{/* 步骤主体 */}
 				<div className={css.assess_container}>
 					{/* 进度条 */}
