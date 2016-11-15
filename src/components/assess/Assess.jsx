@@ -14,6 +14,14 @@ export class Assess extends Component {
 		user: {}
 	}
 
+	componentWillMount() {
+		if (sessionStorage.user_type === "middle_manager") {
+			this.setState({ step: 2 });
+		} else {
+			this.setState({ step: 2 });
+		}
+	}
+
 	getStepOperation() {
 		let { step } = this.state
 		if (step === 1) {

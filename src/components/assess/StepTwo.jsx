@@ -1,38 +1,68 @@
 import React, { Component } from 'react';
 import css from './assess.less';
 import {Modal, Button} from 'antd';
+import Agent from 'superagent';
 
 export class StepTwo extends Component {
 	state = {
-		visible: false
+		visible: false,
+		evaluations: []
 	}
 
 	componentDidMount() {
-		
+		this.getEvaluationList();
+	}
+
+	getEvaluationList() {
+		let type = sessionStorage.user_type + "s";
+		Agent
+			.get(`http://114.55.172.35:3232/${type}/evaluations?page=1&per_page=100`)
+			.set('Accept', 'application/json')
+			.set('X-User-Token', sessionStorage.token)
+			.set('X-User-Jobnum', sessionStorage.number)
+			.end((err, res) => {
+				if (!err || err === null) {
+					let key = sessionStorage.user_type + "_evaluations";
+					console.log("获取考核名单成功");
+					console.dir(res.body[key]);
+					this.setState({ evaluations: res.body[key] });
+				} else {
+					console.log("获取考核名单失败");
+				}
+			})
 	}
 
 	getList() {
-		let data = [
-			{id: 1, name: '张三', department: '计算机系', state: true},
-			{id: 2, name: '李四', department: '计算机系', state: false},
-			{id: 3, name: '王五', department: '计算机系', state: true}
-		]
-		let list = []
-		for(let item of data) {
-			list.push(
+		let obj = {
+			count: 0,
+			edited_count: 0,
+			list: []
+		};
+		for(let item of this.state.evaluations) {
+			if (obj.already_edited) {
+				obj.edited_count += 1;
+				let event = '已评';
+			} else {
+				let event = <a onClick={this.handleAssess.bind(this)}>待评</a>;
+			}
+			obj.list.push(
 				<div className={css.box} key={item.id}>
-					<div className={css.item1}>{item.id}</div>
-					<div className={css.item1}>{item.name}</div>
-					<div className={css.item1}>{item.department}</div>
-					<div className={css.item1}>
-						{
-							item.state ? '已评' : <a onClick={this.handleAssess.bind(this)}>待评</a>
-						}
-					</div>
+					<div className={css.item1}>{item.user_id}</div>
+					<div className={css.item1}>{item.info.name}</div>
+					<div className={css.item1}>{item.info.department_and_duty}</div>
+					<div className={css.item1}>{event}</div>
 				</div>
-			)
+			);
 		}
-		return list
+		obj.count = obj.list.length;
+		if (obj.list.length <= 0) {
+			obj.list.push(
+				<div className={css.box}>
+					<div className={css.item1}>暂无考核名单</div>
+				</div>
+			);
+		}
+		return obj;
 	}
 
 	handleAssess() {
@@ -66,15 +96,16 @@ export class StepTwo extends Component {
 					&nbsp;&nbsp;&nbsp;&nbsp;确 定&nbsp;&nbsp;&nbsp;&nbsp;
 				</Button>
 			</div>
-		)
+		);
+		let list_obj = this.getList();
 
 		return (
 			<div className={css.assess_two}>
 				<div className={css.title}>中层干部考核名单</div>
 				<p className="text-center">
-					<span className={css.info}>共<span>46</span>人</span>
-					<span className={css.info}>已评<span>2</span>人</span>
-					<span className={css.info}>待评<span>40</span>人</span>
+					<span className={css.info}>共<span>{list_obj.count}</span>人</span>
+					<span className={css.info}>已评<span>{list_obj.edited_count}</span>人</span>
+					<span className={css.info}>待评<span>{list_obj.count - list_obj.edited_count}</span>人</span>
 				</p>
 
 				<div className={css.box} style={header_style}>
@@ -85,7 +116,7 @@ export class StepTwo extends Component {
 				</div>
 
 				<div className={css.table_div}>
-					{this.getList()}
+					{ list_obj.list }
 				</div>
 
 				<Modal title="系统消息" 
