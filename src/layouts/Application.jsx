@@ -6,11 +6,21 @@ import { Icon } from 'antd';
 export class Application extends Component {
 	signOut() {
 		localStorage.clear();
+		sessionStorage.clear();
 		location.href = '/';
+	}
+
+	getUserInfo() {
+		if (location.pathname !== '/' && sessionStorage.user) {
+			return JSON.parse(sessionStorage.user);
+		} else {
+			return {};
+		}
 	}
 
 	render() {
 		let header_bg = location.pathname === '/' ? '#3C3C3C' : '#006EC6';
+		let user = this.getUserInfo();
 
 		return (
 			<div className={css.container}>
@@ -24,8 +34,8 @@ export class Application extends Component {
 							<span>
 								<a onClick={this.signOut}>[退出]</a>
 							</span>
-							<span>胡国盛</span>
-							<span><Icon type="user"/> 12345678</span>
+							<span>{user.name}</span>
+							<span><Icon type="user"/> {sessionStorage.number}</span>
 						</div>
 				}
 				

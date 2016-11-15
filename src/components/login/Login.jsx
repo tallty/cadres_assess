@@ -13,6 +13,12 @@ class Login extends Component {
 		loading: false
 	}
 
+	componentWillMount() {
+		if (sessionStorage.token) {
+			this.props.router.replace('/assess');
+		}
+	}
+
 	handleSubmit(e) {
     e.preventDefault();
 		this.props.form.validateFieldsAndScroll((err, values) => {
@@ -36,11 +42,33 @@ class Login extends Component {
 					let obj = res.body;
 					this.setState({ loading: false });
 					// 保存数据
-					localStorage.setItem('id', obj.id);
-					localStorage.setItem('token', obj.authentication_token);
-					localStorage.setItem('number', obj.job_num);
-					localStorage.setItem('user_type', obj.user_type);
-					localStorage.setItem('take_part_in', obj.take_part_in);
+					sessionStorage.setItem('id', obj.id);
+					sessionStorage.setItem('token', obj.authentication_token);
+					sessionStorage.setItem('number', obj.job_num);
+					sessionStorage.setItem('user_type', obj.user_type);
+					sessionStorage.setItem('take_part_in', obj.take_part_in);
+					// 获取用户信息
+					this.getUserInfo();
+				} else {
+					console.dir(err);
+					this.setState({ loading: false });
+					message.error("登录失败，请检查登录信息是否正确");
+				}
+			})
+  }
+
+  getUserInfo() {
+  	SuperAgent
+			.get("http://114.55.172.35:3232/user_info")
+			.set('Accept', 'application/json')
+			.set('X-User-Token', sessionStorage.token)
+			.set('X-User-Jobnum', sessionStorage.number)
+			.end((err, res) => {
+				if (!err || err === null) {
+					console.log(res.body);
+					let obj = res.body;
+					let user_str = JSON.stringify(obj);
+					sessionStorage.setItem('user', user_str);
 					// 登录成功跳转
 					this.props.router.replace('/assess');
 				} else {

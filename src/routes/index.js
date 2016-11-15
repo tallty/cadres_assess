@@ -13,7 +13,9 @@ import TestSet from '../components/admin/TestSet/TestSet';
 export class Routes extends Component {
   // 接收鉴权
   requireAuth() {
-    // auth.loggedIn();
+    if (!sessionStorage.token) {
+      location.href = "/";
+    }
   }
 
 	render() {
@@ -23,7 +25,7 @@ export class Routes extends Component {
           {/* 登录 */}
           <IndexRoute component={Login} />
           {/* 考核过程 */}
-          <Route path="/assess" component={Assess} />          
+          <Route path="/assess" component={Assess} onEnter={this.requireAuth}/>          
         </Route>
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />
