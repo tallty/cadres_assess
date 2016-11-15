@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import css from './assess.less';
-import { Row, Col, Button, Form, Radio, Input } from 'antd';
+import { Row, Col, Button, Form, Radio, Input, Modal } from 'antd';
 import Agent from 'superagent';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
+const confirm = Modal.confirm;
 
 export class StepOne extends Component {
 	state = {
@@ -101,7 +102,7 @@ export class StepOne extends Component {
 	validateSubmit(params) {
 		let cache = "";
 		if (params.job && params.total_assess) {
-			for(let i = 1; i <= 12; i++ ) {
+			for(let i = 0; i < 12; i++ ) {
 				if (params["input"+i] && params['group'+i]) {
 					cache += `${params["input"+i]},${params['group'+i]};`;
 				}
@@ -110,6 +111,19 @@ export class StepOne extends Component {
 		} else {
 			return false;
 		}
+	}
+
+	// 提交确认
+	showConfirm(that) {
+		confirm({
+	    title: '确认提交自我评价表吗?',
+	    content: '提交后不可修改，请仔细确认填写内容。',
+	    onOk() {
+	      let submit_btn = document.getElementById('submit_btn');
+	      submit_btn.click();
+	    },
+	    onCancel() {},
+	  });
 	}
 
 	render() {
@@ -163,9 +177,12 @@ export class StepOne extends Component {
 						{/* submit */}
 						<div className={css.button_div}>
 							<br/>
-							<Button type="primary" size="large" htmlType="submit">
-								{ total_assess ? "修改自我评价意见" : "提交自我评价意见" }
-							</Button>
+							<Button htmlType="submit" style={{display: 'none'}} id="submit_btn"></Button>
+							{
+								total_assess ?
+									<Button type="primary" size="large" disabled>已提交自我评价</Button> :
+									<Button type="primary" size="large" onClick={this.showConfirm.bind(this, this)}>提交自我评价意见</Button>
+							}
 						</div>
 					</Form>
 				</Col>

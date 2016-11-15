@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import css from './assess.less';
-import { Row, Col, Steps } from 'antd';
+import { Row, Col, Steps, Modal } from 'antd';
 import { UserInfo } from './UserInfo';
 import { StepOne } from './StepOne';
 import { StepTwo } from './StepTwo';
@@ -10,7 +10,7 @@ const Step = Steps.Step;
 
 export class Assess extends Component {
 	state = {
-		step: 1,
+		step: 2,
 		user: {}
 	}
 
@@ -25,13 +25,9 @@ export class Assess extends Component {
 		}
 	}
 
-	change_time(step){
-		this.setState({ step: step })
-	}
-
 	// 开始下一步
 	toNext() {
-		this.setState({ step: this.state.step + 1 })
+		this.setState({ step: this.state.step + 1 });
 	}
 
 	render() {
@@ -46,9 +42,9 @@ export class Assess extends Component {
 					{/* 进度条 */}
 					<div className={css.steps}>
 						<Steps current={step - 1}>
-					    <Step onClick={this.change_time.bind(this, 1)} title="提交审核登记表" description="05-01 —— 06-31" />
-					    <Step onClick={this.change_time.bind(this, 2)} title="在线考核评分" description="05-01 —— 06-31" />
-					    <Step onClick={this.change_time.bind(this, 3)} title="考核结果统计" description="05-01 —— 06-31" />
+					    <Step title="提交审核登记表" description="05-01 —— 06-31" />
+					    <Step title="在线考核评分" description="05-01 —— 06-31" />
+					    <Step title="考核结果统计" description="05-01 —— 06-31" />
 					  </Steps>
 					</div>
 					{/* 分步操作 */}
