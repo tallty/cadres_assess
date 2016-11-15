@@ -43,7 +43,7 @@ export class StepTwo extends Component {
 				obj.edited_count += 1;
 				let event = '已评';
 			} else {
-				let event = <a onClick={this.handleAssess.bind(this)}>待评</a>;
+				let event = <a onClick={this.handleAssess.bind(this, item)}>待评</a>;
 			}
 			obj.list.push(
 				<div className={css.box} key={item.id}>
@@ -65,7 +65,7 @@ export class StepTwo extends Component {
 		return obj;
 	}
 
-	handleAssess() {
+	handleAssess(evaluation) {
 		let now_date = new Date();
 		let begin_date = new Date("2016-11-11");
 		if (now_date > begin_date) {
