@@ -19,6 +19,13 @@ export class Routes extends Component {
     }
   }
 
+  // 后台鉴权
+  adminAuth() {
+    if (!sessionStorage.admin_token) {
+      location.href = "/admin";
+    }
+  }
+
 	render() {
 		return (
 			<Router history={this.props.history}>
@@ -28,15 +35,15 @@ export class Routes extends Component {
           {/* 考核过程 */}
           <Route path="/assess" component={Assess} onEnter={this.requireAuth}/>          
           {/* 考核表格 */}
-          <Route path="/review" component={Review} />
+          <Route path="/review" component={Review} onEnter={this.requireAuth}/>
 
         </Route>
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />
-        <Route path="/statistics" component={Statistics} />
-          <Route path="/statistics_d" component={StatisticsD} />
-        <Route path="/user_set" component={UserSet} />
-        <Route path="/test_set" component={TestSet} />
+        <Route path="/statistics" component={Statistics} onEnter={this.adminAuth}/>
+          <Route path="/statistics_d" component={StatisticsD} onEnter={this.adminAuth}/>
+        <Route path="/user_set" component={UserSet} onEnter={this.adminAuth}/>
+        <Route path="/test_set" component={TestSet} onEnter={this.adminAuth}/>
 		  </Router>
 		)
 	}

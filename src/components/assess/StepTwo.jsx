@@ -57,7 +57,7 @@ export class StepTwo extends Component {
 		obj.count = obj.list.length;
 		if (obj.list.length <= 0) {
 			obj.list.push(
-				<div className={css.box}>
+				<div className={css.box} key={-1}>
 					<div className={css.item1}>暂无考核名单</div>
 				</div>
 			);

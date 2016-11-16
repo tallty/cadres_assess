@@ -22,7 +22,7 @@ const columns = [{
   dataIndex: 'point1',
   sorter: (a, b) => a.point1 - b.point1,
 }, {
-  title: '同事评分',
+  title: '中层互评',
   dataIndex: 'point2',
   sorter: (a, b) => a.point2 - b.point2,
 }, {
@@ -100,19 +100,17 @@ class Statistics extends Component {
 
 
   getData(){
-    var token = localStorage.token
-    var phone = localStorage.phone
-    var url = "http://114.55.172.35:5555/admin/orders/checked?page=1&per_page=10000"
-    SuperAgent.get(url)
-              .set('Accept', 'application/json')
-              .set('X-Administrator-Token', token)
-              .set('X-Administrator-Phone', phone)
-              .end( (err, res) => {
-                if (res.ok) {
-                  var data = res.body.checked_orders
-                  this.setState({order_data: data})
-                }
-              })
+    SuperAgent
+      .get("http://114.55.172.35:5555/admin/orders/checked?page=1&per_page=1000")
+      .set('Accept', 'application/json')
+      .set('X-Admin-Token', sessionStorage.admin_token)
+      .set('X-Admin-Email', sessionStorage.admin_email)
+      .end( (err, res) => {
+        if (res.ok) {
+          var data = res.body.checked_orders
+          this.setState({order_data: data})
+        }
+      })
   }
 
   render() {

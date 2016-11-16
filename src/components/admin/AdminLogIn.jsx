@@ -19,32 +19,34 @@ class AdminLogIn extends Component {
   }
 
   componentWillMount() {
-    localStorage.email = ''
-    localStorage.password = ''     
+    if (sessionStorage.admin_token) {
+      this.props.router.replace('/statistics');
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const value = this.props.form.getFieldsValue()
-    var email = value.email
-    var password = value.password
-    this.props.router.replace('/statistics')
-    // this.pushAppoint(email, password )
+    let email = value.email;
+    let password = value.password;
+    this.beginLogin(email, password );
   }
 
-  // 预约
-  pushAppoint(email, password){
-    var url = "http://114.55.172.35:3232/admins/sign_in"
-    SuperAgent.post(url)
-              .set('Accept', 'application/json')
-              .send({'admin': {'email': email, 'password': password}})
-              .end( (err, res) => {
-                if (res.ok) {
-                  localStorage.email = email
-                  localStorage.token = res.body.authentication_token
-                  this.props.router.replace('/statistics')
-                }
-              })
+  // 管理员登录
+  beginLogin(email, password){
+    SuperAgent
+      .post("http://114.55.172.35:3232/admins/sign_in")
+      .set('Accept', 'application/json')
+      .send({'admin': {'email': email, 'password': password}})
+      .end( (err, res) => {
+        if (!err || err === null) {
+          sessionStorage.setItem('admin_email', email);
+          sessionStorage.setItem('admin_token', res.body.authentication_token);
+          this.props.router.replace('/statistics');
+        } else {
+          console.log("admin登录失败");
+        }
+      })
   }
 
   render() {
@@ -52,32 +54,30 @@ class AdminLogIn extends Component {
     return (
       <div className={css.background_pic}>
         <Form horizontal onSubmit={this.handleSubmit.bind(this)} >
-          <div className={css.login_container}>
-            <Row className={css.login_content}>
-              <Col span={24} className={css.login_title}>
-                <label>管理员登录</label>
-              </Col>
-              <Col span={24} className={css.login_input}>
-                <FormItem id="control-input1" >
-                  {getFieldDecorator('email', { initialValue: '' })(
-                    <Input id="control-input1" placeholder="用户邮箱"/>
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={24} className={css.login_input}>
-                <FormItem id="control-input2">
-                  {getFieldDecorator('password', { initialValue: '' })(
-                    <Input id="control-input2" type="password" placeholder="密码" className={css.email_input}/>
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={24} className={css.login_submit_btn}>
-                <FormItem>
-                  <Button className={css.login_btn} type="primary" htmlType="submit">登 录</Button>
-                </FormItem>
-              </Col>
-            </Row>
-          </div>
+          <Row className={css.login_container}>
+            <Col span={24} className={css.login_title}>
+              <label>管理员登录</label>
+            </Col>
+            <Col span={24} className={css.login_input}>
+              <FormItem id="control-input1" >
+                {getFieldDecorator('email', { initialValue: '' })(
+                  <Input id="control-input1" placeholder="用户邮箱"/>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={24} className={css.login_input}>
+              <FormItem id="control-input2">
+                {getFieldDecorator('password', { initialValue: '' })(
+                  <Input id="control-input2" type="password" placeholder="密码" className={css.email_input}/>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={24} className={css.login_submit_btn}>
+              <FormItem>
+                <Button className={css.login_btn} type="primary" htmlType="submit">登 录</Button>
+              </FormItem>
+            </Col>
+          </Row>
         </Form>
       </div>
     )

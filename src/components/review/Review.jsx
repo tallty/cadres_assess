@@ -8,6 +8,7 @@ const FormItem = Form.Item;
 const ideology = ['思想政治态度','道德作风品行','团结协调合作']
 const honest = ['廉洁从政','执行党风廉政建设责任制']
 const duty = ['带领团队绩效', '带领团队开展专业建设效果', '带领团队实训室建设效果', '带领团队教学资源建设效果', '带领团队学生工作是建设效果', '带领团队学生培养效果']
+
 class Review extends Component {
   constructor(props) {
     super(props);
@@ -42,16 +43,17 @@ class Review extends Component {
 
 
   getFormCell(name, length){
-    var cells = []
-    for (var i = 0; i < length; i++) {
-      const label = ''
+    let cells = [];
+    for (let i = 0; i < length; i++) {
+      let label = '';
       if (name==='honest'){
-        var label = honest[i]
+        label = honest[i];
       }else if (name==='ideology'){
-        var label = ideology[i]
+        label = ideology[i];
       }else{
-        var label = duty[i]
+        label = duty[i];
       }
+
       cells.push(<Row key={i} className={i%2 == 0?css.form_input_cell:css.form_input2_cell}>
         <Col span={12} className={css.form_label}>
           {label}
@@ -65,7 +67,7 @@ class Review extends Component {
         </Col>
       </Row>)
     }
-    return cells
+    return cells;
   }
 
   render() {
@@ -86,22 +88,24 @@ class Review extends Component {
         <div className={css.review_container}>
           <div className={css.form_title}>中层干部<span>2015</span>年度考核民主测评表</div>
           {/* 用户信息 */}
-          <div className={css.user_info_content}>
-            <Row>
-              <Col span={12}>
-                <p>姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{name}</p>
-                <p>出生年月：&nbsp;&nbsp;&nbsp;&nbsp;{date_of_birth}</p>
-                <p>文化程度：&nbsp;&nbsp;&nbsp;&nbsp;{degree_of_education}</p>
-                <p>部门及职务：{department_and_duty}</p>
-              </Col>
-              <Col span={12}>
-                <p>性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{sex}</p>
-                <p>政治面貌：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{political_status}</p>
-                <p>任现职时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{starting_time_for_the_present_job}</p>
-                <p>从事或分管工作：{job}</p>
-              </Col>
-            </Row>
-          </div>
+          {/*
+            <div className={css.user_info_content}>
+              <Row>
+                <Col span={12}>
+                  <p>姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{name}</p>
+                  <p>出生年月：&nbsp;&nbsp;&nbsp;&nbsp;{date_of_birth}</p>
+                  <p>文化程度：&nbsp;&nbsp;&nbsp;&nbsp;{degree_of_education}</p>
+                  <p>部门及职务：{department_and_duty}</p>
+                </Col>
+                <Col span={12}>
+                  <p>性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{sex}</p>
+                  <p>政治面貌：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{political_status}</p>
+                  <p>任现职时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{starting_time_for_the_present_job}</p>
+                  <p>从事或分管工作：{job}</p>
+                </Col>
+              </Row>
+            </div>
+          */}
           {/* 评审表格 */}
           <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
             <div className={css.form_cell}>

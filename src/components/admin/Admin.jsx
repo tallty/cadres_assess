@@ -1,10 +1,10 @@
 // 通用Admin组件
-import React, { Component, PropTypes } from 'react'
-import css from './Admin.less'
+import React, { Component, PropTypes } from 'react';
+import css from './Admin.less';
 import MainLayout from '../../layouts/MainLayout/MainLayout';
-import classnames from 'classnames'
-import { Link } from 'react-router'
-import { Icon } from 'antd'
+import classnames from 'classnames';
+import { Link } from 'react-router';
+import { Icon } from 'antd';
 
 function GetUrlRelativePath(){
   var url = document.location.toString();
@@ -18,15 +18,15 @@ function GetUrlRelativePath(){
 }
 
 const Admin = ({ children }) => {
-  const url = GetUrlRelativePath()
+  const url = GetUrlRelativePath();
   console.log(url);
   let list_style1 = classnames(
     css.holyGrail_list,
     css.holyGrail_list_active,
-  )
+  );
   let list_style2 = classnames(
     css.holyGrail_list,
-  )
+  );
 
   return (
     <MainLayout>
@@ -48,4 +48,4 @@ Admin.propTypes = {
   children: PropTypes.element.isRequired,
 }
 
-export default Admin
+export default Admin;
