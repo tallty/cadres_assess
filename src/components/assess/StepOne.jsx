@@ -180,7 +180,7 @@ export class StepOne extends Component {
 							<Button htmlType="submit" style={{display: 'none'}} id="submit_btn"></Button>
 							{
 								total_assess ?
-									<Button type="primary" size="large" disabled>已提交自我评价</Button> :
+									<Button type="primary" size="large" onClick={this.props.next}>下一步</Button> :
 									<Button type="primary" size="large" onClick={this.showConfirm.bind(this, this)}>提交自我评价意见</Button>
 							}
 						</div>

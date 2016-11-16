@@ -10,15 +10,15 @@ const Step = Steps.Step;
 
 export class Assess extends Component {
 	state = {
-		step: 2,
+		step: 1,
 		user: {}
 	}
 
 	componentWillMount() {
 		if (sessionStorage.user_type === "middle_manager") {
-			this.setState({ step: 2 });
+			this.setState({ step: 1 });
 		} else {
-			this.setState({ step: 2 });
+			this.setState({ step: 1 });
 		}
 	}
 
@@ -43,7 +43,7 @@ export class Assess extends Component {
 		return (
 			<div>
 				{/* 用户信息 */}
-				{/* <UserInfo /> */}
+				<UserInfo />
 				{/* 步骤主体 */}
 				<div className={css.assess_container}>
 					{/* 进度条 */}
