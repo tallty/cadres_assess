@@ -19,96 +19,101 @@ const columns = [{
   dataIndex: 'name',
 }, {
   title: '领导评分',
-  dataIndex: 'point1',
-  sorter: (a, b) => a.point1 - b.point1,
+  dataIndex: 'average_score_for_leader',
+  sorter: (a, b) => a.average_score_for_leader - b.average_score_for_leader,
 }, {
   title: '中层互评',
-  dataIndex: 'point2',
-  sorter: (a, b) => a.point2 - b.point2,
+  dataIndex: 'average_score_for_middle_manager',
+  sorter: (a, b) => a.average_score_for_middle_manager - b.average_score_for_middle_manager,
 }, {
   title: '员工评分',
-  dataIndex: 'point3',
-  sorter: (a, b) => a.point3 - b.point3,
+  dataIndex: 'average_score_for_staff',
+  sorter: (a, b) => a.average_score_for_staff - b.average_score_for_staff,
 }, {
   title: '总分',
-  dataIndex: 'point4',
-  sorter: (a, b) => a.point4 - b.point4,
+  dataIndex: 'average_score_for_all',
+  sorter: (a, b) => a.average_score_for_all - b.average_score_for_all,
 },{
   title: '等级',
-  dataIndex: 'rank',
+  dataIndex: 'final_result',
 }];
 
-const data = [{
-  index: '1',
-  name: 'John Brown',
-  point1: 80,
-  point2: 81,
-  point3: 89,
-  point4: 83,
-  rank:"",
-}, {
-  index: '2',
-  name: 'Jim Green',
-  point1: 70,
-  point2: 64,
-  point3: 79,
-  point4: 83,
-  rank:"",
-}, {
-  index: '3',
-  name: 'Joe Black',
-  point1: 90,
-  point2: 77,
-  point3: 71,
-  point4: 83,
-  rank:"",
-}, {
-  index: '4',
-  name: 'Jim Red',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  rank:"",
-}, {
-  index: '5',
-  name: 'Jim pink',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  rank:"",
-}];
+// const data = [{
+//   index: '1',
+//   name: 'John Brown',
+//   point1: 80,
+//   point2: 81,
+//   point3: 89,
+//   point4: 83,
+//   rank:"",
+// }, {
+//   index: '2',
+//   name: 'Jim Green',
+//   point1: 70,
+//   point2: 64,
+//   point3: 79,
+//   point4: 83,
+//   rank:"",
+// }, {
+//   index: '3',
+//   name: 'Joe Black',
+//   point1: 90,
+//   point2: 77,
+//   point3: 71,
+//   point4: 83,
+//   rank:"",
+// }, {
+//   index: '4',
+//   name: 'Jim Red',
+//   point1: 82,
+//   point2: 88,
+//   point3: 90,
+//   point4: 83,
+//   rank:"",
+// }, {
+//   index: '5',
+//   name: 'Jim pink',
+//   point1: 82,
+//   point2: 88,
+//   point3: 90,
+//   point4: 83,
+//   rank:"",
+// }];
 
 class Statistics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order_data: [],
+      year: '',
+      data: [],
       order_columns: [],
       filters: []
     }
   }
 
   componentWillMount() {
-    // this.getData()
+    this.getData()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getData()
   }
 
   detail_cell(record, index){
     this.props.router.replace(`/statistics_d?id=${index}`)
   }
 
-
   getData(){
     SuperAgent
-      .get("http://114.55.172.35:5555/admin/orders/checked?page=1&per_page=1000")
+      .get("http://114.55.172.35:3232/admin/results")
       .set('Accept', 'application/json')
       .set('X-Admin-Token', sessionStorage.admin_token)
       .set('X-Admin-Email', sessionStorage.admin_email)
+      .send('activity_year', this.props.location.query.year)
       .end( (err, res) => {
         if (res.ok) {
-          var data = res.body.checked_orders
-          this.setState({order_data: data})
+          var data = res.body.table
+          this.setState({data: data})
         }
       })
   }
@@ -117,7 +122,7 @@ class Statistics extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <Table columns={columns} bordered dataSource={data} onRowClick={this.detail_cell.bind(this)} pagination={{ pageSize: 9 }} onChange={onChange} />
+          <Table columns={columns} bordered dataSource={this.state.data} onRowClick={this.detail_cell.bind(this)} pagination={ false } onChange={onChange} />
         </div>
       </Admin>
     )

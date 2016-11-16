@@ -44,6 +44,32 @@ const columns = [{
   sorter: (a, b) => a.num - b.num,
 }];
 
+const columns1 = [{
+  title: '评委姓',
+  dataIndex: 'name',
+}, {
+  title: '考核项1',
+  dataIndex: 'point1',
+}, {
+  title: '考核项2',
+  dataIndex: 'point2',
+}, {
+  title: '考核项3',
+  dataIndex: 'point3',
+}, {
+  title: '考核项4',
+  dataIndex: 'point4',
+},{
+  title: '考核项5',
+  dataIndex: 'point5',
+},{
+  title: '考核项6',
+  dataIndex: 'point6',
+},{
+  title: '总分',
+  dataIndex: 'num',
+}];
+
 const data = [{
   point5: 71,
   name: '评委1',
@@ -82,7 +108,7 @@ const data = [{
   num: 395,
 }, {
   point5: 78,
-  name: '评委5',
+  name: '评委5评委5',
   point1: 82,
   point2: 88,
   point3: 90,
@@ -108,6 +134,53 @@ const data = [{
   point6: 67,
   num: 1234,
 }];
+
+const data1 = [{
+  point5: 71,
+  name: '优秀',
+  point1: 80,
+  point2: 81,
+  point3: 89,
+  point4: 83,
+  point6: 56,
+  num: 345,
+}, {
+  point5: 76,
+  name: '称职',
+  point1: 70,
+  point2: 64,
+  point3: 79,
+  point4: 83,
+  point6: 66,
+  num: 444,
+}, {
+  point5: 92,
+  name: '基本称职',
+  point1: 90,
+  point2: 77,
+  point3: 71,
+  point4: 83,
+  point6: 56,
+  num: 753,
+}, {
+  point5: 76,
+  name: '不称职',
+  point1: 82,
+  point2: 88,
+  point3: 90,
+  point4: 83,
+  point6: 88,
+  num: 395,
+}, {
+  point5: 78,
+  name: '空白',
+  point1: 82,
+  point2: 88,
+  point3: 90,
+  point4: 83,
+  point6: 67,
+  num: 1234,
+}]
 
 const nameD = ["John Brown", "Jim Green", "Joe Black", "Jim Red", "Jim pink"]
 
@@ -161,7 +234,9 @@ class StatisticsD extends Component {
         <div className={css.table_content}>
           <div><Link to="/statistics"><Button type="primary" icon="left">返回总表</Button></Link></div>
           <div className={css.table_title}><span>{nameD[id]}</span>考核成绩表</div>
-          <Table columns={columns} bordered dataSource={data} onRowClick={this.detail_cell} pagination={{ pageSize: 9 }} onChange={onChange} />
+          <Table columns={columns} bordered dataSource={data} onRowClick={this.detail_cell} pagination={ false } onChange={onChange} />
+          <div className={css.table_title}>数据比例分析</div>
+          <Table columns={columns1} bordered dataSource={data1} onRowClick={this.detail_cell} pagination={ false } onChange={onChange} />
         </div>
       </Admin>
     )

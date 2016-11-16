@@ -18,7 +18,7 @@ class UserSet extends Component {
     return (
       <Admin>
         <div className={css.card_content}>
-          <div className={css.title_name}>年度考核名单总表</div>
+          <div className={css.title_name}>{this.props.location.query.year}度考核名单总表</div>
           <div className={css.btn_content}><Button className={css.file_btn} type="primary" icon="plus">选择文件</Button><Button type="primary" icon="plus">导入考核名单</Button></div>
         </div>
       </Admin>
