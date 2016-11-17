@@ -177,18 +177,18 @@ export class StepThree extends Component {
                     <td>空白</td>
                   </tr>
                   <tr>
-                    <td>票数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例％</td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
                   </tr>
                   <tr>
-                    <td>{this.state.little_iterm.level_count_and_percentage.excellent_count}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.little_iterm.level_count_and_percentage.excellent_proportion}</td>
-                    <td>{this.state.little_iterm.level_count_and_percentage.good_count}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.little_iterm.level_count_and_percentage.good_proportion}</td>
-                    <td>{this.state.little_iterm.level_count_and_percentage.average_count}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.little_iterm.level_count_and_percentage.average_proportion}</td>
-                    <td>{this.state.little_iterm.level_count_and_percentage.bad_count}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.little_iterm.level_count_and_percentage.bad_proportion}</td>
-                    <td>{this.state.little_iterm.level_count_and_percentage.excellent_count}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.little_iterm.level_count_and_percentage.excellent_proportion}</td>
+                    <td><span className={css.persent_span}>{this.state.little_iterm.level_count_and_percentage[0]['excellent-count']}</span><span>{this.state.little_iterm.level_count_and_percentage[1]['excellent-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.little_iterm.level_count_and_percentage[2]['good-count']}</span><span>{this.state.little_iterm.level_count_and_percentage[3]['good-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.little_iterm.level_count_and_percentage[4]['average-count']}</span><span>{this.state.little_iterm.level_count_and_percentage[5]['average-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.little_iterm.level_count_and_percentage[6]['bad-count']}</span><span>{this.state.little_iterm.level_count_and_percentage[7]['bad-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.little_iterm.level_count_and_percentage.excellent_count}</span><span>{this.state.little_iterm.level_count_and_percentage.excellent_proportion}</span></td>
                   </tr>
                   <tr>
                     <td rowSpan={3}>个人考核<br/>测评结果<br/>（{this.state.average_for_all_evaluation.sum_of_result_level_count}）</td>
@@ -199,18 +199,18 @@ export class StepThree extends Component {
                     <td>空白</td>
                   </tr>
                   <tr>
-                    <td>票数&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;比例％</td>
-                    <td>票数&nbsp;&nbsp;&nbsp;比例％</td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
+                    <td><span className={css.persent_span}>票数</span><span className={css.persent_span_p}>比例％</span></td>
                   </tr>
                   <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td><span className={css.persent_span}>{this.state.average_for_all_evaluation.result_level_count_and_percentage[0]['excellent-count']}</span><span>{this.state.average_for_all_evaluation.result_level_count_and_percentage[1]['excellent-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.average_for_all_evaluation.result_level_count_and_percentage[2]['good-count']}</span><span>{this.state.average_for_all_evaluation.result_level_count_and_percentage[3]['good-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.average_for_all_evaluation.result_level_count_and_percentage[4]['average-count']}</span><span>{this.state.average_for_all_evaluation.result_level_count_and_percentage[5]['average-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.average_for_all_evaluation.result_level_count_and_percentage[6]['bad-count']}</span><span>{this.state.average_for_all_evaluation.result_level_count_and_percentage[7]['bad-proportion']}</span></td>
+                    <td><span className={css.persent_span}>{this.state.average_for_all_evaluation.result_level_count_and_percentage.excellent_count}</span><span>{this.state.average_for_all_evaluation.result_level_count_and_percentage.excellent_proportion}</span></td>
                   </tr>
                   <tr>
                     <td rowSpan={2}>考核等级</td>
