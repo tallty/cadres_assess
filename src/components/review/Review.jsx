@@ -21,8 +21,8 @@ class Review extends Component {
     Agent
       .get(`http://114.55.172.35:3232/user_info`)
       .set('Accept','application')
-      .set('X-User-Token', localStorage.token)
-      .set('X-User-Jobnum', localStorage.number)
+      .set('X-User-Token', sessionStorage.token)
+      .set('X-User-Jobnum', sessionStorage.number)
       .end((err, res) => {
         if (!err || err === null) {
           this.setState({user: res.body});

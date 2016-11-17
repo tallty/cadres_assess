@@ -10,14 +10,19 @@ export class UserInfo extends Component {
 
 	componentDidMount() {
 		Agent
-			.get(`http://114.55.172.35:3232/user_info`)
-			.set('Accept','application')
-			.set('X-User-Token', localStorage.token)
-			.set('X-User-Jobnum', localStorage.number)
+			.get("http://114.55.172.35:3232/user_info")
+			.set('Accept', 'application/json')
+			.set('X-User-Token', sessionStorage.token)
+			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
+					console.log("=======获取用户信息成功=======");
+					console.log(res.body);
+					let user_str = JSON.stringify(res.body);
+					sessionStorage.setItem('user', user_str);
 					this.setState({user: res.body});
 				} else {
+					console.log(err);
 					console.log("获取用户信息失败");
 				}
 			})

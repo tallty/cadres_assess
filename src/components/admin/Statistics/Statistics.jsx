@@ -38,48 +38,6 @@ const columns = [{
   dataIndex: 'final_result',
 }];
 
-// const data = [{
-//   index: '1',
-//   name: 'John Brown',
-//   point1: 80,
-//   point2: 81,
-//   point3: 89,
-//   point4: 83,
-//   rank:"",
-// }, {
-//   index: '2',
-//   name: 'Jim Green',
-//   point1: 70,
-//   point2: 64,
-//   point3: 79,
-//   point4: 83,
-//   rank:"",
-// }, {
-//   index: '3',
-//   name: 'Joe Black',
-//   point1: 90,
-//   point2: 77,
-//   point3: 71,
-//   point4: 83,
-//   rank:"",
-// }, {
-//   index: '4',
-//   name: 'Jim Red',
-//   point1: 82,
-//   point2: 88,
-//   point3: 90,
-//   point4: 83,
-//   rank:"",
-// }, {
-//   index: '5',
-//   name: 'Jim pink',
-//   point1: 82,
-//   point2: 88,
-//   point3: 90,
-//   point4: 83,
-//   rank:"",
-// }];
-
 class Statistics extends Component {
   constructor(props) {
     super(props);
@@ -122,7 +80,12 @@ class Statistics extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <Table columns={columns} bordered dataSource={this.state.data} onRowClick={this.detail_cell.bind(this)} pagination={ false } onChange={onChange} />
+          <Table columns={columns} 
+                 bordered 
+                 dataSource={this.state.data} 
+                 onRowClick={this.detail_cell.bind(this)} 
+                 pagination={ false } 
+                 onChange={onChange} />
         </div>
       </Admin>
     )
