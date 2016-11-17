@@ -58,7 +58,7 @@ class Statistics extends Component {
   }
 
   detail_cell(record, index){
-    this.props.router.replace(`/statistics_d?id=${index}`)
+    this.props.router.replace(`/statistics_d?id=${record.id}`)
   }
 
   getData(){
