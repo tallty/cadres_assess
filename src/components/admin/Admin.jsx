@@ -103,9 +103,10 @@ class Admin extends Component {
             <Menu
               theme="dark"
               mode="inline"
-              openKeys={this.state.openKeys}
+              defaultOpenKeys={['sub1', 'sub2']}
+              
               selectedKeys={[this.state.current]}
-              onOpenChange={this.onOpenChange.bind(this)}
+              
               onClick={this.handleClick.bind(this)}
             >
               <SubMenu key="sub1" title={<div className={url=='/statistics'||url=='/statistics_d'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div>}>
