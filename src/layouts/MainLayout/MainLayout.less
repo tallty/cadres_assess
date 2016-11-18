@@ -1,19 +1,20 @@
-
 .normal {
-  display: -webkit-flex; /* Safari */
   display: flex;
+  display: -webkit-flex; /* Safari */
+  min-height: 100vh;
   flex-direction: column;
-  height: 100vh;
-  justify-content: space-between;
 }
 
 .head {
+  flex: 1;
   display: flex;
+  display: -webkit-flex; /* Safari */
   justify-content: center;
   align-items: center;
   background: #006EC6;
   text-align: center;
-  min-height: 60px;
+  min-height: 6vh;
+  max-height: 6vh;
   padding: 6px;
   color: #fff;
   h1 {
@@ -24,23 +25,21 @@
 .toolbar {
   position: absolute;
   right: 20px;
-  top: 10px;
-  line-height: 40px;
+  top: 0.2vh;
+  line-height: 6vh;
   margin-right: 20px;
   a {
     color: #fff;
   }
 }
 
-.main {
-  flex: 1;
-}
-
 .foot {
-  line-height: 40px;
+  flex: 1;
+  min-height: 6vh;
+  max-height: 6vh;
+  line-height: 6vh;
   font-size: 13px;
   text-align: center;
   color: #B8B8B8;
   background: #3F3F3F;
-  padding: 8px;
 }

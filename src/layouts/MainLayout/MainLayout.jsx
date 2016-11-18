@@ -32,9 +32,7 @@ const MainLayout = ({ children }) => {
             </div>
         }
       </div>
-      <div className={styles.main}>
-        {children}
-      </div>
+      {children}
       <div className={styles.foot}>
         <Row>
           <Col span={8}>联系单位：上海电子信息职业技术学院</Col>

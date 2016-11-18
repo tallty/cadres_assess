@@ -99,7 +99,7 @@ class Statistics extends Component {
              dataSource={this.state.data} 
              onRowClick={this.detail_cell.bind(this)}
              loading={this.state.loading}
-             pagination={{pageSize: 10}} 
+             pagination={{pageSize: 18}} 
              onChange={this.onChange} />
         </div>
       </Admin>
