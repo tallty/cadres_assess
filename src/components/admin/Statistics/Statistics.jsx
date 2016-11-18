@@ -47,19 +47,29 @@ class Statistics extends Component {
   }
 
   componentWillMount() {
-    this.getData();
+    var year = this.props.location.query.year
+    this.getData(year);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getData();
+    this.setState({loading: true})
+    var year = this.getQueryString("year")
+    this.getData(year);
+  }
+
+  getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
   }
 
   detail_cell(record, index){
     this.props.router.replace(`/statistics_d?year=${this.props.location.query.year}&id=${record.id}`)
   }
 
-  getData(){
-    const url = `http://114.55.172.35:3232/admin/results?activity_year=${this.props.location.query.year}`
+  getData(year){
+    const url = `http://114.55.172.35:3232/admin/results?activity_year=${year}`
     SuperAgent
       .get(url)
       .set('Accept', 'application/json')
@@ -83,11 +93,7 @@ class Statistics extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          {this.state.data == []?
-            <div key="state2" className={css.progress}>
-              <Spin tip="文件上传中..." size="large" />
-            </div>
-          :
+          <div className={css.table_title}><span>{this.props.location.query.year}</span>考核统计结果列表</div>
             <Table columns={columns} 
              bordered 
              dataSource={this.state.data} 
@@ -95,7 +101,6 @@ class Statistics extends Component {
              loading={this.state.loading}
              pagination={{pageSize: 10}} 
              onChange={this.onChange} />
-           }
         </div>
       </Admin>
     )
