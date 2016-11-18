@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import css from './assess.less';
-import { Row, Col, Button, Form, Radio, Input, Modal } from 'antd';
+import { Row, Col, Button, Form, Radio, Input, Modal, Message } from 'antd';
 import Agent from 'superagent';
 
 const FormItem = Form.Item;
@@ -91,7 +91,7 @@ export class StepOne extends Component {
 			.end((err, res) => {
 				if (!err || err === null) {
 					// this.props.next();
-					console.log("更新成功");
+					Message.success("提交自我评价意见成功")
 					console.dir(res.body);
 				} else {
 					console.log("更新自评表失败");
@@ -136,59 +136,75 @@ export class StepOne extends Component {
 
 		return (
 			<Row gutter={16} className={css.assess_one}>
-				<Col span={20} offset={2} className={css.form_container}>
-					<p className={css.title}>中层干部年度考核等级表——自我评价</p>
-					<div className={css.box} style={{background: '#006EC6', color: '#fff'}}>
-						<div className={css.item0}>序号</div>
-						<div className={css.item1}>履行岗位职责情况</div>
-						<div className={css.item0}>优秀</div>
-						<div className={css.item0}>良好</div>
-						<div className={css.item0}>一般</div>
-						<div className={css.item0}>较差</div>
-					</div>
-					{/* form */}
-					<Form horizontal onSubmit={this.handleSubmit.bind(this)}>
-						{this.getFormItems()}
-						{/* 总体评价 */}
-		        <div className={css.box} key={13}>
-							<div className={css.item0}><span>*</span> 13</div>
-							<div className={css.item1}>总体评价</div>
-							{getFieldDecorator("total_assess", { initialValue: total_assess})(
-		            <RadioGroup>
-		              <Radio value="perfect" className={css.item0}></Radio>
-		              <Radio value="good" className={css.item0}></Radio>
-		              <Radio value="normal" className={css.item0}></Radio>
-		              <Radio value="bad" className={css.item0}></Radio>
-		            </RadioGroup>
-		          )}
+			{
+				this.props.active ? 
+					<Col span={20} offset={2} className={css.form_container}>
+						<p className={css.title}>中层干部年度考核等级表——自我评价</p>
+						<div className={css.box} style={{background: '#006EC6', color: '#fff'}}>
+							<div className={css.item0}>序号</div>
+							<div className={css.item1}>履行岗位职责情况</div>
+							<div className={css.item0}>优秀</div>
+							<div className={css.item0}>良好</div>
+							<div className={css.item0}>一般</div>
+							<div className={css.item0}>较差</div>
 						</div>
-						{/* 分管工作 */}
-		        <div className={css.box} key={14}>
-							<div className={css.item0}><span>*</span> 14</div>
-							<div className={css.item1}>
-								{getFieldDecorator('job', {
-									initialValue: info.department_and_duty,
-			            rules: [{ required: true}],
-			          })(
-			            <Input type="text" placeholder="从事或分管工作" />
+						{/* form */}
+						<Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+							{this.getFormItems()}
+							{/* 总体评价 */}
+			        <div className={css.box} key={13}>
+								<div className={css.item0}><span>*</span> 13</div>
+								<div className={css.item1}>总体评价</div>
+								{getFieldDecorator("total_assess", { initialValue: total_assess})(
+			            <RadioGroup>
+			              <Radio value="perfect" className={css.item0}></Radio>
+			              <Radio value="good" className={css.item0}></Radio>
+			              <Radio value="normal" className={css.item0}></Radio>
+			              <Radio value="bad" className={css.item0}></Radio>
+			            </RadioGroup>
 			          )}
 							</div>
-						</div>
-						{/* submit */}
-						<div className={css.button_div}>
-							<br/>
-							<Button htmlType="submit" style={{display: 'none'}} id="submit_btn"></Button>
-							{
-								total_assess ?
-									<Button type="primary" size="large" onClick={this.props.next}>下一步</Button> :
-									<Button type="primary" size="large" onClick={this.showConfirm.bind(this, this)}>提交自我评价意见</Button>
-							}
-						</div>
-					</Form>
-				</Col>
+							{/* 分管工作 */}
+			        <div className={css.box} key={14}>
+								<div className={css.item0}><span>*</span> 14</div>
+								<div className={css.item1}>
+									{getFieldDecorator('job', {
+										initialValue: info.department_and_duty,
+				            rules: [{ required: true}],
+				          })(
+				            <Input type="text" placeholder="从事或分管工作" />
+				          )}
+								</div>
+							</div>
+							{/* submit */}
+							<div className={css.button_div}>
+								<br/>
+								<Button htmlType="submit" style={{display: 'none'}} id="submit_btn"></Button>
+								{
+									total_assess ?
+										<Button type="primary" size="large" onClick={this.props.next}>下一步</Button> :
+										<Button type="primary" size="large" onClick={this.showConfirm.bind(this, this)}>提交自我评价意见</Button>
+								}
+							</div>
+						</Form>
+					</Col> :
+					<Col span={20} offset={2} className={css.form_container}>
+						<p className={css.title}>未达到本阶段规定日期</p>
+					</Col>
+			}
 			</Row>
 		);
 	}
+}
+
+StepOne.defaultProps = {
+	next: new Function,
+	active: false
+}
+
+StepOne.propTypes = {
+	next: PropTypes.func,
+	active: PropTypes.bool
 }
 
 StepOne = Form.create()(StepOne);

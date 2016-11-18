@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './Review.less';
 import Agent from 'superagent';
-import { Row, Col, Form, InputNumber, Button } from 'antd';
+import { Row, Col, Form, InputNumber, Button, Message } from 'antd';
 import { UserInfo } from '../assess/UserInfo';
 
 const FormItem = Form.Item;
@@ -10,24 +10,40 @@ const honest = ['廉洁从政','执行党风廉政建设责任制']
 const duty = ['带领团队绩效', '带领团队开展专业建设效果', '带领团队实训室建设效果', '带领团队教学资源建设效果', '带领团队学生工作是建设效果', '带领团队学生培养效果']
 
 class Review extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-    };
+  state = {
+    user: {}
+  };
+
+  componentWillMount() {
+    let user_str = sessionStorage.getItem('evaluate_user');
+    if (user_str) {
+      this.setState({ user: JSON.parse(user_str) });
+    } else {
+      this.getEvaluateUser();
+    }
   }
 
   componentDidMount() {
+    console.log("要评价的人员信息");
+    console.dir(this.state.user);
+  }
+
+  getEvaluateUser() {
+    let type = sessionStorage.user_type + "s";
+    let id = this.props.location.query.id;
     Agent
-      .get(`http://114.55.172.35:3232/user_info`)
-      .set('Accept','application')
+      .get(`http://114.55.172.35:3232/${type}/evaluations/${id}`)
+      .set('Accept', 'application/json')
       .set('X-User-Token', sessionStorage.token)
       .set('X-User-Jobnum', sessionStorage.number)
       .end((err, res) => {
         if (!err || err === null) {
-          this.setState({user: res.body});
+          console.log("获取要评价的人员成功");
+          console.dir(res.body);
+          this.setState({ user: res.body });
         } else {
-          console.log("获取用户信息失败");
+          console.log("获取要评价的人员失败");
+          Message.error("获取评价人员信息失败");
         }
       })
   }
@@ -82,6 +98,7 @@ class Review extends Component {
       job
     } = this.state.user;
     const { getFieldDecorator } = this.props.form;
+
     return (
       <div>
         {/* 主体 */}

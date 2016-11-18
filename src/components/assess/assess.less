@@ -57,7 +57,7 @@
 .assess_container	{
 	width: 1120px;
 	margin: 24px auto 100px;
-	min-height: 840px;
+	min-height: 540px;
 	background: #fff;
 	border: 1px solid #F2F2F2;
 	.steps {
@@ -91,24 +91,18 @@
 		}
 	}
 	.table_div {
-		border: 1px solid #E6E6E6;
-		a {
-			color: #F56C23;
-		}
-	}
-	.table_header {
-		background: #006EC6;
-		color: '#fff';
-		margin-top: 15;
-		font-size: 14px;
-		text-align: 'center';
-		* {
+		margin-bottom: 60px;
+		table > thead > tr > th {
+			background: #006EC6;
 			color: #fff;
+			text-align: center;
 		}
-	}
-	.table_cell {
-		padding: 10px;
-		text-align: center;
+		table > tbody > tr{
+			text-align: center;
+			&:nth-child(2n) {
+				background: #F9F9F9;
+			}
+		}
 	}
 }
 

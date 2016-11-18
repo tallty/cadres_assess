@@ -5,11 +5,7 @@ import css from './Statistics.less'
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link, withRouter } from 'react-router'
-import { Icon, Table } from 'antd'
-
-function onChange(pagination, filters, sorter) {
-  console.log('params', pagination, filters, sorter);
-}
+import { Icon, Table, Message } from 'antd'
 
 const columns = [{
   title: '序号',
@@ -50,11 +46,11 @@ class Statistics extends Component {
   }
 
   componentWillMount() {
-    this.getData()
+    this.getData();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getData()
+    this.getData();
   }
 
   detail_cell(record, index){
@@ -69,11 +65,17 @@ class Statistics extends Component {
       .set('X-Admin-Email', sessionStorage.admin_email)
       .send('activity_year', this.props.location.query.year)
       .end( (err, res) => {
-        if (res.ok) {
+        if (!err || err === null) {
           var data = res.body.table
           this.setState({data: data})
+        } else {
+          Message.error("获取统计数据失败");
         }
       })
+  }
+
+  onChange(pagination, filters, sorter) {
+    console.log('params', pagination, filters, sorter);
   }
 
   render() {
@@ -85,7 +87,7 @@ class Statistics extends Component {
                  dataSource={this.state.data} 
                  onRowClick={this.detail_cell.bind(this)} 
                  pagination={ false } 
-                 onChange={onChange} />
+                 onChange={this.onChange} />
         </div>
       </Admin>
     )
