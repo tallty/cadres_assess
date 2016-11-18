@@ -184,7 +184,7 @@ class StatisticsD extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <div><Link to="/statistics"><Button type="primary" icon="left">返回总表</Button></Link></div>
+          <div><Link to={`/statistics?year=${this.props.location.query.year}`}><Button type="primary" icon="left">返回总表</Button></Link></div>
           <div className={css.table_title}><span>{this.state.order_data.name}</span>考核成绩表</div>
           <Tabs defaultActiveKey="1" onChange={callback}>
             <TabPane className={css.tab_content} tab="领导打分数据统计" key="1">
