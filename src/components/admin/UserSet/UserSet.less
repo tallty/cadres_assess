@@ -10,11 +10,52 @@
     padding-bottom: 20px;
   }
   .btn_content {
+    .inputContainer {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      height: 40px;
+      // width: 80px;
+      .btn_add {
+        line-height: 96px;
+        padding-left: 20px;
+        border: 1px solid #FF9800;
+      }
+      input {
+        position: absolute;
+          left: 0px;
+          top: 0px;
+          height: 100%;
+          width: 100%;
+          opacity: 0;
+          -ms-filter: 'alpha(opacity=0)';
+          &:hover, &:active, &:focus, &:visited {
+          border: none;
+          box-shadow: none;
+          outline: none;
+        }
+      }
+    }  
     button {
-      padding: 10px 20px;
+      margin: 0 20px;
     }
     .file_btn {
       margin-right: 5vw;
     }
+  }
+  .progress {
+    text-align: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+    span {
+      margin-left: 1.2vw;
+      margin-bottom: 15px;
+    }
+  }
+  .red_tips {
+    color: red;
   }
 }

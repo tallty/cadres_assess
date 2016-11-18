@@ -5,7 +5,7 @@ import css from './Statistics.less'
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link, withRouter } from 'react-router'
-import { Icon, Table, Message } from 'antd'
+import { Icon, Table, Spin, Message } from 'antd'
 
 const columns = [{
   title: '序号',
@@ -39,6 +39,7 @@ class Statistics extends Component {
     super(props);
     this.state = {
       year: '',
+      loading: true,
       data: [],
       order_columns: [],
       filters: []
@@ -54,20 +55,20 @@ class Statistics extends Component {
   }
 
   detail_cell(record, index){
-    this.props.router.replace(`/statistics_d?id=${record.id}`)
+    this.props.router.replace(`/statistics_d?year=${this.props.location.query.year}&id=${record.id}`)
   }
 
   getData(){
+    const url = `http://114.55.172.35:3232/admin/results?activity_year=${this.props.location.query.year}`
     SuperAgent
-      .get("http://114.55.172.35:3232/admin/results")
+      .get(url)
       .set('Accept', 'application/json')
       .set('X-Admin-Token', sessionStorage.admin_token)
       .set('X-Admin-Email', sessionStorage.admin_email)
-      .send('activity_year', this.props.location.query.year)
       .end( (err, res) => {
         if (!err || err === null) {
           var data = res.body.table
-          this.setState({data: data})
+          this.setState({data: data, loading: false})
         } else {
           Message.error("获取统计数据失败");
         }
@@ -82,12 +83,19 @@ class Statistics extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <Table columns={columns} 
-                 bordered 
-                 dataSource={this.state.data} 
-                 onRowClick={this.detail_cell.bind(this)} 
-                 pagination={ false } 
-                 onChange={this.onChange} />
+          {this.state.data == []?
+            <div key="state2" className={css.progress}>
+              <Spin tip="文件上传中..." size="large" />
+            </div>
+          :
+            <Table columns={columns} 
+             bordered 
+             dataSource={this.state.data} 
+             onRowClick={this.detail_cell.bind(this)}
+             loading={this.state.loading}
+             pagination={{pageSize: 10}} 
+             onChange={this.onChange} />
+           }
         </div>
       </Admin>
     )

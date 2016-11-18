@@ -13,12 +13,24 @@ function GetUrlRelativePath(){
   }
   return relUrl;
 }
+
+function signOut() {
+  localStorage.clear();
+  sessionStorage.clear();
+  location.href = '/admin';
+}
 const MainLayout = ({ children }) => {
   const local_url = GetUrlRelativePath()
   return (
     <div className={styles.normal}>
       <div className={styles.head}>
         {local_url == '/admin'?<h1>上海电子信息职业技术学院中层干部考核系统后台管理</h1>:<h1>上海电子信息职业技术学院中层干部考核系统后台管理</h1>}
+        {
+          location.pathname === '/admin' ? null :
+            <div className={styles.toolbar}>
+              <a onClick={signOut}>[退出]</a>
+            </div>
+        }
       </div>
       <div className={styles.main}>
         {children}

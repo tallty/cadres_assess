@@ -81,492 +81,52 @@ const columns = [{
   sorter: (a, b) => a.num - b.num,
 }];
 
-const columns1 = [{
-  title: '评委姓名',
-  dataIndex: 'name',
-}, {
-  title: '考核项1',
-  children: [{
-    title: '票数',
-    dataIndex: 'point1',
-    key: 'point1',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point2',
-    key: 'point2',
-  }],
-}, {
-  title: '考核项2',
-  children: [{
-    title: '票数',
-    dataIndex: 'point3',
-    key: 'point3',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point4',
-    key: 'point4',
-  }],
-}, {
-  title: '考核项3',
-  children: [{
-    title: '票数',
-    dataIndex: 'point5',
-    key: 'point5',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point6',
-    key: 'point6',
-  }],
-}, {
-  title: '考核项4',
-  children: [{
-    title: '票数',
-    dataIndex: 'point7',
-    key: 'point7',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point8',
-    key: 'point8',
-  }],
-},{
-  title: '考核项5',
-  children: [{
-    title: '票数',
-    dataIndex: 'point9',
-    key: 'point9',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point10',
-    key: 'point10',
-  }],
-},{
-  title: '考核项6',
-  children: [{
-    title: '票数',
-    dataIndex: 'point11',
-    key: 'point11',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point12',
-    key: 'point12',
-  }],
-},{
-  title: '考核项7',
-  children: [{
-    title: '票数',
-    dataIndex: 'point13',
-    key: 'point13',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point14',
-    key: 'point14',
-  }],
-},{
-  title: '考核项8',
-  children: [{
-    title: '票数',
-    dataIndex: 'point15',
-    key: 'point15',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point16',
-    key: 'point16',
-  }],
-},{
-  title: '考核项9',
-  children: [{
-    title: '票数',
-    dataIndex: 'point17',
-    key: 'point17',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point18',
-    key: 'point18',
-  }],
-},{
-  title: '考核项10',
-  children: [{
-    title: '票数',
-    dataIndex: 'point19',
-    key: 'point19',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point20',
-    key: 'point20',
-  }],
-},{
-  title: '考核项11',
-  children: [{
-    title: '票数',
-    dataIndex: 'point21',
-    key: 'point21',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point22',
-    key: 'point22',
-  }],
-},{
-  title: '考核项12',
-  children: [{
-    title: '票数',
-    dataIndex: 'point23',
-    key: 'point23',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point24',
-    key: 'point24',
-  }],
-},{
-  title: '考核项13',
-  children: [{
-    title: '票数',
-    dataIndex: 'point25',
-    key: 'point25',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point26',
-    key: 'point26',
-  }],
-},{
-  title: '考核项14',
-  children: [{
-    title: '票数',
-    dataIndex: 'point27',
-    key: 'point27',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point28',
-    key: 'point28',
-  }],
-},{
-  title: '考核项15',
-  children: [{
-    title: '票数',
-    dataIndex: 'point29',
-    key: 'point29',
-  }, {
-    title: '比例 %%',
-    dataIndex: 'point30',
-    key: 'point30',
-  }],
-},{
-  title: '总分',
-  dataIndex: 'num',
-  sorter: (a, b) => a.num - b.num,
-}];
-
-const data = [{
-  point5: 71,
-  name: '评委1',
-  point1: 80,
-  point2: 81,
-  point3: 89,
-  point4: 83,
-  point6: 56,
-  num: 345,
-}, {
-  point5: 76,
-  name: '评委2',
-  point1: 70,
-  point2: 64,
-  point3: 79,
-  point4: 83,
-  point6: 66,
-  point15: 67,
-  num: 444,
-}, {
-  point5: 92,
-  name: '评委3',
-  point1: 90,
-  point2: 77,
-  point3: 71,
-  point4: 83,
-  point6: 56,
-  point7: 56,
-  point8: 56,
-  num: 753,
-}, {
-  point5: 76,
-  name: '评委4',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 88,
-  num: 395,
-}, {
-  point5: 78,
-  name: '评委5',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 56,
-  point10: 56,
-  num: 1234,
-}, {
-  point5: 78,
-  name: '评委6',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  num: 1234,
-}, {
-  point5: 78,
-  name: '评委7',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point13: 67,
-  num: 1234,
-}];
-
-const data1 = [{
-  point5: 71,
-  name: '考核项1',
-  point1: 80,
-  point2: 81,
-  point3: 89,
-  point4: 83,
-  point6: 56,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 76,
-  name: '考核项2',
-  point1: 70,
-  point2: 64,
-  point3: 79,
-  point4: 83,
-  point6: 66,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-  point7: 83,
-  point8: 66,
-}, {
-  point5: 92,
-  name: '考核项3',
-  point1: '89',
-  point2: 77,
-  point3: 71,
-  point4: 83,
-  point6: 56,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 76,
-  name: '考核项4',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 88,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项5',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项6',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项7',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项8',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项9',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项10',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项11',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项12',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项13',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项14',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}, {
-  point5: 78,
-  name: '考核项15',
-  point1: 82,
-  point2: 88,
-  point3: 90,
-  point4: 83,
-  point6: 67,
-  point7: 83,
-  point8: 66,
-  point9: 83,
-  point10: 66,
-}]
-
 const columns2 = [{
   title: '项目',
-  dataIndex: 'name',
+  dataIndex: 'item_name',
 }, {
   title: '优秀',
   children: [{
     title: '票数',
-    dataIndex: 'point1',
-    key: 'point1',
+    dataIndex: 'excellent-count',
+    key: 'excellent-count',
   }, {
     title: '比例 %',
-    dataIndex: 'point2',
-    key: 'point2',
+    dataIndex: 'excellent-proportion',
+    key: 'excellent-proportion',
   }],
 }, {
   title: '称职',
   children: [{
     title: '票数',
-    dataIndex: 'point3',
-    key: 'point3',
+    dataIndex: 'good-count',
+    key: 'good-count',
   }, {
     title: '比例 %',
-    dataIndex: 'point4',
-    key: 'point4',
+    dataIndex: 'good-proportion',
+    key: 'good-proportion',
   }],
 }, {
   title: '基本称职',
   children: [{
     title: '票数',
-    dataIndex: 'point5',
-    key: 'point5',
+    dataIndex: 'average-count',
+    key: 'average-count',
   }, {
     title: '比例 %',
-    dataIndex: 'point6',
-    key: 'point6',
+    dataIndex: 'average-proportion',
+    key: 'average-proportion',
   }],
 }, {
   title: '不称职',
   children: [{
     title: '票数',
-    dataIndex: 'point7',
-    key: 'point7',
+    dataIndex: 'bad-count',
+    key: 'bad-count',
   }, {
     title: '比例 %',
-    dataIndex: 'point8',
-    key: 'point8',
-  }],
-}, {
-  title: '空白',
-  children: [{
-    title: '票数',
-    dataIndex: 'point9',
-    key: 'point9',
-  }, {
-    title: '比例 %',
-    dataIndex: 'point10',
-    key: 'point10',
+    dataIndex: 'bad-proportion',
+    key: 'bad-proportion',
   }],
 }]
 
@@ -593,9 +153,12 @@ class StatisticsD extends Component {
   }
 
   reset_data(data, data1){
-    
-    console.log(data); 
-    this.setState({order_data: data, persent_data: data1 })
+    var data_p1 = []
+    for (let i=0; i < data1.length; i++) {
+      data1[i][i].item_name = `考核项目${i}`
+      data_p1.push(data1[i][i])
+    }
+    this.setState({order_data: data, persent_data: data_p1 })
   }
 
   getData(){
@@ -634,7 +197,7 @@ class StatisticsD extends Component {
               <Table columns={columns} bordered dataSource={this.state.order_data.staff_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 10}} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="数据比例分析" key="4">
-              <Table columns={columns2} bordered dataSource={data1} onRowClick={this.detail_cell} pagination={ false } onChange={onChange} />
+              <Table columns={columns2} bordered dataSource={this.state.persent_data} onRowClick={this.detail_cell} pagination={ false } onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="表单文件打印" key="5">
               <StepThree {...this.state} />

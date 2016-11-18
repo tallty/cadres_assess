@@ -100,6 +100,8 @@ class Admin extends Component {
       <MainLayout>
         <div className={css.holyGrail_body}>
           <nav className={css.holyGrail_nav}>
+            <Link to="/test_set"><div className={url=='/test_set'?list_style1:list_style2}><img src="src/images/testSetting.svg" alt=""/><span>考核设置</span></div></Link>
+            <Link to="/user_set"><div className={url=='/user_set'?list_style1:list_style2}><img src="src/images/setting.svg" alt=""/><span>用户设置</span></div></Link>
             <Menu
               theme="dark"
               mode="inline"
@@ -112,11 +114,7 @@ class Admin extends Component {
               <SubMenu key="sub1" title={<div className={url=='/statistics'||url=='/statistics_d'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div>}>
                 {Menus_one}
               </SubMenu>
-              <SubMenu key="sub2" title={<div className={url=='/user_set'?list_style1:list_style2}><img src="src/images/setting.svg" alt=""/><span>用户设置</span></div>}>
-                {Menus_two}
-              </SubMenu>
             </Menu>
-            <Link to="/test_set"><div className={url=='/test_set'?list_style1:list_style2}><img src="src/images/testSetting.svg" alt=""/><span>考核设置</span></div></Link>
           </nav>
           <main className={css.holyGrail_content}>
             {this.props.children }

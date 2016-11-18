@@ -5,12 +5,82 @@ import css from './UserSet.less'
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link } from 'react-router'
-import { Icon, Button } from 'antd'
+import { Icon, Button, Spin, Alert } from 'antd'
 
 class UserSet extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: "",
+    }
+  }
+
+  handleChange(info){
+    this.setState({loading: "state2"})
+    var file = info.target.files[0]
+    console.log(file);
+    this.pushData(file)
+  }
+
+  onClose(e) {
+    this.setState({loading: ""})
+  }
+
+  pushData(file){
+    var token = localStorage.token
+    var phone = localStorage.phone
+    var url = `http://114.55.172.35:3232/admin/load_user_list`
+    SuperAgent.post(url)
+              .set('Accept', 'application/json')
+              .field('file',file)
+              .end( (err, res) => {
+                if (res.ok) {
+                  console.log(res.ok);
+                  this.setState({loading: "state1"})
+                }else{
+                  this.setState({loading: "state3"})
+                }
+              })
+  }
+
+  showMseeage(){
+    const alert = []
+    if (this.state.loading == "state1"){
+      alert.push(<Alert
+                  key="state1"
+                  message="文件上传成功！"
+                  description="名单总表已上传成功，点击右上角图标可关闭提示框."
+                  type="success"
+                  closable
+                  onClose={this.onClose.bind(this)}
+                  showIcon
+                />)
+      return alert
+    }else if (this.state.loading == "state2"){
+      alert.push(<div key="state2" className={css.progress}>
+                  <Spin tip="文件上传中..." size="large" />
+                </div>)
+      return alert
+    }else if (this.state.loading == "state3") {
+      alert.push(<Alert
+                  key="state3"
+                  message="文件上传失败！"
+                  description="名单总表已上传失败，请点击右上角图标关闭提示框，重新上传."
+                  type="error"
+                  closable
+                  onClose={this.onClose.bind(this)}
+                  showIcon
+                />)
+      return alert
+    }else{
+      alert.push(<Alert
+                  key="state4"
+                  message="提示信息！"
+                  description="*请导入格式为.xlsx的列表文件."
+                  type="info"
+                  showIcon
+                />)
+      return alert
     }
   }
 
@@ -18,8 +88,12 @@ class UserSet extends Component {
     return (
       <Admin>
         <div className={css.card_content}>
-          <div className={css.title_name}>{this.props.location.query.year}度考核名单总表</div>
-          <div className={css.btn_content}><Button className={css.file_btn} type="primary" icon="plus">选择文件</Button><Button type="primary" icon="plus">导入考核名单</Button></div>
+          <div className={css.title_name}>上传考核名单总表</div>
+          {this.showMseeage()}
+          <div className={css.btn_content}>
+            <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入用户名单</Button>
+            <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入考核对象名单</Button>
+          </div>
         </div>
       </Admin>
     )

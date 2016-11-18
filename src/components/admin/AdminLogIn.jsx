@@ -20,7 +20,7 @@ class AdminLogIn extends Component {
 
   componentWillMount() {
     if (sessionStorage.admin_token) {
-      this.props.router.replace('/statistics');
+      this.props.router.replace('/test_set');
     }
   }
 
@@ -42,7 +42,7 @@ class AdminLogIn extends Component {
         if (!err || err === null) {
           sessionStorage.setItem('admin_email', email);
           sessionStorage.setItem('admin_token', res.body.authentication_token);
-          this.props.router.replace('/statistics');
+          this.props.router.replace('/test_set');
         } else {
           console.log("admin登录失败");
         }
