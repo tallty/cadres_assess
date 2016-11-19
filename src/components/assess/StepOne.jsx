@@ -67,8 +67,6 @@ export class StepOne extends Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		let params = this.props.form.getFieldsValue();
-		console.log("=========表单值============")
-    console.dir(params);
     if (this.validateSubmit(params)) {
     	let duties = this.validateSubmit(params);
 			this.updateSelf(params, duties);
@@ -78,6 +76,7 @@ export class StepOne extends Component {
 	}
 
 	updateSelf(params, duties) {
+		console.log("=========职责字符串 & 表单数据============");
 		console.log(duties);
 		console.log(params)
 		Agent
@@ -90,11 +89,13 @@ export class StepOne extends Component {
 			.field('self_evaluation[self_evaluation_totality]', params.total_assess)
 			.end((err, res) => {
 				if (!err || err === null) {
-					// this.props.next();
-					Message.success("提交自我评价意见成功")
+					this.setState({ total_assess: params.total_assess });
+					console.log("=========提交成功： 返回============");
 					console.dir(res.body);
+					Message.success("提交自我评价意见成功");
 				} else {
 					console.log("更新自评表失败");
+					Message.error("提交自我评价意见失败，请重试");
 				}
 			})
 	}

@@ -1,38 +1,38 @@
 import React, { Component } from 'react';
 import css from './Review.less';
 import Agent from 'superagent';
+import { withRouter } from 'react-router';
 import { Row, Col, Form, InputNumber, Button, Message } from 'antd';
 import { UserInfo } from '../assess/UserInfo';
 
 const FormItem = Form.Item;
-const ideology = ['思想政治态度','道德作风品行','团结协调合作']
-const honest = ['廉洁从政','执行党风廉政建设责任制']
-const duty = ['带领团队绩效', '带领团队开展专业建设效果', '带领团队实训室建设效果', '带领团队教学资源建设效果', '带领团队学生工作是建设效果', '带领团队学生培养效果']
+const DUTIES = 'duties';
+const THOUGHT = 'thought_morals';
+const UPRIGHT = 'upright_incorruptiable';
+var formData = [];
 
 class Review extends Component {
   state = {
-    user: {}
+    evaluation: null,
+    complete: false
   };
 
   componentWillMount() {
-    let user_str = sessionStorage.getItem('evaluate_user');
-    if (user_str) {
-      this.setState({ user: JSON.parse(user_str) });
-    } else {
-      this.getEvaluateUser();
-    }
+    this.getEvaluation();
   }
 
   componentDidMount() {
     console.log("要评价的人员信息");
-    console.dir(this.state.user);
+    console.dir(this.state.evaluation);
   }
 
-  getEvaluateUser() {
-    let type = sessionStorage.user_type + "s";
+  /**
+   * 缓存未取到时，获取评价详情
+   */
+  getEvaluation() {
     let id = this.props.location.query.id;
     Agent
-      .get(`http://114.55.172.35:3232/${type}/evaluations/${id}`)
+      .get(`http://114.55.172.35:3232/evaluations/${id}`)
       .set('Accept', 'application/json')
       .set('X-User-Token', sessionStorage.token)
       .set('X-User-Jobnum', sessionStorage.number)
@@ -40,7 +40,10 @@ class Review extends Component {
         if (!err || err === null) {
           console.log("获取要评价的人员成功");
           console.dir(res.body);
-          this.setState({ user: res.body });
+          this.setState({ 
+            evaluation: res.body,
+            complete: res.body.already_edited
+          });
         } else {
           console.log("获取要评价的人员失败");
           Message.error("获取评价人员信息失败");
@@ -51,52 +54,140 @@ class Review extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      if (!err) {
+      let type = sessionStorage.getItem('user_type');
+      if (!err || err === null) {
         console.log('Received values of form: ', values);
-      }
+        if (type === 'leader') {
+          // 领导打总分即可
+          this.leaderEvalution(values);
+        } else {
+          // 员工、中层干部打分
+          this.otherEvalution(values);
+        }
+      } 
     });
   }
 
+  /**
+   * 员工、中层干部打分
+   */
+  otherEvalution(params) {
+    let id = this.props.location.query.id;
+    console.log("非领导测评, 获取的表单数据");
+    console.log(params);
+    console.log("保存的kind 和 key");
+    console.log(formData);
 
-  getFormCell(name, length){
-    let cells = [];
-    for (let i = 0; i < length; i++) {
-      let label = '';
-      if (name==='honest'){
-        label = honest[i];
-      }else if (name==='ideology'){
-        label = ideology[i];
-      }else{
-        label = duty[i];
+    let thought_morals_str = this.formatApiString(params, THOUGHT);
+    let duties_str = this.formatApiString(params, DUTIES);
+    let upright_incorruptiable_str = this.formatApiString(params, UPRIGHT);
+
+    console.log(thought_morals_str);
+    console.log(duties_str);
+    console.log(upright_incorruptiable_str);
+
+    Agent
+      .put(`http://114.55.172.35:3232/evaluations/${id}`)
+      .set('Accept', 'application/json')
+      .set('X-User-Token', sessionStorage.token)
+      .set('X-User-Jobnum', sessionStorage.number)
+      .send({evaluation: {
+        thought_morals: thought_morals_str,
+        duties: duties_str,
+        upright_incorruptiable: upright_incorruptiable_str,
+        evaluation_totality: params.total_count,
+      }})
+      .end((err, res) => {
+        if (!err || err === null) {
+          console.log("提交测评成功");
+          console.dir(res.body);
+          this.setState({ evaluation: res.body, complete: true });
+          Message.success("提交测评成功");
+        } else {
+          console.log("获取要评价的人员失败");
+          Message.error("提交测评失败");
+        }
+      })
+  }
+
+  /**
+   * 整理数据
+   * 根据tag找到需要的key, 输出成对应的字符串
+   */
+  formatApiString(params, kind) {
+    let str = '';
+    formData.forEach((item, i, obj) => {
+      if (item.kind === kind) {
+        str += `${item.key},${params[item.key]};`
       }
+    });
+    return str;
+  }
 
-      cells.push(<Row key={i} className={i%2 == 0?css.form_input_cell:css.form_input2_cell}>
-        <Col span={12} className={css.form_label}>
-          {label}
-        </Col>
-        <Col span={12} className={css.form_input}>
-          <FormItem>
-            {this.props.form.getFieldDecorator(`${name}${i}`, { initialValue: 0 })(
-              <InputNumber min={0} max={100} />
-            )}
-          </FormItem>
-        </Col>
-      </Row>)
-    }
+  /**
+   * 领导打分
+   */
+  leaderEvalution(params) {
+    let id = this.state.evaluation.id;
+    Agent
+      .put(`http://114.55.172.35:3232/evaluations/${id}`)
+      .set('Accept', 'application/json')
+      .set('X-User-Token', sessionStorage.token)
+      .set('X-User-Jobnum', sessionStorage.number)
+      .send({evaluation: {
+        evaluation_totality: params.total_count,
+      }})
+      .end((err, res) => {
+        if (!err || err === null) {
+          console.log("领导提交测评成功");
+          console.dir(res.body);
+          this.setState({ evaluation: res.body, complete: true });
+          Message.error("提交测评成功");
+        } else {
+          console.log("领导获取要评价的人员失败");
+          Message.error("提交测评失败");
+        }
+      })
+  }
+
+
+  getFormCell(evaluation, key){
+    let array = evaluation.content[key];
+    let cells = [];
+    array.forEach((item, i, obj) => {
+      let value = parseInt(item[1]) === -1 ? null : parseInt(item[1]);
+      let required = sessionStorage.getItem('user_type') !== 'leader';
+      // 本页表单的key为动态指定，需保存表单的 key， value, 以便提交表单时， 根据key来获取value
+      let cache = { kind: key, key: item[0] };
+      formData.push(cache);
+      // 表单列表
+      cells.push(
+        <Row key={i} className={i % 2 == 0?css.form_input_cell:css.form_input2_cell}>
+          <Col span={12} className={css.form_label}>
+            {item[0]}
+          </Col>
+          <Col span={12} className={css.form_input}>
+            <FormItem>
+              {this.props.form.getFieldDecorator(`${item[0]}`, { 
+                rules: [{ type: 'number', required: required, message: "请填写评分项" }],
+                initialValue: value 
+              })(
+                <InputNumber min={0} max={100} disabled={this.state.complete}/>
+              )}
+            </FormItem>
+          </Col>
+        </Row>
+      );
+    })
     return cells;
   }
 
   render() {
-    const {
-      name, 
-      sex, 
-      date_of_birth, 
-      political_status, 
-      degree_of_education, 
-      starting_time_for_the_present_job, 
-      department_and_duty, 
-      job
-    } = this.state.user;
+    const { evaluation, complete } = this.state;
+    formData = [];
+    // 总分表单的初始化
+    let total_count = evaluation ? evaluation.content.evaluation_totality : null;
+    total_count = parseInt(total_count) === -1 ? null : parseInt(total_count);
     const { getFieldDecorator } = this.props.form;
 
     return (
@@ -136,7 +227,7 @@ class Review extends Component {
                 </Row>
               </div>
               <div className={css.form_cell_body}>
-                {this.getFormCell('ideology' ,ideology.length)}
+                {evaluation ? this.getFormCell(evaluation, THOUGHT) : null}
               </div>
             </div>
             <div className={css.form_cell}>
@@ -150,7 +241,7 @@ class Review extends Component {
                 </Row>
               </div>
               <div className={css.form_cell_body}>
-                {this.getFormCell('duty', duty.length)}
+                { evaluation ? this.getFormCell(evaluation, DUTIES) : null }
               </div>
             </div>
             <div className={css.form_cell}>
@@ -164,7 +255,7 @@ class Review extends Component {
                 </Row>
               </div>
               <div className={css.form_cell_body}>
-                {this.getFormCell('honest', honest.length)}
+                {evaluation ? this.getFormCell(evaluation, UPRIGHT) : null}
               </div>
             </div>
             <div className={css.form_cell}>
@@ -173,20 +264,26 @@ class Review extends Component {
               </div>
               <div className={css.form_cell_body}>
                 <FormItem className={css.num_review}>
-                  {getFieldDecorator('num_point', { initialValue: 0 })(
-                    <InputNumber min={0} max={100} />
+                  {getFieldDecorator('total_count', { 
+                    rules: [{ type: 'number', required: true, message: "请填写总体评价" }],
+                    initialValue: total_count 
+                  })(
+                    <InputNumber min={0} max={100} disabled={complete} />
                   )}<span>分</span>
                 </FormItem>
               </div>
             </div>
             <div className={css.submit_btn}>
               <FormItem>
+              {
+                complete ?
+                <Button type="primary" disabled>已提交测评表</Button> :
                 <Button type="primary" htmlType="submit">提交测评表</Button>
+              }
               </FormItem>
             </div>
           </Form>
         </div>
-
       </div>
     );
   }
@@ -194,4 +291,4 @@ class Review extends Component {
 
 Review = Form.create({})(Review);
 
-export default Review
+export default withRouter(Review);

@@ -35,20 +35,18 @@ class StepTwo extends Component {
 	}
 
 	getEvaluationList() {
-		let type = sessionStorage.user_type + "s";
 		Agent
-			.get(`http://114.55.172.35:3232/${type}/evaluations?page=1&per_page=1000`)
+			.get(`http://114.55.172.35:3232/evaluations?page=1&per_page=1000`)
 			.set('Accept', 'application/json')
 			.set('X-User-Token', sessionStorage.token)
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
-					let key = sessionStorage.user_type + "_evaluations";
 					console.log("获取考核名单成功");
-					console.dir(res.body[key]);
-					let count = this.getEditedCount(res.body[key]);
+					console.dir(res.body.middle_manager_evaluations);
+					let count = this.getEditedCount(res.body.middle_manager_evaluations);
 					this.setState({ 
-						evaluations: res.body[key],
+						evaluations: res.body.middle_manager_evaluations,
 						edited_count: count
 					});
 				} else {
@@ -74,7 +72,7 @@ class StepTwo extends Component {
 		if (!this.props.active) {
 			console.log("处于第二阶段规定时间，可以点评");
 			console.dir(evaluation);
-			sessionStorage.setItem('evaluate_user', JSON.stringify(evaluation));
+			sessionStorage.setItem('evaluation', JSON.stringify(evaluation));
 			this.props.router.replace(`/review?id=${evaluation.id}`);
 		} else {
 			// 不在规定时间
