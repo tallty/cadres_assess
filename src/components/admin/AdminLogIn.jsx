@@ -5,7 +5,7 @@ import MainLayout from '../../layouts/MainLayout/MainLayout';
 import classnames from 'classnames'
 import SuperAgent from 'superagent'
 import { Link, withRouter } from 'react-router'
-import { Icon, Form, Input, Button, Row, Col } from 'antd'
+import { Icon, Form, Input, Button, Row, Col, Message } from 'antd'
 
 const FormItem = Form.Item;
 
@@ -45,6 +45,7 @@ class AdminLogIn extends Component {
           this.props.router.replace('/test_set');
         } else {
           console.log("admin登录失败");
+          Message.error("登录失败，请检查账号密码是否正确。");
         }
       })
   }
