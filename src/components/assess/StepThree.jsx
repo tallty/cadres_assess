@@ -95,6 +95,10 @@ export class StepThree extends Component {
     const { self_evaluation, little_iterm, level_count_and_percentage, average_for_all_evaluation, average_for_each_role, statistics_result, set_by_admin, count_of_people, name, duty } = this.state;
     const present_true = this.state.level_count_and_percentage == undefined
     const present_true_one = this.state.average_for_all_evaluation.result_level_count_and_percentage == undefined
+    console.log("------======-------");
+    const set_year = set_by_admin.updated_at?new Date(set_by_admin.updated_at).getFullYear():''
+    const set_month = set_by_admin.updated_at?new Date(set_by_admin.updated_at).getMonth():''
+    const set_day = set_by_admin.updated_at?new Date(set_by_admin.updated_at).getDay():''
 		return (
 			<div className={css.assess_three}>
         {/*-startprint-*/}
@@ -178,7 +182,7 @@ export class StepThree extends Component {
             <div className={css.table_content}>
               <table>
                 <tbody>
-                  <tr>
+                  <tr className={css.tr_one}>
                     <td className={css.persent_t} rowSpan={3}>中层干部<br/>整体评价<br/>（{little_iterm.sum_of_level_count}）</td>
                     <td>&nbsp;好&nbsp;</td>
                     <td>较好</td>
@@ -233,7 +237,7 @@ export class StepThree extends Component {
                     <td colSpan={6}>
                       <p className={css.sign_name}>单位评鉴意见：</p>
                       <p className={css.set_by_admin}>{set_by_admin.final_result}</p>
-                      <p className={css.sign_time}>时间：<label>年</label><span>月</span><span>日</span></p>
+                      <p className={css.sign_time}>时间：<label>{set_year}年</label><span>{set_month}月</span><span>{set_day}日</span></p>
                     </td>
                   </tr>
                   <tr className={css.row_height}>

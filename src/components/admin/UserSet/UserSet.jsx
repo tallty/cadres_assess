@@ -29,7 +29,7 @@ class UserSet extends Component {
   pushData(file){
     var token = localStorage.token
     var phone = localStorage.phone
-    var url = `http://114.55.172.35:3232/admin/load_user_list`
+    var url = `http://114.55.172.35:3232/admin/upload_user_list`
     SuperAgent.post(url)
               .set('Accept', 'application/json')
               .field('file',file)
@@ -41,6 +41,20 @@ class UserSet extends Component {
                   this.setState({loading: "state3"})
                 }
               })
+  }
+
+  download_xls(){
+    const url = `http://114.55.172.35:3232/admin/load_user_list_template`
+    SuperAgent
+      .post(url)
+      .set('Accept', 'application/json')
+      .set('X-Admin-Token', sessionStorage.admin_token)
+      .set('X-Admin-Email', sessionStorage.admin_email)
+      .end( (err, res) => {
+        if (res.ok) {
+          console.log('okokokokokokokokoko');
+        }
+      })
   }
 
   showMseeage(){
@@ -65,7 +79,7 @@ class UserSet extends Component {
       alert.push(<Alert
                   key="state3"
                   message="文件上传失败！"
-                  description="名单总表已上传失败，请点击右上角图标关闭提示框，重新上传."
+                  description="名单总表已上传失败，请点击右上角图标关闭提示框，重新上传。"
                   type="error"
                   closable
                   onClose={this.onClose.bind(this)}
@@ -76,7 +90,7 @@ class UserSet extends Component {
       alert.push(<Alert
                   key="state4"
                   message="提示信息！"
-                  description="*请导入格式为.xlsx的列表文件."
+                  description="*请导入格式为.xlsx的列表文件，并按照模板文件排版表格。"
                   type="info"
                   showIcon
                 />)
@@ -91,6 +105,7 @@ class UserSet extends Component {
           <div className={css.title_name}>上传考核名单总表</div>
           {this.showMseeage()}
           <div className={css.btn_content}>
+            <div className={css.btn_content_d}><Button type="primary" icon="download" onClick={this.download_xls.bind(this)}>下载模板文件</Button></div>
             <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入用户名单</Button>
             <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入考核对象名单</Button>
           </div>
