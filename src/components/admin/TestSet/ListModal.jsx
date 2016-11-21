@@ -183,7 +183,7 @@ class ListModal extends Component {
                 </FormItem>
                 <FormItem className={styles.form_submit}>
                   <Button type="primary" htmlType="submit" size="large" loading={this.state.loading} >
-                    提交
+                    { this.state.loading ? "正在提交..." : "提交" }
                   </Button>
                 </FormItem>
               </Row>
