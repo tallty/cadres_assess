@@ -85,40 +85,17 @@ class Statistics extends Component {
       })
   }
 
-  download_xls(){
-    // var request = require('superagent');
-    // var fs = require('fs');
-    // var stream = fs.createReadStream('/Users/EndingJason/Documents/my.json');
-    // var req = request.post('/somewhere');
-    // req.type('json');
-    // stream.pipe(req);
-
-    const url = `http://114.55.172.35:3232/admin/output_result_index`
-    SuperAgent
-      .post(url)
-      // .set('Accept', 'application/json')
-      // .set('X-Admin-Token', sessionStorage.admin_token)
-      // .set('X-Admin-Email', sessionStorage.admin_email)
-      .field('activity_year',this.props.location.query.year)
-      .field('filename',"考核统计结果列表")
-      .end( (err, res) => {
-        if (res.ok) {
-          console.log('okokokokokokokokoko');
-          console.log(res);
-        }
-      })
-  }
-
   onChange(pagination, filters, sorter) {
     console.log('params', pagination, filters, sorter);
   }
 
   render() {
+    const url = `http://114.55.172.35:3232/admin/output_result_index?activity_year=${this.props.location.query.year}`
     return (
       <Admin>
         <div className={css.table_content}>
           <div className={css.table_title}><span>{this.props.location.query.year}</span>考核统计结果列表</div> 
-          <div><Button type="primary" icon="download" onClick={this.download_xls.bind(this)}>下载总表</Button></div><br/>
+          <div><a href={url}><Button type="primary" icon="download" >下载总表</Button></a></div><br/>
             <Table columns={columns} 
              bordered 
              dataSource={this.state.data} 
