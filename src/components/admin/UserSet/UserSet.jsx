@@ -43,20 +43,6 @@ class UserSet extends Component {
               })
   }
 
-  download_xls(){
-    const url = `http://114.55.172.35:3232/admin/load_user_list_template`
-    SuperAgent
-      .post(url)
-      .set('Accept', 'application/json')
-      .set('X-Admin-Token', sessionStorage.admin_token)
-      .set('X-Admin-Email', sessionStorage.admin_email)
-      .end( (err, res) => {
-        if (res.ok) {
-          console.log('okokokokokokokokoko');
-        }
-      })
-  }
-
   showMseeage(){
     const alert = []
     if (this.state.loading == "state1"){
@@ -99,13 +85,14 @@ class UserSet extends Component {
   }
 
   render() {
+    const url = `http://114.55.172.35:3232/admin/load_user_list_template`
     return (
       <Admin>
         <div className={css.card_content}>
           <div className={css.title_name}>上传考核名单总表</div>
           {this.showMseeage()}
           <div className={css.btn_content}>
-            <div className={css.btn_content_d}><Button type="primary" icon="download" onClick={this.download_xls.bind(this)}>下载模板文件</Button></div>
+            <div className={css.btn_content_d}><a href={url}><Button type="primary" icon="download" >下载模板文件</Button></a></div>
             <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入用户名单</Button>
             <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入考核对象名单</Button>
           </div>
