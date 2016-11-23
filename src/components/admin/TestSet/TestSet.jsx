@@ -6,7 +6,7 @@ import ListModal from './ListModal';
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link } from 'react-router'
-import { Icon, Button, Table, Modal } from 'antd'
+import { Icon, Button, Table, Modal, Message } from 'antd'
 import moment from 'moment';
 
 const confirm = Modal.confirm;
@@ -36,6 +36,7 @@ class TestSet extends Component {
           this.setState({ activities: this.setDataSource(res.body.activities)});
         } else {
           console.log("获取所有考核活动失败");
+          Message.error("获取所有考核活动失败");
         }
       })
   }
@@ -53,7 +54,7 @@ class TestSet extends Component {
 
       let _cache = {
         id: activity.id,
-        year: activity.activity_created_year,
+        year: activity.activity_year,
         first_begin: first_begin,
         first_end: first_end,
         second_begin: second_begin,
@@ -138,7 +139,7 @@ class TestSet extends Component {
   change_icon(record){
     const change_icon = []
     change_icon.push(
-      <div key='icon' className={css.icon_content}>
+      <div key={record.id} className={css.icon_content}>
         <ButtonGroup>
           <Button type="primary" icon="edit" onClick={this.showModal.bind(this, record)}/>
           <Button type="primary" icon="delete" onClick={this.deleteConfirm.bind(this, this, record)} />
@@ -160,7 +161,7 @@ class TestSet extends Component {
   }
 
   handleModalVisible(){
-    console.log("清楚了");
+    console.log("清楚了模态框表单的初始值");
     this.setState({
       visible: false
     });

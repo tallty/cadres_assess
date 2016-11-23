@@ -41,7 +41,7 @@ class Admin extends Component {
           const results = res.body.activities
           var lists = []
           for (let list of results) {
-            lists.push(list.activity_created_year)
+            lists.push(list.activity_year)
           }
           this.setState({ 
             lists: lists
@@ -90,10 +90,8 @@ class Admin extends Component {
       css.holyGrail_list,
     );
     const Menus_one = []
-    const Menus_two = []
     for (let year of this.state.lists) {
       Menus_one.push(<Menu.Item key={year}><Link to={`/statistics?year=${year}`}>{`${year}年`}</Link></Menu.Item>)
-      Menus_two.push(<Menu.Item key={`${year}year`}><Link to={`/user_set?year=${year}`}>{`${year}年`}</Link></Menu.Item>)
     }
 
     return (
@@ -108,7 +106,7 @@ class Admin extends Component {
               defaultOpenKeys={['sub1', 'sub2']}
               selectedKeys={[this.state.current]}
               onClick={this.handleClick.bind(this)}>
-              <SubMenu key="sub1" title={<div className={url=='/statistics'||url=='/statistics_d'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div>}>
+              <SubMenu title={<div className={url=='/statistics'||url=='/statistics_d'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div>}>
                 {Menus_one}
               </SubMenu>
             </Menu>

@@ -31,6 +31,7 @@ export class StepOne extends Component {
 					});
 				} else {
 					console.log("获取自评表失败");
+					Message.error("获取自我评价表失败，请稍后重试。")
 				}
 			})
 	}

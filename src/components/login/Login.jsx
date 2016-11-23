@@ -68,7 +68,7 @@ class Login extends Component {
 				if (!err || err === null) {
 					let obj = res.body;
 					let timeline = {
-						year: obj.activity_created_year,
+						year: obj.activity_year,
 						first_begin: moment(obj.first_phase_begin),
 						first_end: moment(obj.first_phase_end),
 						second_begin: moment(obj.second_phase_begin),

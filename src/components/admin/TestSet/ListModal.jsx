@@ -75,7 +75,7 @@ class ListModal extends Component {
       .set('X-Admin-Email', sessionStorage.admin_email)
       .send({
         activity: {
-          activity_created_year: time_line_year,
+          activity_year: time_line_year,
           first_phase_begin: moment(first_range[0], format),
           first_phase_end: moment(first_range[1], format),
           second_phase_begin: moment(second_range[0], format),
@@ -86,7 +86,10 @@ class ListModal extends Component {
       })
       .end( (err, res) => {
         if (!err || err === null) {
-          console.log("创建或更新考核活动成功");
+          if (res.body.error) {
+            alert(res.body.error);
+          } 
+          console.log("创建或更新考核活动情况：");
           console.dir(res.body);
           this.props.hideModal();
           this.props.refreshData();
