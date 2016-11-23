@@ -15,44 +15,44 @@ export class Routes extends Component {
   // 接收鉴权
   requireAuth() {
     if (!sessionStorage.token) {
-      location.href = "/";
+      location.href = '/';
     }
   }
 
   // 后台鉴权
   adminAuth() {
     if (!sessionStorage.admin_token) {
-      location.href = "/admin";
+      location.href = '/admin';
     }
   }
 
-	render() {
-		return (
+  render() {
+    return (
 			<Router history={this.props.history}>
         <Route path="/" component={Application}>
           {/* 登录 */}
           <IndexRoute component={Login} />
           {/* 考核过程 */}
-          <Route path="/assess" component={Assess} onEnter={this.requireAuth}/>          
+          <Route path="/assess" component={Assess} onEnter={this.requireAuth} />
           {/* 考核表格 */}
-          <Route path="/review" component={Review} onEnter={this.requireAuth}/>
+          <Route path="/review" component={Review} onEnter={this.requireAuth} />
 
         </Route>
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />
-        <Route path="/statistics" component={Statistics} onEnter={this.adminAuth}/>
-          <Route path="/statistics_d" component={StatisticsD} onEnter={this.adminAuth}/>
-        <Route path="/user_set" component={UserSet} onEnter={this.adminAuth}/>
-        <Route path="/test_set" component={TestSet} onEnter={this.adminAuth}/>
-		  </Router>
+        <Route path="/statistics" component={Statistics} onEnter={this.adminAuth} />
+          <Route path="/statistics_d" component={StatisticsD} onEnter={this.adminAuth} />
+        <Route path="/user_set" component={UserSet} onEnter={this.adminAuth} />
+        <Route path="/test_set" component={TestSet} onEnter={this.adminAuth} />
+      </Router>
 		)
-	}
+  }
 }
 
 Routes.defaultProps = {
-	
+
 }
 
 Routes.propTypes = {
-  history: PropTypes.any,
+  history: PropTypes.any
 }
