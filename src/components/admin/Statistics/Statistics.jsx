@@ -85,6 +85,23 @@ class Statistics extends Component {
       })
   }
 
+  // download_xls(){
+    
+  //   const url = `http://114.55.172.35:3232/admin/output_result_index?activity_year=${this.props.location.query.year}`
+  //   SuperAgent
+  //     .post("http://114.55.172.35:3232/admins/sign_in")
+  //     .set('Accept', 'application/json')
+  //     .send({'admin': {'email': email, 'password': password}})
+  //     .end( (err, res) => {
+  //       if (!err || err === null) {
+  //         window.local
+  //       } else {
+  //         console.log("admin登录失败");
+  //         Message.error("登录失败，请检查账号密码是否正确。");
+  //       }
+  //     })
+  // }
+
   onChange(pagination, filters, sorter) {
     console.log('params', pagination, filters, sorter);
   }
@@ -94,7 +111,7 @@ class Statistics extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <div className={css.table_title}><span>{this.props.location.query.year}</span>考核统计结果列表</div> 
+          <div className={css.table_title}><span>{this.props.location.query.year}</span>考核统计结果列表</div>
           <div><a href={url}><Button type="primary" icon="download" >下载总表</Button></a></div><br/>
             <Table columns={columns} 
              bordered 

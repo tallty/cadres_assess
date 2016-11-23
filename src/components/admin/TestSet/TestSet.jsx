@@ -142,7 +142,7 @@ class TestSet extends Component {
       <div key={record.id} className={css.icon_content}>
         <ButtonGroup>
           <Button type="primary" icon="edit" onClick={this.showModal.bind(this, record)}/>
-          <Button type="primary" icon="delete" onClick={this.deleteConfirm.bind(this, this, record)} />
+          {/* <Button type="primary" icon="delete" onClick={this.deleteConfirm.bind(this, this, record)} /> */}
         </ButtonGroup>
       </div>
     )

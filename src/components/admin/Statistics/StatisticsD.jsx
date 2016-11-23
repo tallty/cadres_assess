@@ -179,21 +179,21 @@ class StatisticsD extends Component {
               })
   }
 
-  download_xls(){
-    const url = `http://114.55.172.35:3232/admin/output_result_show`
-    SuperAgent
-      .post(url)
-      // .set('Accept', 'application/json')
-      // .set('X-Admin-Token', sessionStorage.admin_token)
-      // .set('X-Admin-Email', sessionStorage.admin_email)
-      .field('result_id',this.props.location.query.id)
-      .field('filename',"考核统计结果列表")
-      .end( (err, res) => {
-        if (res.ok) {
-          console.log('okokokokokokokokoko');
-        }
-      })
-  }
+  // download_xls(){
+  //   const url = `http://114.55.172.35:3232/admin/output_result_show`
+  //   SuperAgent
+  //     .post(url)
+  //     // .set('Accept', 'application/json')
+  //     // .set('X-Admin-Token', sessionStorage.admin_token)
+  //     // .set('X-Admin-Email', sessionStorage.admin_email)
+  //     .field('result_id',this.props.location.query.id)
+  //     .field('filename',"考核统计结果列表")
+  //     .end( (err, res) => {
+  //       if (res.ok) {
+  //         console.log('okokokokokokokokoko');
+  //       }
+  //     })
+  // }
 
   render() {
     const id = this.props.location.query.id;
@@ -201,7 +201,7 @@ class StatisticsD extends Component {
     return (
       <Admin>
         <div className={css.table_content}>
-          <div><Link to={`/statistics?year=${this.props.location.query.year}`}><Button type="primary" icon="left">返回总表</Button></Link>&nbsp;&nbsp;&nbsp;&nbsp;<a href={url}><Button type="primary" icon="download" onClick={this.download_xls.bind(this)}>个人统计表下载</Button></a></div>
+          <div><Link to={`/statistics?year=${this.props.location.query.year}`}><Button type="primary" icon="left">返回总表</Button></Link>&nbsp;&nbsp;&nbsp;&nbsp;<a href={url}><Button type="primary" icon="download" >个人统计表下载</Button></a></div>
           <div className={css.table_title}><span>{this.state.order_data.name}</span>考核成绩表</div>
           <Tabs defaultActiveKey="1" onChange={callback}>
             <TabPane className={css.tab_content} tab="领导打分数据统计" key="1">

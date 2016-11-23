@@ -86,6 +86,7 @@ class UserSet extends Component {
 
   render() {
     const url = `http://114.55.172.35:3232/admin/load_user_list_template`
+    const url_user = `http://114.55.172.35:3232/admin/load_password_txt`
     return (
       <Admin>
         <div className={css.card_content}>
@@ -93,6 +94,7 @@ class UserSet extends Component {
           {this.showMseeage()}
           <div className={css.btn_content}>
             <div className={css.btn_content_d}><a href={url}><Button type="primary" icon="download" >下载模板文件</Button></a></div>
+            <div className={css.btn_content_d}><a href={url_user}><Button type="primary" icon="download" >下载用户密码配置文件</Button></a></div>      
             <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入用户名单</Button>
             <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入考核对象名单</Button>
           </div>
