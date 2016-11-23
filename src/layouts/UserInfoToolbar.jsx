@@ -16,7 +16,7 @@ export class UserInfoToolbar extends Component {
       .set('X-User-Jobnum', sessionStorage.number)
       .end((err, res) => {
         if (!err || err === null) {
-          let obj = res.body;
+          const obj = res.body;
           this.setState({ user: obj });
         } else {
           Message.error('获取用户信息失败');
