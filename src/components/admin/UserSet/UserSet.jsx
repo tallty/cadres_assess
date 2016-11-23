@@ -9,6 +9,7 @@ import { Icon, Button, Spin, Alert, Form, Select } from 'antd'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
+const ButtonGroup = Button.Group;
 
 class UserSet extends Component {
   constructor(props) {
@@ -119,8 +120,6 @@ class UserSet extends Component {
           <div className={css.title_name}>上传考核名单总表</div>
           {this.showMseeage()}
           <div className={css.btn_content}>
-            <div className={css.btn_content_d}><a href={url}><Button type="primary" icon="download" >下载模板文件</Button></a></div>
-            <div className={css.btn_content_d}><a href={url_user}><Button type="primary" icon="download" >下载用户密码配置文件</Button></a></div>
             <div>
               <Select style={{ width: 200 }} 
                 placeholder="请选择上传名单年份" 
@@ -129,7 +128,14 @@ class UserSet extends Component {
                 {options}
               </Select>
             </div><br/>
-            <Button className={css.inputContainer} type="primary" icon="plus"><input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入考核对象名单</Button>
+            <Button className={css.inputContainer} type="primary" icon="plus">
+              <input onChange={this.handleChange.bind(this)} multiple={true} type="file" accept=".xlsx" />导入考核对象名单
+            </Button>
+            
+            <div className={css.btn_content_d}>
+              <a href={url}><Button type="ghost" icon="download" >下载模板文件</Button></a>
+              <a href={url_user}><Button type="ghost" icon="download" >获取用户密码</Button></a>
+            </div>
           </div>
         </div>
       </Admin>
