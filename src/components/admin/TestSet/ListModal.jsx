@@ -12,7 +12,8 @@ const Option = Select.Option;
 
 class ListModal extends Component {
   state = {
-    loading: false
+    loading: false,
+    err_info: ""
   }
 
   /**
@@ -56,6 +57,11 @@ class ListModal extends Component {
         this.setState({ loading: true });
         console.log('Received values of form: ', values);
         this.processActivity(values);
+        setTimeout(() => {
+          this.setState({
+            loading: false,
+          });
+        }, 2000);
       }
     });
   }
@@ -87,13 +93,15 @@ class ListModal extends Component {
       .end( (err, res) => {
         if (!err || err === null) {
           if (res.body.error) {
-            alert(res.body.error);
-          } 
-          console.log("创建或更新考核活动情况：");
-          console.dir(res.body);
-          this.props.hideModal();
-          this.props.refreshData();
-          this.setState({ loading: false });
+            this.setState({err_info: res.body.error})
+            // alert(res.body.error);
+          }else{
+            console.log("创建或更新考核活动情况：");
+            console.dir(res.body);
+            this.props.hideModal();
+            this.props.refreshData();
+            this.setState({ loading: false });
+          }
         } else {
           console.log("创建或更新考核活动失败");
         }
@@ -184,6 +192,7 @@ class ListModal extends Component {
                     <RangePicker format="YYYY-MM-DD" onChange={this.onChange} />
                   )}
                 </FormItem>
+                <div className={styles.tips_err}><label>{this.state.err_info}</label></div>
                 <FormItem className={styles.form_submit}>
                   <Button type="primary" htmlType="submit" size="large" loading={this.state.loading} >
                     { this.state.loading ? "正在提交..." : "提交" }
