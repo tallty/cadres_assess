@@ -67,7 +67,7 @@ export class StepThree extends Component {
   getData(){
     var token = localStorage.token
     var phone = localStorage.phone
-    var url = `http://114.55.172.35:3232/admin/results/${this.props.id}/feedback_form`
+    var url = `http://114.55.172.35:3232/admin/results/${this.props.id}/feedback_form?random=${Math.random()}`
     SuperAgent.get(url)
               .set('Accept', 'application/json')
               .set('X-Admin-Token', sessionStorage.admin_token)

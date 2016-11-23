@@ -69,7 +69,7 @@ class Statistics extends Component {
   }
 
   getData(year){
-    const url = `http://114.55.172.35:3232/admin/results?activity_year=${year}`
+    const url = `http://114.55.172.35:3232/admin/results?activity_year=${year}`;
     SuperAgent
       .get(url)
       .set('Accept', 'application/json')
@@ -77,37 +77,19 @@ class Statistics extends Component {
       .set('X-Admin-Email', sessionStorage.admin_email)
       .end( (err, res) => {
         if (!err || err === null) {
-          var data = res.body.table
-          this.setState({data: data, loading: false})
+          this.setState({data: res.body.table, loading: false});
         } else {
           Message.error("获取统计数据失败");
         }
       })
   }
 
-  // download_xls(){
-    
-  //   const url = `http://114.55.172.35:3232/admin/output_result_index?activity_year=${this.props.location.query.year}`
-  //   SuperAgent
-  //     .post("http://114.55.172.35:3232/admins/sign_in")
-  //     .set('Accept', 'application/json')
-  //     .send({'admin': {'email': email, 'password': password}})
-  //     .end( (err, res) => {
-  //       if (!err || err === null) {
-  //         window.local
-  //       } else {
-  //         console.log("admin登录失败");
-  //         Message.error("登录失败，请检查账号密码是否正确。");
-  //       }
-  //     })
-  // }
-
   onChange(pagination, filters, sorter) {
     console.log('params', pagination, filters, sorter);
   }
 
   render() {
-    const url = `http://114.55.172.35:3232/admin/output_result_index?activity_year=${this.props.location.query.year}`
+    const url = `http://114.55.172.35:3232/admin/output_result_index?activity_year=${this.props.location.query.year}`;
     return (
       <Admin>
         <div className={css.table_content}>

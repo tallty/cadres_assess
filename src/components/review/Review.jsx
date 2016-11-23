@@ -142,7 +142,7 @@ class Review extends Component {
           console.log("领导提交测评成功");
           console.dir(res.body);
           this.setState({ evaluation: res.body, complete: true });
-          Message.error("提交测评成功");
+          Message.success("提交测评成功");
         } else {
           console.log("领导获取要评价的人员失败");
           Message.error("提交测评失败");

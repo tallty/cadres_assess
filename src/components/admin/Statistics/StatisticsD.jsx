@@ -179,22 +179,6 @@ class StatisticsD extends Component {
               })
   }
 
-  // download_xls(){
-  //   const url = `http://114.55.172.35:3232/admin/output_result_show`
-  //   SuperAgent
-  //     .post(url)
-  //     // .set('Accept', 'application/json')
-  //     // .set('X-Admin-Token', sessionStorage.admin_token)
-  //     // .set('X-Admin-Email', sessionStorage.admin_email)
-  //     .field('result_id',this.props.location.query.id)
-  //     .field('filename',"考核统计结果列表")
-  //     .end( (err, res) => {
-  //       if (res.ok) {
-  //         console.log('okokokokokokokokoko');
-  //       }
-  //     })
-  // }
-
   render() {
     const id = this.props.location.query.id;
     const url = `http://114.55.172.35:3232/admin/output_result_show?result_id=${id}`
