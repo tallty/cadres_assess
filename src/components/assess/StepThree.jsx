@@ -40,7 +40,7 @@ export class StepThree extends Component {
   get_self_list(){
     const lists = []
     if (this.state.self_evaluation.self_evaluation_duties.length == 0) {
-      lists.push(<tr key='blank'>
+      lists.push(<tr key='blank' className={css.self_print_table}>
                   <td>&nbsp;</td>
                   <td colSpan={2}>&nbsp;</td>
                   <td>&nbsp;</td>
@@ -51,7 +51,7 @@ export class StepThree extends Component {
       return lists
     }else{
       for (var i = 0; i < this.state.self_evaluation.self_evaluation_duties.length; i++) {
-        lists.push(<tr key={-i}>
+        lists.push(<tr key={-i} className={css.self_print_table}>
                     <td>{i+1}</td>
                     <td colSpan={2}>{this.state.self_evaluation.self_evaluation_duties[i][0]}</td>
                     <td>{this.state.self_evaluation.self_evaluation_duties[i][1] == "perfect" ?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
@@ -96,9 +96,10 @@ export class StepThree extends Component {
     const present_true = this.state.level_count_and_percentage == undefined
     const present_true_one = this.state.average_for_all_evaluation.result_level_count_and_percentage == undefined
     console.log("------======-------");
-    const set_year = set_by_admin.updated_at?new Date(set_by_admin.updated_at).getFullYear():''
-    const set_month = set_by_admin.updated_at?new Date(set_by_admin.updated_at).getMonth():''
-    const set_day = set_by_admin.updated_at?new Date(set_by_admin.updated_at).getDay():''
+    console.log(set_by_admin.final_evaluation_time);
+    const set_year = set_by_admin.final_evaluation_time?new Date(set_by_admin.final_evaluation_time).getFullYear():''
+    const set_month = set_by_admin.final_evaluation_time?new Date(set_by_admin.final_evaluation_time).getMonth():''
+    const set_day = set_by_admin.final_evaluation_time?new Date(set_by_admin.final_evaluation_time).getDay():''
 		return (
 			<div className={css.assess_three}>
         {/*-startprint-*/}
@@ -175,9 +176,8 @@ export class StepThree extends Component {
               </table>
             </div>
           </div>
-        </div>
+          <div className={css.break_page}></div>
         {/*-endprint-*/}
-        <div id="print_table_two">
           <div className={css.print_table}>
             <div className={css.table_content}>
               <table>
@@ -266,7 +266,7 @@ export class StepThree extends Component {
               </table>
               <div><span className={css.sign_name_school}>上海电子信息职业技术学院组织部</span></div>
             </div>
-            <div className={css.btn_content}><Button className={css.print_btn_two} onClick={this.preview.bind(this, "print_table_two")} type="primary">打印表格</Button></div>
+            {/* <div className={css.btn_content}><Button className={css.print_btn_two} onClick={this.preview.bind(this, "print_table_two")} type="primary">打印表格</Button></div> */}
           </div>
         </div> 
       </div>

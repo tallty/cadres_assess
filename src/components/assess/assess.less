@@ -113,6 +113,9 @@
 	padding: 10px 80px;
 	font-size: 14px;
 }
+.break_page {
+	page-break-after:always;
+}
 .print_table {
 	@media print { 
 		.print_btn_two, .print_btn_one {
@@ -142,10 +145,21 @@
 	.table_content {
 		position: relative;
 		text-align: center;
+		padding-bottom: 20px;
+		.self_print_table {
+			td {
+				padding: 3px 5px;
+			}
+		}
 		table {
+			// table-layout:fixed;
 			margin: 10px 0;
 			width: 100%;
 			border-collapse:collapse;
+			td {
+				word-break:break-all;
+				word-wrap:break-word;
+			}
 			.persent_t {
 				width: 220px;
 			}
@@ -162,11 +176,11 @@
 				font-size: 15px;
 			}
 			.table_td_two {
-				width: 100px;
+				width: 160px;
 				font-size: 15px;
 			}
 			.table_td_three {
-				width: 100px;
+				width: 160px;
 				padding: 0 15px;
 				font-size: 15px;
 			}
@@ -184,7 +198,7 @@
 					font-size: 24px;
 				}
 				td {
-					height: 190px;
+					height: 160px;
 					position: relative;
 					.sign_name {
 						position: absolute;
@@ -220,16 +234,9 @@
 		.sign_name_school {
 			position: absolute;
 			right: 0;
-			bottom: -30px;
+			bottom: 0;
 		}
-	}
-	.btn_content {
-		text-align: center;
-		.print_btn_two {
-			margin: 80px 0 60px 0;
-			padding: 4px 40px;
-		}
-	}
+	}	
 }
 
 

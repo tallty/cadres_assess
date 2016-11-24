@@ -174,7 +174,7 @@ class Statistics extends Component {
             bordered 
             dataSource={this.state.data} 
             loading={this.state.loading}
-            pagination={{pageSize: 18}} 
+            pagination={{pageSize: 9}} 
             onChange={this.onChange} />
 
           <Modal title="考核人员等级评鉴" visible={this.state.visible}

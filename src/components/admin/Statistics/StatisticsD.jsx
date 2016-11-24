@@ -189,13 +189,13 @@ class StatisticsD extends Component {
           <div className={css.table_title}><span>{this.state.order_data.name}</span>考核成绩表</div>
           <Tabs defaultActiveKey="1" onChange={callback}>
             <TabPane className={css.tab_content} tab="领导打分数据统计" key="1">
-              <Table columns={columns} bordered dataSource={this.state.order_data.leader_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 10}} onChange={onChange} />
+              <Table columns={columns} bordered dataSource={this.state.order_data.leader_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="中层干部互评统计" key="2">
-              <Table columns={columns} bordered dataSource={this.state.order_data.middle_manager_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 10}} onChange={onChange} />
+              <Table columns={columns} bordered dataSource={this.state.order_data.middle_manager_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="职工打分数据统计" key="3">
-              <Table columns={columns} bordered dataSource={this.state.order_data.staff_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 10}} onChange={onChange} />
+              <Table columns={columns} bordered dataSource={this.state.order_data.staff_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="数据比例分析" key="4">
               <Table columns={columns2} bordered dataSource={this.state.persent_data} onRowClick={this.detail_cell} pagination={ false } onChange={onChange} />
