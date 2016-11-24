@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './Review.less';
 import Agent from 'superagent';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { Row, Col, Form, InputNumber, Button, Message } from 'antd';
 import { UserInfo } from '../assess/UserInfo';
 
@@ -143,7 +143,6 @@ class Review extends Component {
           console.dir(res.body);
           this.setState({ evaluation: res.body, complete: true });
           Message.success("提交测评成功");
-          this.props.router.replace('/assess?step=2');
         } else {
           console.log("领导获取要评价的人员失败");
           Message.error("提交测评失败");
@@ -275,12 +274,12 @@ class Review extends Component {
             </div>
             <div className={css.submit_btn}>
               <FormItem>
-              {
-                complete ?
-                <Button type="primary" disabled>已提交测评表</Button> :
                 <Button type="primary" htmlType="submit">提交测评表</Button>
-              }
               </FormItem>
+              <Link to="/assess?step=2"> 
+                <Button type="ghost">返回测评表</Button>
+              </Link>
+              <br/><br/>
             </div>
           </Form>
         </div>

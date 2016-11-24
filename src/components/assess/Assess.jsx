@@ -6,6 +6,7 @@ import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import { StepThree } from './StepThree';
 import moment from 'moment';
+import Agent from 'superagent';
 
 const Step = Steps.Step;
 
@@ -28,12 +29,31 @@ export class Assess extends Component {
 			third_end: moment(obj.third_phase_end)
 		}
 		if (sessionStorage.user_type === "middle_manager") {
-			let step = this.props.location.query.step; 
-			step = step ? step : 1;
-			this.setState({ step: step, timeline: timeline });
+			this.getSelfEvaluation(timeline);
 		} else {
 			this.setState({ step: 2, timeline: timeline });
 		}
+	}
+
+	// 获取自评表
+	getSelfEvaluation(timeline) {
+		Agent
+			.get("http://114.55.172.35:3232/middle_managers/self_evaluation")
+			.set('Accept', 'application/json')
+			.set('X-User-Token', sessionStorage.token)
+			.set('X-User-Jobnum', sessionStorage.number)
+			.end((err, res) => {
+				if (!err || err === null) {
+					let total_assess = res.body.content.self_evaluation_totality;
+					if (total_assess) {
+						this.setState({ step: 2, timeline: timeline });
+					} else {
+						this.setState({ step: 1, timeline: timeline });
+					}
+				} else {
+					Message.error("获取自我评价表失败，请稍后重试。");
+				}
+			})
 	}
 
 	getStepOperation() {
@@ -67,18 +87,22 @@ export class Assess extends Component {
 				{/* 用户信息 */}
 				{/* <UserInfo /> */}
 				{/* 步骤主体 */}
-				<div className={css.assess_container}>
-					{/* 进度条 */}
-					<div className={css.steps}>
-						<Steps current={step - 1}>
-					    <Step title="提交审核登记表" description={`${first_begin.format("MM-DD")} —— ${first_end.format("MM-DD")}`} />
-					    <Step title="在线考核评分" description={`${second_begin.format("MM-DD")} —— ${second_end.format("MM-DD")}`} />
-					    <Step title="考核结果统计" description={`${third_begin.format("MM-DD")} —— ${third_end.format("MM-DD")}`} />
-					  </Steps>
-					</div>
-					{/* 分步操作 */}
-					{this.getStepOperation()}
-				</div>
+				{
+					timeline.year ?
+						<div className={css.assess_container}>
+							{/* 进度条 */}
+							<div className={css.steps}>
+								<Steps current={step - 1}>
+							    <Step title="提交审核登记表" description={`${first_begin.format("MM-DD")} —— ${first_end.format("MM-DD")}`} />
+							    <Step title="在线考核评分" description={`${second_begin.format("MM-DD")} —— ${second_end.format("MM-DD")}`} />
+							    <Step title="考核结果统计" description={`${third_begin.format("MM-DD")} —— ${third_end.format("MM-DD")}`} />
+							  </Steps>
+							</div>
+							{/* 分步操作 */}
+							{this.getStepOperation()}
+						</div> : null
+				}
+				
 
 			</div>
 		);
