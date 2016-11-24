@@ -187,7 +187,7 @@ class StatisticsD extends Component {
         <div className={css.table_content}>
           <div><Link to={`/statistics?year=${this.props.location.query.year}`}><Button type="primary" icon="left">返回总表</Button></Link>&nbsp;&nbsp;&nbsp;&nbsp;<a href={url}><Button type="primary" icon="download" >个人统计表下载</Button></a></div>
           <div className={css.table_title}><span>{this.state.order_data.name}</span>考核成绩表</div>
-          <Tabs defaultActiveKey="1" onChange={callback}>
+          <Tabs defaultActiveKey="5" onChange={callback}>
             <TabPane className={css.tab_content} tab="领导打分数据统计" key="1">
               <Table columns={columns} bordered dataSource={this.state.order_data.leader_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
             </TabPane>

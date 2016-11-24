@@ -31,10 +31,12 @@ export class StepThree extends Component {
     return null;
   }
 
-  preview(id) {    
+  preview(id) {
     var prnhtml = document.getElementById(id).innerHTML
     document.body.innerHTML=prnhtml;
-    window.print();
+    window.print()
+    window.close()
+    var newWindow=window.open(window.location.href,"_blank");//打印窗口要换成页面的url
   }
 
   get_self_list(){
