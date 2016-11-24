@@ -143,13 +143,13 @@ class Review extends Component {
           console.dir(res.body);
           this.setState({ evaluation: res.body, complete: true });
           Message.success("提交测评成功");
+          this.props.router.replace('/assess?step=2');
         } else {
           console.log("领导获取要评价的人员失败");
           Message.error("提交测评失败");
         }
       })
   }
-
 
   getFormCell(evaluation, key){
     let array = evaluation.content[key];
@@ -172,7 +172,7 @@ class Review extends Component {
                 rules: [{ type: 'number', required: required, message: "请填写评分项" }],
                 initialValue: value 
               })(
-                <InputNumber min={0} max={100} disabled={this.state.complete}/>
+                <InputNumber min={0} max={99} disabled={this.state.complete}/>
               )}
             </FormItem>
           </Col>
@@ -268,7 +268,7 @@ class Review extends Component {
                     rules: [{ type: 'number', required: true, message: "请填写总体评价" }],
                     initialValue: total_count 
                   })(
-                    <InputNumber min={0} max={100} disabled={complete} />
+                    <InputNumber min={0} max={99} disabled={complete} />
                   )}<span>分</span>
                 </FormItem>
               </div>

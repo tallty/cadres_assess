@@ -5,7 +5,7 @@ import css from './UserSet.less'
 import Admin from '../Admin';
 import classnames from 'classnames'
 import { Link } from 'react-router'
-import { Icon, Button, Spin, Alert, Form, Select } from 'antd'
+import { Icon, Button, Spin, Alert, Form, Select, Modal } from 'antd'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -21,11 +21,16 @@ class UserSet extends Component {
   }
 
   handleChange(info){
-    var activity_year = this.state.year
-    this.setState({loading: "state2"})
-    var file = info.target.files[0]
-    console.log(file);
-    this.pushData(file, activity_year)
+    let activity_year = this.state.year;
+    if (activity_year) {
+      this.setState({loading: "loading"});
+      this.pushData(info.target.files[0], activity_year);
+    } else {
+      Modal.error({
+        title: '错误',
+        content: '上传考核名单总表之前，你需要先选择该考核表的年份。',
+      });
+    }
   }
 
   channgeYear(value){
@@ -40,32 +45,30 @@ class UserSet extends Component {
   pushData(file, activity_year){
     var token = localStorage.token
     var phone = localStorage.phone
-    var url = `http://114.55.172.35:3232/admin/upload_user_list`
-    SuperAgent.post(url)
-              .set('Accept', 'application/json')
-              .field('file',file)
-              .field('activity_year',activity_year)
-              .end( (err, res) => {
-                if (!err || err === null) {
-                  if (res.body.error) {
-                    this.setState({loading: "state3"})
-                    // alert(res.body.error);
-                  }else{
-                    console.log(res);
-                    console.log(err);
-                    this.setState({loading: "state1"})
-                  }
-                }else{
-                  this.setState({loading: "state3"})
-                }
-              })
+    var url = `http://114.55.172.35:3232/admin/upload_use_list`
+    SuperAgent
+      .post(url)
+      .set('Accept', 'application/json')
+      .field('file',file)
+      .field('activity_year',activity_year)
+      .end( (err, res) => {
+        if (!err || err === null) {
+          if (res.body.error) {
+            this.setState({loading: "error"})
+          }else{
+            this.setState({loading: "success"})
+          }
+        }else{
+          this.setState({loading: "error"})
+        }
+      })
   }
 
   showMseeage(){
-    const alert = []
-    if (this.state.loading == "state1"){
+    const alert = [];
+    if (this.state.loading == "success"){
       alert.push(<Alert
-                  key="state1"
+                  key="success"
                   message="文件上传成功！"
                   description="名单总表已上传成功，点击右上角图标可关闭提示框."
                   type="success"
@@ -74,14 +77,14 @@ class UserSet extends Component {
                   showIcon
                 />)
       return alert
-    }else if (this.state.loading == "state2"){
-      alert.push(<div key="state2" className={css.progress}>
+    }else if (this.state.loading == "loading"){
+      alert.push(<div key="loading" className={css.progress}>
                   <Spin tip="文件上传中..." size="large" />
                 </div>)
       return alert
-    }else if (this.state.loading == "state3") {
+    }else if (this.state.loading == "error") {
       alert.push(<Alert
-                  key="state3"
+                  key="error"
                   message="文件上传失败！"
                   description="名单总表已上传失败，请检查信息表格式，并点击右上角图标关闭提示框，重新上传。"
                   type="error"
@@ -98,7 +101,7 @@ class UserSet extends Component {
                   type="info"
                   showIcon
                 />)
-      return alert
+      return alert;
     }
   }
 

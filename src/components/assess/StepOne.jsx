@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import css from './assess.less';
 import { Row, Col, Button, Form, Radio, Input, Modal, Message } from 'antd';
 import Agent from 'superagent';
+import {withRouter} from 'react-router';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const confirm = Modal.confirm;
 
-export class StepOne extends Component {
+class StepOne extends Component {
 	state = {
 		total_assess: null,
 		duties: [],
@@ -22,16 +23,13 @@ export class StepOne extends Component {
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
-					console.log("获取自评表成功");
-					console.dir(res.body);
 					this.setState({ 
 						total_assess: res.body.content.self_evaluation_totality,
 						duties: res.body.content.duties,
 						info: res.body.info
 					});
 				} else {
-					console.log("获取自评表失败");
-					Message.error("获取自我评价表失败，请稍后重试。")
+					Message.error("获取自我评价表失败，请稍后重试。");
 				}
 			})
 	}
@@ -77,9 +75,6 @@ export class StepOne extends Component {
 	}
 
 	updateSelf(params, duties) {
-		console.log("=========职责字符串 & 表单数据============");
-		console.log(duties);
-		console.log(params)
 		Agent
 			.put("http://114.55.172.35:3232/middle_managers/self_evaluation")
 			.set('Accept', 'application/json')
@@ -91,11 +86,8 @@ export class StepOne extends Component {
 			.end((err, res) => {
 				if (!err || err === null) {
 					this.setState({ total_assess: params.total_assess });
-					console.log("=========提交成功： 返回============");
-					console.dir(res.body);
 					Message.success("提交自我评价意见成功");
 				} else {
-					console.log("更新自评表失败");
 					Message.error("提交自我评价意见失败，请重试");
 				}
 			})
@@ -168,7 +160,7 @@ export class StepOne extends Component {
 							</div>
 							{/* 分管工作 */}
 			        <div className={css.box} key={14}>
-								<div className={css.item0}><span>*</span> 14</div>
+								<div className={css.item0}><span>*</span> 从事和分管工作</div>
 								<div className={css.item1}>
 									{getFieldDecorator('job', {
 										initialValue: info.department_and_duty,
@@ -210,3 +202,4 @@ StepOne.propTypes = {
 }
 
 StepOne = Form.create()(StepOne);
+export default withRouter(StepOne);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import css from './assess.less';
 import { Row, Col, Steps, Modal } from 'antd';
 import { UserInfo } from './UserInfo';
-import { StepOne } from './StepOne';
+import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import { StepThree } from './StepThree';
 import moment from 'moment';
@@ -28,7 +28,9 @@ export class Assess extends Component {
 			third_end: moment(obj.third_phase_end)
 		}
 		if (sessionStorage.user_type === "middle_manager") {
-			this.setState({ step: 1, timeline: timeline });
+			let step = this.props.location.query.step; 
+			step = step ? step : 1;
+			this.setState({ step: step, timeline: timeline });
 		} else {
 			this.setState({ step: 2, timeline: timeline });
 		}

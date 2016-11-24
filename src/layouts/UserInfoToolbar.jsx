@@ -11,8 +11,6 @@ export class UserInfoToolbar extends Component {
 	componentWillMount() {
 		let token = sessionStorage.getItem('token');
 		let number = sessionStorage.getItem('number');
-		console.log(number)
-		console.log(token)
 		SuperAgent
 			.get(`http://114.55.172.35:3232/user_info?random=${Math.random()}`)
 			.set('Accept', 'application/json')
@@ -20,12 +18,9 @@ export class UserInfoToolbar extends Component {
 			.set('X-User-Jobnum', number)
 			.end((err, res) => {
 				if (!err || err === null) {
-					console.log(res.body);
 					let obj = res.body;
-					console.log(res.body);
 					this.setState({ user: obj });
 				} else {
-					console.dir(err);
 					Message.error("获取用户信息失败");
 				}
 			})
