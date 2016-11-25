@@ -16,10 +16,15 @@ class Login extends Component {
 	}
 
 	componentWillMount() {
-		if (sessionStorage.token) {
-			this.props.router.replace('/assess');
+		// 判断是否是移动设备
+		if (/Mobile/i.test(navigator.userAgent)) {
+			this.props.router.replace('/mobile_login');
+		} else {
+			if (sessionStorage.token) {
+				this.props.router.replace('/assess');
+			}
+			this.getTimeLine();
 		}
-		this.getTimeLine();
 	}
 
 	handleSubmit(e) {
@@ -113,8 +118,7 @@ class Login extends Component {
 		const { loading } = this.state;
 		// 考核时间
 		const { year, first_begin, first_end, second_begin, second_end, third_begin, third_end } = this.state.timeline;
-
-		const is_actived = moment().get('y') <= moment(`${year}`).get('y');
+		const is_actived = parseInt(moment().get('y')) <= parseInt(year);
 
 		return (
 			<div className={css.loginContainer} style={{height: this.height}}>

@@ -10,6 +10,9 @@ import Statistics from '../components/admin/Statistics/Statistics';
 import StatisticsD from '../components/admin/Statistics/StatisticsD';
 import UserSet from '../components/admin/UserSet/UserSet';
 import TestSet from '../components/admin/TestSet/TestSet';
+import MobileLogin from '../components/mobile/MobileLogin';
+import MobileEvaluationList from '../components/mobile/MobileEvaluationList';
+import MobileEvaluate from '../components/mobile/MobileEvaluate';
 
 export class Routes extends Component {
   // 接收鉴权
@@ -26,6 +29,13 @@ export class Routes extends Component {
     }
   }
 
+  // 手机端鉴权
+  mobileAuth() {
+    if (!localStorage.token) {
+      location.href = '/mobile_login';
+    }
+  }
+
   render() {
     return (
 			<Router history={this.props.history}>
@@ -36,14 +46,19 @@ export class Routes extends Component {
           <Route path="/assess" component={Assess} onEnter={this.requireAuth} />
           {/* 考核表格 */}
           <Route path="/review" component={Review} onEnter={this.requireAuth} />
-
         </Route>
+
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />
         <Route path="/statistics" component={Statistics} onEnter={this.adminAuth} />
-          <Route path="/statistics_d" component={StatisticsD} onEnter={this.adminAuth} />
+        <Route path="/statistics_d" component={StatisticsD} onEnter={this.adminAuth} />
         <Route path="/user_set" component={UserSet} onEnter={this.adminAuth} />
         <Route path="/test_set" component={TestSet} onEnter={this.adminAuth} />
+
+        {/* 手机端互评 */}
+        <Route path="/mobile_login" component={MobileLogin} />
+        <Route path="/mobile_evaluation_list" component={MobileEvaluationList} onEnter={this.mobileAuth}/>
+        <Route path="/mobile_evaluate" component={MobileEvaluate} onEnter={this.mobileAuth}/>
       </Router>
 		)
   }

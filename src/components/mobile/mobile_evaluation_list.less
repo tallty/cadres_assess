@@ -1,0 +1,152 @@
+.container {
+	background-color: #fff;
+	height: 100%;
+	display: flex;
+  display: -webkit-flex;
+  flex-flow: column nowrap;
+	.toolbar {
+		height: 48px;
+		line-height: 48px;
+		background-color: #2C71C7;
+		color: #fff;
+		z-index: 1001;
+		.logout {
+			height: 100%;
+			width: 48px;
+			font-size: 20px;
+			float: left;
+			text-align: center;
+			&:active {
+				background-color: darken(#2C71C7, 10%);
+			}
+		}
+		.title {
+			font-size: 16px;
+			text-align: center;
+			padding-right: 48px;
+		}
+	}
+	// 提示信息
+	.tips {
+		height: 32px;
+		line-height: 32px;
+		background-color: #F3FAF0;
+		border-bottom: 1px solid darken(#F3FAF0, 10%);
+		text-align: center;
+		span {
+			color: #FF9241;
+		}
+	}
+
+	// 列表
+	.list {
+		flex-grow: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    .list_item {
+    	padding: 8px 12px;
+    	border-bottom: 1px solid #E7E7E7;
+    	display: flex;
+		  display: -webkit-flex;
+		  flex-flow: row nowrap;
+		  width: 100vw;
+		  &:active {
+		  	background-color: #F5F5F5;
+		  }
+    	.name {
+    		height: 48px;
+    		width: 48px;
+    		text-align: center;
+    		color: #333;
+    		background-color: #eee;
+    		border-radius: 4px;
+    		font-size: 12px;
+    		line-height: 48px;
+    		display: inline-block;
+    		flex-shrink: 0;
+    	}
+    	.info {
+	    	flex-grow: 1;
+	    	height: 48px;
+	    	padding: 4px 8px 4px;
+	    	.info_one {
+					color: #2C312F;
+					font-size: 14px;
+	    	}
+	    	.info_two {
+					color: #9DA1A3;
+					overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
+	    	}
+    	}
+    	.arrow {
+    		display: inline-block;
+				height: 48px;
+				width: 24px;
+				line-height: 48px;
+				flex-shrink: 0;
+				font-size: 18px;
+				color: #9DA1A3;
+    	}
+    	.edited {
+    		.arrow;
+    		font-size: 12px;
+    	}
+    }
+	}
+	// 打分表单
+	.form_container {
+		background-color: #f8f8f8;
+		flex-grow: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    .card {
+    	margin: 10px;
+    	.input_label {
+    		line-height: 1.4;
+    		word-break: break-all
+    	}
+    	:global(.ant-card-head-title) {
+				white-space: normal;
+				display: block;
+    	}
+    	:global(.ant-card-head) {
+    		line-height: 1.4;
+    		height: auto;
+    		padding: 12px 16px;
+    	}
+    	:global(.ant-card-body) {
+    		padding: 16px;
+    	}
+    }
+    .submit_btn {
+			padding: 12px 12px 24px;
+			button {
+	    	width: 100%;
+				padding: 8px 8px;
+				border-radius: 4px;
+				font-size: 14px;
+				display: block;
+			}
+    }
+	}
+	// 弹出框菜单
+	.menu {
+		width: 70vw;
+		height: 100%;
+		background-color: #f8f8f8;
+		padding-top: 48px;
+		.item {
+			border-bottom: 1px solid #eee;
+			font-size: 16px;
+			padding: 10px 12px;
+			&:active {
+				background-color: #eee;
+			}
+			i {
+				margin-right: 8px;
+			}
+		}
+	}
+}

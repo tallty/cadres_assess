@@ -97,11 +97,11 @@ export class StepThree extends Component {
     const { self_evaluation, little_iterm, level_count_and_percentage, average_for_all_evaluation, average_for_each_role, statistics_result, set_by_admin, count_of_people, name, duty } = this.state;
     const present_true = this.state.level_count_and_percentage == undefined
     const present_true_one = this.state.average_for_all_evaluation.result_level_count_and_percentage == undefined
-    console.log("------======-------");
-    console.log(set_by_admin.final_evaluation_time);
-    const set_year = set_by_admin.final_evaluation_time?new Date(set_by_admin.final_evaluation_time).getFullYear():''
-    const set_month = set_by_admin.final_evaluation_time?new Date(set_by_admin.final_evaluation_time).getMonth():''
-    const set_day = set_by_admin.final_evaluation_time?new Date(set_by_admin.final_evaluation_time).getDay():''
+
+    const set_year = set_by_admin.final_evaluation_time ? new Date(set_by_admin.final_evaluation_time).getFullYear():'';
+    const set_month = set_by_admin.final_evaluation_time ? new Date(set_by_admin.final_evaluation_time).getMonth() + 1:'';
+    const set_day = set_by_admin.final_evaluation_time ? new Date(set_by_admin.final_evaluation_time).getDate():'';
+    
 		return (
 			<div className={css.assess_three}>
         {/*-startprint-*/}
@@ -230,10 +230,10 @@ export class StepThree extends Component {
                     <td>不称职</td>
                   </tr>
                   <tr>
-                    <td>{self_evaluation.self_evaluation_totality == "perfect"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
-                    <td>{self_evaluation.self_evaluation_totality == "good"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
-                    <td>{self_evaluation.self_evaluation_totality == "normal"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
-                    <td>{self_evaluation.self_evaluation_totality == "bad"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.level_of_average_score_for_all == "优秀"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.level_of_average_score_for_all == "称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.level_of_average_score_for_all == "基本称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.level_of_average_score_for_all == "不称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
                   </tr>
                   <tr className={css.row_height}>
                     <td colSpan={6}>

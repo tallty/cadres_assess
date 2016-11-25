@@ -16,8 +16,9 @@ class StepOne extends Component {
 	}
 
 	componentWillMount() {
+		console.log(this.props.year);
 		Agent
-			.get("http://114.55.172.35:3232/middle_managers/self_evaluation")
+			.get(`http://114.55.172.35:3232/middle_managers/self_evaluation?self_evaluation[activity_year]=${this.props.year}`)
 			.set('Accept', 'application/json')
 			.set('X-User-Token', sessionStorage.token)
 			.set('X-User-Jobnum', sessionStorage.number)
@@ -163,7 +164,7 @@ class StepOne extends Component {
 								<div className={css.item0}><span>*</span> 从事和分管工作</div>
 								<div className={css.item1}>
 									{getFieldDecorator('job', {
-										initialValue: info.department_and_duty,
+										initialValue: info.job,
 				            rules: [{ required: true}],
 				          })(
 				            <Input type="text" placeholder="从事或分管工作" />
@@ -193,12 +194,14 @@ class StepOne extends Component {
 
 StepOne.defaultProps = {
 	next: new Function,
-	active: false
+	active: false,
+	year: 2016
 }
 
 StepOne.propTypes = {
 	next: PropTypes.func,
-	active: PropTypes.bool
+	active: PropTypes.bool,
+	year: PropTypes.number
 }
 
 StepOne = Form.create()(StepOne);

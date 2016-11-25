@@ -73,10 +73,10 @@ const columns = [{
   title: '考核项17',
   dataIndex: 'add_index.16',
 },{
-  title: '考核项18',
+  title: '总体评价',
   dataIndex: 'add_index.17',
 },{
-  title: '总分',
+  title: '平均分',
   dataIndex: 'add_index.18',
   sorter: (a, b) => a.num - b.num,
 }];
@@ -149,7 +149,6 @@ class StatisticsD extends Component {
 
   detail_cell(record, index){
     console.log(record);
-    console.log(index);
   }
 
   reset_data(data, data1){

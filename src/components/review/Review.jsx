@@ -277,7 +277,7 @@ class Review extends Component {
                 <Button type="primary" htmlType="submit">提交测评表</Button>
               </FormItem>
               <Link to="/assess?step=2"> 
-                <Button type="ghost">返回测评表</Button>
+                <Button type="ghost">返回待测评列表</Button>
               </Link>
               <br/><br/>
             </div>

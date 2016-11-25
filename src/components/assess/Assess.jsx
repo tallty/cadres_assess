@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import css from './assess.less';
-import { Row, Col, Steps, Modal } from 'antd';
+import { Row, Col, Steps, Modal, Message } from 'antd';
 import { UserInfo } from './UserInfo';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
@@ -58,11 +58,11 @@ export class Assess extends Component {
 
 	getStepOperation() {
 		let { step, timeline } = this.state;
-		let { first_begin, first_end, second_begin, second_end, third_begin, third_end } = timeline;
+		let { year, first_begin, first_end, second_begin, second_end, third_begin, third_end } = timeline;
 		if (step === 1) {
 			let is_actived = moment() >= first_begin && moment() <= first_end;
 			console.log("是否处于第一阶段的时间内："+is_actived);
-			return <StepOne next={this.toNext.bind(this)} active={is_actived}/>
+			return <StepOne next={this.toNext.bind(this)} active={is_actived} year={parseInt(year)}/>
 		} else if (step === 2) {
 			let is_actived = moment() >= second_begin && moment() <= second_end;
 			console.log("是否处于第二阶段的时间内："+is_actived);
