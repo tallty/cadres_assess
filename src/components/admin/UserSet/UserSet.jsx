@@ -45,7 +45,7 @@ class UserSet extends Component {
   pushData(file, activity_year){
     var token = localStorage.token
     var phone = localStorage.phone
-    var url = `http://114.55.172.35:3232/admin/upload_use_list`
+    var url = `http://114.55.172.35:3232/admin/upload_user_list`
     SuperAgent
       .post(url)
       .set('Accept', 'application/json')

@@ -38,12 +38,13 @@ export class Assess extends Component {
 	// 获取自评表
 	getSelfEvaluation(timeline) {
 		Agent
-			.get("http://114.55.172.35:3232/middle_managers/self_evaluation")
+			.get(`http://114.55.172.35:3232/middle_managers/self_evaluation?self_evaluation[activity_year]=${timeline.year}`)
 			.set('Accept', 'application/json')
 			.set('X-User-Token', sessionStorage.token)
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
+					console.log(res.body);
 					let total_assess = res.body.content.self_evaluation_totality;
 					if (total_assess) {
 						this.setState({ step: 2, timeline: timeline });

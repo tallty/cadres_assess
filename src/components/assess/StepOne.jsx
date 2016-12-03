@@ -24,6 +24,7 @@ class StepOne extends Component {
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
+					console.log(res.body);
 					this.setState({ 
 						total_assess: res.body.content.self_evaluation_totality,
 						duties: res.body.content.duties,

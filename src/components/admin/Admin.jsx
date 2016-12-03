@@ -39,7 +39,7 @@ class Admin extends Component {
       .end((err, res) => {
         if (!err || err === null) {
           const results = res.body.activities
-          var lists = []
+          var lists = [];
           for (let list of results) {
             lists.push(list.activity_year)
           }

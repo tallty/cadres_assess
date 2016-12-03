@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import css from './mobile_evaluation_list.less';
-import { Icon, Card, Row, Col, Form, InputNumber, Button, Slider, Message } from 'antd';
+import { Icon, Card, Form, Button, Slider, Message } from 'antd';
 import Spiner from '../common/Spiner';
 import Agent from 'superagent';
 

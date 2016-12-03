@@ -57,11 +57,6 @@ class ListModal extends Component {
         this.setState({ loading: true });
         console.log('Received values of form: ', values);
         this.processActivity(values);
-        setTimeout(() => {
-          this.setState({
-            loading: false,
-          });
-        }, 2000);
       }
     });
   }
@@ -93,17 +88,17 @@ class ListModal extends Component {
       .end( (err, res) => {
         if (!err || err === null) {
           if (res.body.error) {
-            this.setState({err_info: res.body.error})
-            // alert(res.body.error);
+            this.setState({err_info: res.body.error, loading: false})
           }else{
             console.log("创建或更新考核活动情况：");
             console.dir(res.body);
             this.props.hideModal();
-            this.props.refreshData();
-            this.setState({ loading: false });
+            // this.props.refreshData();
+            location.href = "/test_set";
           }
         } else {
           console.log("创建或更新考核活动失败");
+          this.setState({ loading: false });
         }
       })
   }

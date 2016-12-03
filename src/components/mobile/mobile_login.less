@@ -1,16 +1,37 @@
 .container {
 	padding: 15px;
 	input {
-		height: 36px;
+		height: 42px;
+		font-size: 14px;
 	}
 	.title {
 		text-align: center;
-		margin: 80px 0;
+		margin: 60px 0;
 	}
 	.login_btn {
 		width: 100%;
-		padding: 8px 8px;
+		padding: 10px 8px;
 		border-radius: 4px;
 		font-size: 14px;
+		display: block;
+		font-size: 16px;
 	}
+ 	::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color: #666;
+      font-size: 14px;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color: #666;
+     font-size: 14px;
+     opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color: #666;
+     font-size: 14px;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color: #666;
+     font-size: 14px;
+  }
 }
