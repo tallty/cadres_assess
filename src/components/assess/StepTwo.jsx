@@ -69,13 +69,10 @@ class StepTwo extends Component {
 	 * 处理测评事件
 	 */
 	handleAssess(evaluation) {
-		if (!this.props.active) {
-			console.log("处于第二阶段规定时间，可以点评");
-			console.dir(evaluation);
+		if (this.props.active) {
 			sessionStorage.setItem('evaluation', JSON.stringify(evaluation));
 			this.props.router.replace(`/review?id=${evaluation.id}`);
 		} else {
-			// 不在规定时间
 			this.setState({ visible: true });
 		}
 	}

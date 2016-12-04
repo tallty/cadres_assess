@@ -14,6 +14,7 @@ export class UserInfoToolbar extends Component {
 		SuperAgent
 			.get(`http://114.55.172.35:3232/user_info?random=${Math.random()}`)
 			.set('Accept', 'application/json')
+			.set('Cache-control', 'no-cache')
 			.set('X-User-Token', token)
 			.set('X-User-Jobnum', number)
 			.end((err, res) => {
@@ -28,6 +29,7 @@ export class UserInfoToolbar extends Component {
 
 	signOut() {
 		sessionStorage.clear();
+		localStorage.clear();
 		location.href = '/';
 	}
 

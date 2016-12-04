@@ -85,6 +85,7 @@ class StepOne extends Component {
 			.field('user_info[job]', params.job)
 			.field('self_evaluation[duties]', duties)
 			.field('self_evaluation[self_evaluation_totality]', params.total_assess)
+			.field('self_evaluation[activity_year]', this.props.year)
 			.end((err, res) => {
 				if (!err || err === null) {
 					this.setState({ total_assess: params.total_assess });

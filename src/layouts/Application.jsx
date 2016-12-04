@@ -19,7 +19,7 @@ export class Application extends Component {
 				<div className={css.footer}>
 					<p>联系单位：上海电子信息职业技术学院</p>
 					<p>技术支持：上海拓体信息科技有限公司</p>
-					<p>联系电话：18916591019</p>
+					<p>联系电话：021-57132831</p>
 				</div>
 			</div>
 		);

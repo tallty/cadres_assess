@@ -43,6 +43,7 @@ class Login extends Component {
 		SuperAgent
 			.post("http://114.55.172.35:3232/users/sign_in")
 			.set('Accept', 'application/json')
+			.set('Cache-control', 'no-cache')
 			.send({user: { job_num: values.number, password: values.password }})
 			.end((err, res) => {
 				if (!err || err === null) {
