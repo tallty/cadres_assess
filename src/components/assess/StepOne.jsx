@@ -104,7 +104,7 @@ class StepOne extends Component {
 		if (params.job && params.total_assess) {
 			for(let i = 0; i < 12; i++ ) {
 				if (params["input"+i] && params['group'+i]) {
-					cache += `${params["input"+i]},${params['group'+i]};`;
+					cache += `${params["input"+i]}*,*${params['group'+i]}*;*`;
 				}
 			}
 			return cache;

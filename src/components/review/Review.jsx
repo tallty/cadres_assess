@@ -119,7 +119,7 @@ class Review extends Component {
     let str = '';
     formData.forEach((item, i, obj) => {
       if (item.kind === kind) {
-        str += `${item.key},${params[item.key]};`
+        str += `${item.key}*,*${params[item.key]}*;*`
       }
     });
     return str;
