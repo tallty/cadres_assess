@@ -12,6 +12,7 @@ export class UserInfo extends Component {
 		Agent
 			.get("http://114.55.172.35:3232/user_info")
 			.set('Accept', 'application/json')
+			.set('Cache-control', 'no-cache')
 			.set('X-User-Token', sessionStorage.token)
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {

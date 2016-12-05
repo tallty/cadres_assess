@@ -72,6 +72,7 @@ export class StepThree extends Component {
     var url = `http://114.55.172.35:3232/admin/results/${this.props.id}/feedback_form?random=${Math.random()}`
     SuperAgent.get(url)
               .set('Accept', 'application/json')
+              .set('Cache-control', 'no-cache')
               .set('X-Admin-Token', sessionStorage.admin_token)
               .set('X-Admin-Email', sessionStorage.admin_email)
               .end( (err, res) => {

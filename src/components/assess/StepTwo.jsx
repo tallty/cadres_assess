@@ -38,6 +38,7 @@ class StepTwo extends Component {
 		Agent
 			.get(`http://114.55.172.35:3232/evaluations?page=1&per_page=1000`)
 			.set('Accept', 'application/json')
+			.set('Cache-control', 'no-cache')
 			.set('X-User-Token', sessionStorage.token)
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {

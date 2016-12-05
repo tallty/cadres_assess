@@ -34,6 +34,7 @@ class Admin extends Component {
     Agent
       .get("http://114.55.172.35:3232/admin/activities")
       .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
       .set('X-Admin-Token', sessionStorage.admin_token)
       .set('X-Admin-Email', sessionStorage.admin_email)
       .end((err, res) => {

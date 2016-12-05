@@ -99,6 +99,7 @@ class Statistics extends Component {
         SuperAgent
           .patch(`http://114.55.172.35:3232//admin/results/${this.state.logic_record.id}/set_final_result`)
           .set('Accept', 'application/json')
+          .set('Cache-control', 'no-cache')
           .set('X-Admin-Token', sessionStorage.admin_token)
           .set('X-Admin-Email', sessionStorage.admin_email)
           .field('result[final_result]', values.level)

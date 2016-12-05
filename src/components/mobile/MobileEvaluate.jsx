@@ -32,6 +32,7 @@ class MobileEvaluate extends Component {
     Agent
       .get(`http://114.55.172.35:3232/evaluations/${id}`)
       .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
       .set('X-User-Token', localStorage.token)
       .set('X-User-Jobnum', localStorage.number)
       .end((err, res) => {

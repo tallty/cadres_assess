@@ -34,6 +34,7 @@ class Review extends Component {
     Agent
       .get(`http://114.55.172.35:3232/evaluations/${id}`)
       .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
       .set('X-User-Token', sessionStorage.token)
       .set('X-User-Jobnum', sessionStorage.number)
       .end((err, res) => {

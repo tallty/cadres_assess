@@ -40,14 +40,14 @@ export class Assess extends Component {
 		Agent
 			.get(`http://114.55.172.35:3232/middle_managers/self_evaluation?self_evaluation[activity_year]=${timeline.year}`)
 			.set('Accept', 'application/json')
+			.set('Cache-control', 'no-cache')
 			.set('X-User-Token', sessionStorage.token)
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
-					console.log(res.body);
 					let total_assess = res.body.content.self_evaluation_totality;
 					if (total_assess) {
-						this.setState({ step: 2, timeline: timeline });
+						this.setState({ step: 1, timeline: timeline });
 					} else {
 						this.setState({ step: 1, timeline: timeline });
 					}

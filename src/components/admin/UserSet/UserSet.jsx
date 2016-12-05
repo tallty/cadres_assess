@@ -49,6 +49,7 @@ class UserSet extends Component {
     SuperAgent
       .post(url)
       .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
       .field('file',file)
       .field('activity_year',activity_year)
       .end( (err, res) => {
