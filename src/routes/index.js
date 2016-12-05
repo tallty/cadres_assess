@@ -3,16 +3,18 @@ import { Router, Route, IndexRoute, Link, Redirect } from 'react-router';
 import { Application } from '../layouts/Application';
 import Login from '../components/login/Login';
 import { Assess } from '../components/assess/Assess';
+import Review from '../components/review/Review';
+import MobileLogin from '../components/mobile/MobileLogin';
+import MobileEvaluationList from '../components/mobile/MobileEvaluationList';
+import MobileEvaluate from '../components/mobile/MobileEvaluate';
+
 import Admin from '../components/admin/Admin';
 import AdminLogIn from '../components/Admin/AdminLogIn';
-import Review from '../components/review/Review';
 import Statistics from '../components/admin/Statistics/Statistics';
 import StatisticsD from '../components/admin/Statistics/StatisticsD';
 import UserSet from '../components/admin/UserSet/UserSet';
 import TestSet from '../components/admin/TestSet/TestSet';
-import MobileLogin from '../components/mobile/MobileLogin';
-import MobileEvaluationList from '../components/mobile/MobileEvaluationList';
-import MobileEvaluate from '../components/mobile/MobileEvaluate';
+import EvaluationCount from '../components/admin/evaluation_count/EvaluationCount';
 
 export class Routes extends Component {
   // 接收鉴权
@@ -54,6 +56,7 @@ export class Routes extends Component {
         <Route path="/statistics_d" component={StatisticsD} onEnter={this.adminAuth} />
         <Route path="/user_set" component={UserSet} onEnter={this.adminAuth} />
         <Route path="/test_set" component={TestSet} onEnter={this.adminAuth} />
+        <Route path="/evaluation_count" component={EvaluationCount} onEnter={this.adminAuth} />
 
         {/* 手机端互评 */}
         <Route path="/mobile_login" component={MobileLogin} />

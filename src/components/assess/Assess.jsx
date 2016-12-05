@@ -28,10 +28,13 @@ export class Assess extends Component {
 			third_begin: moment(obj.third_phase_begin),
 			third_end: moment(obj.third_phase_end)
 		}
-		if (sessionStorage.user_type === "middle_manager") {
-			this.getSelfEvaluation(timeline);
-		} else {
+		let { year, first_begin, first_end, second_begin, second_end, third_begin, third_end } = timeline;
+		let is_second = moment() >= second_begin && moment() <= second_end;
+
+		if (sessionStorage.user_type !== "middle_manager" || is_second) {
 			this.setState({ step: 2, timeline: timeline });
+		} else {
+			this.getSelfEvaluation(timeline);
 		}
 	}
 
@@ -45,9 +48,9 @@ export class Assess extends Component {
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
-					let total_assess = res.body.content.self_evaluation_totality;
-					if (total_assess) {
-						this.setState({ step: 1, timeline: timeline });
+					let duties = res.body.content.duties;
+					if (duties.length > 0) {
+						this.setState({ step: 2, timeline: timeline });
 					} else {
 						this.setState({ step: 1, timeline: timeline });
 					}

@@ -90,9 +90,11 @@ class Admin extends Component {
     let list_style2 = classnames(
       css.holyGrail_list,
     );
-    const Menus_one = []
+    const Menus_one = [];
+    const Menus_two = [];
     for (let year of this.state.lists) {
-      Menus_one.push(<Menu.Item key={year}><Link to={`/statistics?year=${year}`}>{`${year}年`}</Link></Menu.Item>)
+      Menus_one.push(<Menu.Item key={year}><Link to={`/statistics?year=${year}`}>{`${year}年`}</Link></Menu.Item>);
+      Menus_two.push(<Menu.Item key={year}><Link to={`/evaluation_count?year=${year}`}>{`${year}年`}</Link></Menu.Item>);
     }
 
     return (
@@ -109,6 +111,16 @@ class Admin extends Component {
               onClick={this.handleClick.bind(this)}>
               <SubMenu title={<div className={url=='/statistics'||url=='/statistics_d'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div>}>
                 {Menus_one}
+              </SubMenu>
+            </Menu>
+            <Menu
+              theme="dark"
+              mode="inline"
+              defaultOpenKeys={['sub1', 'sub2']}
+              selectedKeys={[this.state.current]}
+              onClick={this.handleClick.bind(this)}>
+              <SubMenu title={<div className={ url == '/evaluation_count' ? list_style1 : list_style2}><img src="src/images/statistics.svg" alt=""/><span>测评统计</span></div>}>
+                {Menus_two}
               </SubMenu>
             </Menu>
           </nav>

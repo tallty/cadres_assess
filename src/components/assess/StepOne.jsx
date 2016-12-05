@@ -41,6 +41,7 @@ class StepOne extends Component {
 		let list = [];
 		const { getFieldDecorator } = this.props.form;
 		const { duties } = this.state;
+		const isAssessed = duties.length > 0;
 
 		for (let i = 0; i < 12; i++) {
 			let duty = duties[i] ? duties[i] : [];
@@ -48,12 +49,12 @@ class StepOne extends Component {
 				<div className={css.box} key={i+1}>
 					<div className={css.item0}>{i+1}</div>
 					<div className={css.item1}>
-						{getFieldDecorator("input"+i, { initialValue: duty[0]})(
-	            <Input type="text" placeholder={`自评项${i+1}`}/>
+						{getFieldDecorator("input"+i, { initialValue: duty[0] })(
+	            <Input type="text" placeholder={`自评项${i+1}`} disabled={isAssessed}/>
 	          )}
 					</div>
-					{getFieldDecorator("group"+i, { initialValue: duty[1]})(
-            <RadioGroup>
+					{getFieldDecorator("group"+i, { initialValue: duty[1] })(
+            <RadioGroup disabled={isAssessed}>
               <Radio value="perfect" className={css.item0}></Radio>
               <Radio value="good" className={css.item0}></Radio>
               <Radio value="normal" className={css.item0}></Radio>
@@ -90,6 +91,7 @@ class StepOne extends Component {
 			.end((err, res) => {
 				if (!err || err === null) {
 					this.setState({ total_assess: params.total_assess });
+					this.props.next();
 					Message.success("提交自我评价意见成功");
 				} else {
 					Message.error("提交自我评价意见失败，请重试");
@@ -130,7 +132,8 @@ class StepOne extends Component {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
     };
-    const { info, total_assess } = this.state;
+    const { duties, info, total_assess } = this.state;
+    const isAssessed = duties.length > 0;
 
 		return (
 			<Row gutter={16} className={css.assess_one}>
@@ -154,7 +157,7 @@ class StepOne extends Component {
 								<div className={css.item0}><span>*</span> 13</div>
 								<div className={css.item1}>总体评价</div>
 								{getFieldDecorator("total_assess", { initialValue: total_assess})(
-			            <RadioGroup>
+			            <RadioGroup disabled={isAssessed}>
 			              <Radio value="perfect" className={css.item0}></Radio>
 			              <Radio value="good" className={css.item0}></Radio>
 			              <Radio value="normal" className={css.item0}></Radio>
@@ -170,7 +173,7 @@ class StepOne extends Component {
 										initialValue: info.job,
 				            rules: [{ required: true}],
 				          })(
-				            <Input type="text" placeholder="从事或分管工作" />
+				            <Input type="text" placeholder="从事或分管工作" disabled={isAssessed}/>
 				          )}
 								</div>
 							</div>

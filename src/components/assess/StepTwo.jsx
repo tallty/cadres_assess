@@ -19,15 +19,23 @@ class StepTwo extends Component {
 		dataIndex: 'info.name',
 		key: 'name'
 	}, {
-		title: '部门',
+		title: '部门及职务',
 		dataIndex: 'info.department_and_duty',
 		key: 'department'
 	}, {
-		title: '评分情况',
+		title: '状态',
 		key: 'action',
-		render: (text, record) => (
-			record.already_edited ? '已评' : <a onClick={this.handleAssess.bind(this, record)}>待评</a>
-		)
+		render: (text, record) => {
+			if (record.already_edited) {
+				return '已评';
+			} else {
+				if (record.self_evaluation_has_edited) {
+					return <a onClick={this.handleAssess.bind(this, record)}>待评</a>;
+				} else {
+					return '未登记';
+				}
+			}
+		}
 	}];
 
 	componentDidMount() {
