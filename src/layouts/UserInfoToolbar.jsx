@@ -29,7 +29,6 @@ export class UserInfoToolbar extends Component {
 
 	signOut() {
 		sessionStorage.clear();
-		localStorage.clear();
 		location.href = '/';
 	}
 

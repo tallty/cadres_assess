@@ -8,6 +8,10 @@ const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const confirm = Modal.confirm;
 
+// 用户自评表的缓存
+var evaluation_cache = {};
+var now_cache = []; 
+
 class StepOne extends Component {
 	state = {
 		total_assess: null,
@@ -16,7 +20,21 @@ class StepOne extends Component {
 	}
 
 	componentWillMount() {
-		console.log(this.props.year);
+		this.getEvaluation();
+		this.getCache();
+	}
+
+	// 获取自评表缓存数据
+	getCache() {
+		let evaluation_cache_str = localStorage.getItem('evaluation_cache');
+		if (evaluation_cache_str) {
+			evaluation_cache = JSON.parse(evaluation_cache_str);
+			now_cache = evaluation_cache[`${sessionStorage.number}`];
+			now_cache = now_cache || [];
+		}
+	}
+
+	getEvaluation() {
 		Agent
 			.get(`http://114.55.172.35:3232/middle_managers/self_evaluation?self_evaluation[activity_year]=${this.props.year}`)
 			.set('Accept', 'application/json')
@@ -25,7 +43,6 @@ class StepOne extends Component {
 			.set('X-User-Jobnum', sessionStorage.number)
 			.end((err, res) => {
 				if (!err || err === null) {
-					console.log(res.body);
 					this.setState({ 
 						total_assess: res.body.content.self_evaluation_totality,
 						duties: res.body.content.duties,
@@ -45,12 +62,16 @@ class StepOne extends Component {
 
 		for (let i = 0; i < 12; i++) {
 			let duty = duties[i] ? duties[i] : [];
+			let input_value = duty[0] ? duty[0] : now_cache[i];
 			list.push(
 				<div className={css.box} key={i+1}>
 					<div className={css.item0}>{i+1}</div>
 					<div className={css.item1}>
-						{getFieldDecorator("input"+i, { initialValue: duty[0] })(
-	            <Input type="text" placeholder={`自评项${i+1}`} disabled={isAssessed}/>
+						{getFieldDecorator("input"+i, { initialValue: input_value })(
+	            <Input type="text" 
+	            			 placeholder={`自评项${i+1}`} 
+	            			 disabled={isAssessed}
+	            			 onBlur={this.cacheInput.bind(this, i)}/>
 	          )}
 					</div>
 					{getFieldDecorator("group"+i, { initialValue: duty[1] })(
@@ -65,6 +86,14 @@ class StepOne extends Component {
 			)
 		}
 		return list;
+	}
+
+	cacheInput(i, e) {
+		now_cache[i] = e.target.value;
+		if (e.target.value) {
+			evaluation_cache[`${sessionStorage.number}`] = now_cache;
+			localStorage.setItem('evaluation_cache', JSON.stringify(evaluation_cache));
+		}
 	}
 
 	handleSubmit(e) {
@@ -91,6 +120,10 @@ class StepOne extends Component {
 			.end((err, res) => {
 				if (!err || err === null) {
 					this.setState({ total_assess: params.total_assess });
+					// 删除cache
+					evaluation_cache[`${sessionStorage.number}`] = null;
+					localStorage.setItem('evaluation_cache', JSON.stringify(evaluation_cache));
+					// 跳转下一步
 					this.props.next();
 					Message.success("提交自我评价意见成功");
 				} else {
@@ -211,4 +244,5 @@ StepOne.propTypes = {
 }
 
 StepOne = Form.create()(StepOne);
+
 export default withRouter(StepOne);
