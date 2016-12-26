@@ -116,10 +116,13 @@ class Review extends Component {
    * 根据tag找到需要的key, 输出成对应的字符串
    */
   formatApiString(params, kind) {
+    console.log("++++++++++++++")
+    console.log(params);
+
     let str = '';
     formData.forEach((item, i, obj) => {
       if (item.kind === kind) {
-        str += `${item.key}*,*${params[item.key]}*;*`
+        str += `${item.key}*,*${params[item.index]}*;*`
       }
     });
     return str;
@@ -158,17 +161,17 @@ class Review extends Component {
       let value = parseInt(item[1]) === -1 ? null : parseInt(item[1]);
       let required = sessionStorage.getItem('user_type') !== 'leader';
       // 本页表单的key为动态指定，需保存表单的 key， value, 以便提交表单时， 根据key来获取value
-      let cache = { kind: key, key: item[0] };
+      let cache = { kind: key, key: item[0], index: i };
       formData.push(cache);
       // 表单列表
       cells.push(
-        <Row key={i} className={i % 2 == 0?css.form_input_cell:css.form_input2_cell}>
+        <Row key={i} className={i % 2 == 0 ? css.form_input_cell : css.form_input2_cell}>
           <Col span={12} className={css.form_label}>
             {item[0]}
           </Col>
           <Col span={12} className={css.form_input}>
             <FormItem>
-              {this.props.form.getFieldDecorator(`${item[0]}`, { 
+              {this.props.form.getFieldDecorator(`${i}`, { 
                 rules: [{ type: 'number', required: required, message: "请填写评分项" }],
                 initialValue: value 
               })(
