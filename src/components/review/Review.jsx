@@ -84,7 +84,7 @@ class Review extends Component {
     let upright_incorruptiable_str = this.formatApiString(params, UPRIGHT);
 
     console.log(thought_morals_str);
-    console.log(duties_str);
+    console.log(duties_str.split('*;*').join('*;*\n'));
     console.log(upright_incorruptiable_str);
 
     Agent
@@ -122,7 +122,8 @@ class Review extends Component {
     let str = '';
     formData.forEach((item, i, obj) => {
       if (item.kind === kind) {
-        str += `${item.key}*,*${params[item.index]}*;*`
+        let k = kind + '___' + item.index;
+        str += `${item.key}*,*${params[k]}*;*`;
       }
     });
     return str;
@@ -171,7 +172,7 @@ class Review extends Component {
           </Col>
           <Col span={12} className={css.form_input}>
             <FormItem>
-              {this.props.form.getFieldDecorator(`${i}`, { 
+              {this.props.form.getFieldDecorator(`${key}___${i}`, { 
                 rules: [{ type: 'number', required: required, message: "请填写评分项" }],
                 initialValue: value 
               })(
