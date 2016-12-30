@@ -79,8 +79,9 @@ class StepTwo extends Component {
 	 */
 	handleAssess(evaluation) {
 		if (this.props.active) {
+			let { year } = this.props.timeline;
 			sessionStorage.setItem('evaluation', JSON.stringify(evaluation));
-			this.props.router.replace(`/review?id=${evaluation.id}`);
+			this.props.router.replace(`/review?id=${evaluation.id}&year=${year}`);
 		} else {
 			this.setState({ visible: true });
 		}
@@ -124,7 +125,7 @@ class StepTwo extends Component {
 						<Table columns={this.columns} dataSource={this.state.evaluations} />
 					</div>
 
-					<Modal title="系统消息" 
+					<Modal title="系统消息"
 								 visible={this.state.visible} 
 								 onOk={this.handleOk.bind(this)} 
 								 closable={false}

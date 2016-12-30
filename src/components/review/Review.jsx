@@ -193,12 +193,13 @@ class Review extends Component {
     let total_count = evaluation ? evaluation.content.evaluation_totality : null;
     total_count = parseInt(total_count) === -1 ? null : parseInt(total_count);
     const { getFieldDecorator } = this.props.form;
+    const year = this.props.location.query.year;
 
     return (
       <div>
         {/* 主体 */}
         <div className={css.review_container}>
-          <div className={css.form_title}>中层干部<span>2015</span>年度考核民主测评表</div>
+          <div className={css.form_title}>中层干部<span> {year} </span>年度考核民主测评表</div>
           {/* 用户信息 */}
           {/*
             <div className={css.user_info_content}>

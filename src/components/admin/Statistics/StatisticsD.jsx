@@ -154,8 +154,15 @@ class StatisticsD extends Component {
   reset_data(data, data1){
     var data_p1 = []
     for (let i=0; i < data1.length; i++) {
-      data1[i][i].item_name = `考核项目${i}`
-      data_p1.push(data1[i][i])
+      
+      if (i === data1.length - 1) {
+        data1[i][i].item_name = `平均分`;
+      } else if (i === data1.length - 2) {
+        data1[i][i].item_name = `总体评价`;
+      } else {
+        data1[i][i].item_name = `考核项目${i+1}`;
+      }
+      data_p1.push(data1[i][i]);
     }
     this.setState({order_data: data, persent_data: data_p1 })
   }
