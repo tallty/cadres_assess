@@ -21,6 +21,7 @@ class Statistics extends Component {
     visible: false,
     logic_record: {},
     logic_index: null,
+    logic_tag: "",
     modal_loading: false
   };
   columns = [{
@@ -46,7 +47,10 @@ class Statistics extends Component {
       dataIndex: 'average_score_for_all',
       sorter: (a, b) => a.average_score_for_all - b.average_score_for_all,
     },{
-      title: '等级',
+      title: '考核等级',
+      dataIndex: 'output_of_level_of_average_score_for_all',
+    },{
+      title: '评鉴等级',
       dataIndex: 'final_result',
     },{
       title: '操作',
@@ -68,17 +72,19 @@ class Statistics extends Component {
   adminEvaluate(record, index) {
     return (
       <ButtonGroup>
-        <Button type="primary" onClick={this.showModal.bind(this, record, index)}>评鉴</Button>
+        <Button type="primary" onClick={this.showModal.bind(this, record, index, '评鉴')}>评鉴</Button>
+        <Button type="primary" onClick={this.showModal.bind(this, record, index, '考核')}>考核</Button>
         <Button type="primary" onClick={this.detail_cell.bind(this, record)}>详情</Button>
       </ButtonGroup>
     );
   }
 
-  showModal(record, index) {
+  showModal(record, index, tag) {
     this.setState({ 
       visible: true,
       logic_record: record,
-      logic_index: index
+      logic_index: index,
+      logic_tag: tag
     });
   }
 
@@ -91,31 +97,62 @@ class Statistics extends Component {
   }
 
   handleSubmit(e) {
-    this.setState({modal_loading: true});
     e.preventDefault();
+    this.setState({modal_loading: true});
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        SuperAgent
-          .patch(`http://114.55.172.35:3232//admin/results/${this.state.logic_record.id}/set_final_result`)
-          .set('Accept', 'application/json')
-          .set('Cache-control', 'no-cache')
-          .set('X-Admin-Token', sessionStorage.admin_token)
-          .set('X-Admin-Email', sessionStorage.admin_email)
-          .field('result[final_result]', values.level)
-          .end( (err, res) => {
-            if (!err || err === null) {
-              let {data, logic_index} = this.state;
-              let item = data[logic_index];
-              item.final_result = values.level;
-              console.log(data);
-              this.setState({data: data, modal_loading: false, visible: false});
-            } else {
-              Message.error("评鉴失败，请重试");
-            }
-          })
+        if (this.state.logic_tag === "评鉴") {
+          this.setEvaluateByAdministrator(values);
+        } else if (this.state.logic_tag === "考核") {
+          this.setLevelByAdministrator(values);
+        }
       }
     });
+  }
+
+  setEvaluateByAdministrator(values) {
+    SuperAgent
+      .patch(`http://114.55.172.35:3232/admin/results/${this.state.logic_record.id}/set_final_result`)
+      .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
+      .set('X-Admin-Token', sessionStorage.admin_token)
+      .set('X-Admin-Email', sessionStorage.admin_email)
+      .field('result[final_result]', values.level)
+      .end( (err, res) => {
+        if (!err || err === null) {
+          let {data, logic_index} = this.state;
+          let item = data[logic_index];
+          item.final_result = values.level;
+          console.log(data);
+          this.setState({data: data, modal_loading: false, visible: false});
+        } else {
+          Message.error("评鉴失败，请重试");
+          this.setState({modal_loading: false});
+        }
+      })
+  }
+
+  setLevelByAdministrator(values) {
+    SuperAgent
+      .patch(`http://114.55.172.35:3232/admin/results/${this.state.logic_record.id}/set_average_level`)
+      .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
+      .set('X-Admin-Token', sessionStorage.admin_token)
+      .set('X-Admin-Email', sessionStorage.admin_email)
+      .field('result[average_level_by_setting]', values.level)
+      .end( (err, res) => {
+        if (!err || err === null) {
+          let {data, logic_index} = this.state;
+          let item = data[logic_index];
+          item.output_of_level_of_average_score_for_all = values.level;
+          console.log(data);
+          this.setState({data: data, modal_loading: false, visible: false});
+        } else {
+          Message.error("设置考核失败，请重试");
+          this.setState({modal_loading: false});
+        }
+      })
   }
 
   getQueryString(name) {
