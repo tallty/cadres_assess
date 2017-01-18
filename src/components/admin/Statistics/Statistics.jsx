@@ -215,15 +215,15 @@ class Statistics extends Component {
             pagination={{pageSize: 9}} 
             onChange={this.onChange} />
 
-          <Modal title="考核人员等级评鉴" visible={this.state.visible}
+          <Modal title="考核人员等级设置" visible={this.state.visible}
                  onCancel={this.handleCancel.bind(this)}
                  footer={false}>
             <Form onSubmit={this.handleSubmit.bind(this)}>
-              <FormItem {...formItemLayout} label="评鉴等级">
+              <FormItem {...formItemLayout} label="设置等级">
                 {getFieldDecorator('level', {
-                  rules: [{ required: true, message: '请输入评鉴等级！' }],
+                  rules: [{ required: true, message: '请输入等级！' }],
                 })(
-                  <Select multiple={false} placeholder="请选择评鉴等级">
+                  <Select multiple={false} placeholder="请选择等级">
                     <Option value="优秀">优秀</Option>
                     <Option value="称职">称职</Option>
                     <Option value="基本称职">基本称职</Option>

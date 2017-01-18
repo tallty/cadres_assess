@@ -107,6 +107,7 @@ export class StepThree extends Component {
 			<div className={css.assess_three}>
         {/*-startprint-*/}
         <div id="print_table_one">
+
           <div className={css.print_table}>
             <h2 className={css.table_title}>上海电子信息职业技术学院<br/>中层干部{this.getQueryString("year")}年度考核结果反馈表</h2>
             <div className={css.table_cell_one}>
@@ -179,8 +180,9 @@ export class StepThree extends Component {
               </table>
             </div>
           </div>
-          <div className={css.break_page}></div>
+
         {/*-endprint-*/}
+
           <div className={css.print_table}>
             <div className={css.table_content}>
               <table>
@@ -231,10 +233,10 @@ export class StepThree extends Component {
                     <td>不称职</td>
                   </tr>
                   <tr>
-                    <td>{statistics_result.level_of_average_score_for_all == "优秀"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
-                    <td>{statistics_result.level_of_average_score_for_all == "称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
-                    <td>{statistics_result.level_of_average_score_for_all == "基本称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
-                    <td>{statistics_result.level_of_average_score_for_all == "不称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.output_of_level_of_average_score_for_all == "优秀"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.output_of_level_of_average_score_for_all == "称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.output_of_level_of_average_score_for_all == "基本称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
+                    <td>{statistics_result.output_of_level_of_average_score_for_all == "不称职"?<Icon className={css.check_icon} type="check" />:<span>&nbsp;</span>}</td>
                   </tr>
                   <tr className={css.row_height}>
                     <td colSpan={6}>
@@ -271,6 +273,7 @@ export class StepThree extends Component {
             </div>
             {/* <div className={css.btn_content}><Button className={css.print_btn_two} onClick={this.preview.bind(this, "print_table_two")} type="primary">打印表格</Button></div> */}
           </div>
+
         </div> 
       </div>
 		);
