@@ -29,17 +29,17 @@ class AdminLogIn extends Component {
     const value = this.props.form.getFieldsValue()
     let email = value.email;
     let password = value.password;
-    this.beginLogin(email, password );
+    this.beginLogin(email, password);
   }
 
   // 管理员登录
-  beginLogin(email, password){
+  beginLogin(email, password) {
     SuperAgent
-      .post("http://114.55.172.35:3232/admins/sign_in")
+      .post("http://stiei-api.tallty.com/admins/sign_in")
       .set('Accept', 'application/json')
       .set('Cache-control', 'no-cache')
-      .send({'admin': {'email': email, 'password': password}})
-      .end( (err, res) => {
+      .send({ 'admin': { 'email': email, 'password': password } })
+      .end((err, res) => {
         if (!err || err === null) {
           sessionStorage.setItem('admin_email', email);
           sessionStorage.setItem('admin_token', res.body.authentication_token);
@@ -63,14 +63,14 @@ class AdminLogIn extends Component {
             <Col span={24} className={css.login_input}>
               <FormItem id="control-input1" >
                 {getFieldDecorator('email', { initialValue: '' })(
-                  <Input id="control-input1" placeholder="用户邮箱"/>
+                  <Input id="control-input1" placeholder="用户邮箱" />
                 )}
               </FormItem>
             </Col>
             <Col span={24} className={css.login_input}>
               <FormItem id="control-input2">
                 {getFieldDecorator('password', { initialValue: '' })(
-                  <Input id="control-input2" type="password" placeholder="密码" className={css.email_input}/>
+                  <Input id="control-input2" type="password" placeholder="密码" className={css.email_input} />
                 )}
               </FormItem>
             </Col>

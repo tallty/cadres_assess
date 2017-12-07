@@ -148,7 +148,17 @@
 		padding-bottom: 20px;
 		.self_print_table {
 			td {
-				padding: 3px 5px;
+				padding: 1px 5px;
+				height: 39px;
+			}
+			.self_print_table_p {
+				height: 39px !important;
+				max-height: 39px !important;
+				overflow : hidden;
+		    text-overflow: ellipsis;
+		    display: -webkit-box;
+		    -webkit-line-clamp: 2;
+		    -webkit-box-orient: vertical;
 			}
 		}
 		table {
@@ -160,7 +170,7 @@
 				word-break:break-all;
 				word-wrap:break-word;
 				border-color: #333;
-				padding: 4px 0;
+				padding: 1px 0;
 			}
 			.persent_t {
 				width: 220px;

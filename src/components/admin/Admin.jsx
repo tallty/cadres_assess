@@ -9,12 +9,12 @@ import Agent from 'superagent';
 
 const SubMenu = Menu.SubMenu;
 
-function GetUrlRelativePath(){
+function GetUrlRelativePath() {
   var url = document.location.toString();
   var arrUrl = url.split("//");
   var start = arrUrl[1].indexOf("/");
   var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
-  if(relUrl.indexOf("?") != -1){
+  if (relUrl.indexOf("?") != -1) {
     relUrl = relUrl.split("?")[0];
   }
   return relUrl;
@@ -32,7 +32,7 @@ class Admin extends Component {
 
   componentWillMount() {
     Agent
-      .get("http://114.55.172.35:3232/admin/activities")
+      .get("http://stiei-api.tallty.com/admin/activities")
       .set('Accept', 'application/json')
       .set('Cache-control', 'no-cache')
       .set('X-Admin-Token', sessionStorage.admin_token)
@@ -44,7 +44,7 @@ class Admin extends Component {
           for (let list of results) {
             lists.push(list.activity_year)
           }
-          this.setState({ 
+          this.setState({
             lists: lists
           });
         } else {
@@ -101,15 +101,15 @@ class Admin extends Component {
       <MainLayout>
         <div className={css.holyGrail_body}>
           <nav className={css.holyGrail_nav}>
-            <Link to="/test_set"><div className={url=='/test_set'?list_style1:list_style2}><img src="src/images/testSetting.svg" alt=""/><span>考核设置</span></div></Link>
-            <Link to="/user_set"><div className={url=='/user_set'?list_style1:list_style2}><img src="src/images/setting.svg" alt=""/><span>用户设置</span></div></Link>
+            <Link to="/test_set"><div className={url == '/test_set' ? list_style1 : list_style2}><img src="src/images/testSetting.svg" alt="" /><span>考核设置</span></div></Link>
+            <Link to="/user_set"><div className={url == '/user_set' ? list_style1 : list_style2}><img src="src/images/setting.svg" alt="" /><span>用户设置</span></div></Link>
             <Menu
               theme="dark"
               mode="inline"
               defaultOpenKeys={['sub1', 'sub2']}
               selectedKeys={[this.state.current]}
               onClick={this.handleClick.bind(this)}>
-              <SubMenu title={<div className={url=='/statistics'||url=='/statistics_d'?list_style1:list_style2}><img src="src/images/statistics.svg" alt=""/><span>分数统计表</span></div>}>
+              <SubMenu title={<div className={url == '/statistics' || url == '/statistics_d' ? list_style1 : list_style2}><img src="src/images/statistics.svg" alt="" /><span>分数统计表</span></div>}>
                 {Menus_one}
               </SubMenu>
             </Menu>
@@ -119,13 +119,13 @@ class Admin extends Component {
               defaultOpenKeys={['sub1', 'sub2']}
               selectedKeys={[this.state.current]}
               onClick={this.handleClick.bind(this)}>
-              <SubMenu title={<div className={ url == '/evaluation_count' ? list_style1 : list_style2}><img src="src/images/statistics.svg" alt=""/><span>测评统计</span></div>}>
+              <SubMenu title={<div className={url == '/evaluation_count' ? list_style1 : list_style2}><img src="src/images/statistics.svg" alt="" /><span>测评统计</span></div>}>
                 {Menus_two}
               </SubMenu>
             </Menu>
           </nav>
           <main className={css.holyGrail_content}>
-            {this.props.children }
+            {this.props.children}
           </main>
         </div>
       </MainLayout>

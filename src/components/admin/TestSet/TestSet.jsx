@@ -23,17 +23,17 @@ class TestSet extends Component {
     this.getActivities();
   }
 
-  getActivities(){
+  getActivities() {
     SuperAgent
-      .get("http://114.55.172.35:3232/admin/activities?page=1&per_page=1000")
+      .get("http://stiei-api.tallty.com/admin/activities?page=1&per_page=1000")
       .set('Accept', 'application/json')
       .set('X-Admin-Token', sessionStorage.admin_token)
       .set('X-Admin-Email', sessionStorage.admin_email)
-      .end( (err, res) => {
+      .end((err, res) => {
         if (!err || err === null) {
           console.log("获取所有考核活动成功");
           console.dir(res.body);
-          this.setState({ activities: this.setDataSource(res.body.activities)});
+          this.setState({ activities: this.setDataSource(res.body.activities) });
         } else {
           console.log("获取所有考核活动失败");
           Message.error("获取所有考核活动失败");
@@ -44,7 +44,7 @@ class TestSet extends Component {
   // 整理数据源
   setDataSource(activities) {
     let array = [];
-    for(let activity of activities) {
+    for (let activity of activities) {
       let first_begin = moment(activity.first_phase_begin).format('YYYY-MM-DD');
       let first_end = moment(activity.first_phase_end).format('YYYY-MM-DD');
       let second_begin = moment(activity.second_phase_begin).format('YYYY-MM-DD');
@@ -82,8 +82,8 @@ class TestSet extends Component {
   /**
    * 表格条目点击
    */
-  detail_cell(record, index){
-    
+  detail_cell(record, index) {
+
   }
 
   /**
@@ -110,7 +110,7 @@ class TestSet extends Component {
     console.dir(activity);
   }
 
-  getColumns(){
+  getColumns() {
     const columns = [{
       title: '考核年度',
       dataIndex: 'year',
@@ -124,7 +124,7 @@ class TestSet extends Component {
     }, {
       title: '分数统计时间',
       dataIndex: 'column_third',
-    },{
+    }, {
       title: '操作',
       dataIndex: '',
       key: 'x',
@@ -136,12 +136,12 @@ class TestSet extends Component {
   /**
    * 自定义操作列
    */
-  change_icon(record){
+  change_icon(record) {
     const change_icon = []
     change_icon.push(
       <div key={record.id} className={css.icon_content}>
         <ButtonGroup>
-          <Button type="primary" icon="edit" onClick={this.showModal.bind(this, record)}/>
+          <Button type="primary" icon="edit" onClick={this.showModal.bind(this, record)} />
           {/* <Button type="primary" icon="delete" onClick={this.deleteConfirm.bind(this, this, record)} /> */}
         </ButtonGroup>
       </div>
@@ -160,7 +160,7 @@ class TestSet extends Component {
     });
   }
 
-  handleModalVisible(){
+  handleModalVisible() {
     console.log("清楚了模态框表单的初始值");
     this.setState({
       visible: false
@@ -175,17 +175,17 @@ class TestSet extends Component {
         <div className={css.table_content}>
           <Button onClick={this.showModal.bind(this, {})} type="primary" icon="plus">新建考核</Button>
 
-          <Table columns={this.getColumns()} 
-                 bordered 
-                 dataSource={activities} 
-                 onRowClick={this.detail_cell.bind(this)} 
-                 pagination={false} 
-                 onChange={this.onChange} />
+          <Table columns={this.getColumns()}
+            bordered
+            dataSource={activities}
+            onRowClick={this.detail_cell.bind(this)}
+            pagination={false}
+            onChange={this.onChange} />
 
-          <ListModal visible={this.state.visible} 
-                     activity={this.state.record}
-                     hideModal={this.handleModalVisible.bind(this)}
-                     refreshData={this.getActivities.bind(this)} />
+          <ListModal visible={this.state.visible}
+            activity={this.state.record}
+            hideModal={this.handleModalVisible.bind(this)}
+            refreshData={this.getActivities.bind(this)} />
         </div>
       </Admin>
     )

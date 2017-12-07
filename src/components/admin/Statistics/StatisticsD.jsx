@@ -33,49 +33,49 @@ const columns = [{
 }, {
   title: '考核项4',
   dataIndex: 'add_index.3',
-},{
+}, {
   title: '考核项5',
   dataIndex: 'add_index.4',
-},{
+}, {
   title: '考核项6',
   dataIndex: 'add_index.5',
-},{
+}, {
   title: '考核项7',
   dataIndex: 'add_index.6',
-},{
+}, {
   title: '考核项8',
   dataIndex: 'add_index.7',
-},{
+}, {
   title: '考核项9',
   dataIndex: 'add_index.8',
-},{
+}, {
   title: '考核项10',
   dataIndex: 'add_index.9',
-},{
+}, {
   title: '考核项11',
   dataIndex: 'add_index.10',
-},{
+}, {
   title: '考核项12',
   dataIndex: 'add_index.11',
-},{
+}, {
   title: '考核项13',
   dataIndex: 'add_index.12',
-},{
+}, {
   title: '考核项14',
   dataIndex: 'add_index.13',
-},{
+}, {
   title: '考核项15',
   dataIndex: 'add_index.14',
-},{
+}, {
   title: '考核项16',
   dataIndex: 'add_index.15',
-},{
+}, {
   title: '考核项17',
   dataIndex: 'add_index.16',
-},{
+}, {
   title: '总体评价',
   dataIndex: 'add_index.17',
-},{
+}, {
   title: '平均分',
   dataIndex: 'add_index.18',
   sorter: (a, b) => a.num - b.num,
@@ -147,48 +147,48 @@ class StatisticsD extends Component {
     this.getData()
   }
 
-  detail_cell(record, index){
+  detail_cell(record, index) {
     console.log(record);
   }
 
-  reset_data(data, data1){
+  reset_data(data, data1) {
     var data_p1 = []
-    for (let i=0; i < data1.length; i++) {
-      
+    for (let i = 0; i < data1.length; i++) {
+
       if (i === data1.length - 1) {
         data1[i][i].item_name = `平均分`;
       } else if (i === data1.length - 2) {
         data1[i][i].item_name = `总体评价`;
       } else {
-        data1[i][i].item_name = `考核项目${i+1}`;
+        data1[i][i].item_name = `考核项目${i + 1}`;
       }
       data_p1.push(data1[i][i]);
     }
-    this.setState({order_data: data, persent_data: data_p1 })
+    this.setState({ order_data: data, persent_data: data_p1 })
   }
 
-  getData(){
+  getData() {
     var token = localStorage.token
     var phone = localStorage.phone
-    var url = `http://114.55.172.35:3232/admin/results/${this.props.location.query.id}`
+    var url = `http://stiei-api.tallty.com/admin/results/${this.props.location.query.id}`
     SuperAgent.get(url)
-              .set('Accept', 'application/json')
-              .set('Cache-control', 'no-cache')
-              .set('X-Admin-Token', sessionStorage.admin_token)
-              .set('X-Admin-Email', sessionStorage.admin_email)
-              .end( (err, res) => {
-                if (res.ok) {
-                  var data = res.body
-                  var data1 = res.body.statistics
-                  //数据格式处理函数
-                  this.reset_data(data, data1)
-                }
-              })
+      .set('Accept', 'application/json')
+      .set('Cache-control', 'no-cache')
+      .set('X-Admin-Token', sessionStorage.admin_token)
+      .set('X-Admin-Email', sessionStorage.admin_email)
+      .end((err, res) => {
+        if (res.ok) {
+          var data = res.body
+          var data1 = res.body.statistics
+          //数据格式处理函数
+          this.reset_data(data, data1)
+        }
+      })
   }
 
   render() {
     const id = this.props.location.query.id;
-    const url = `http://114.55.172.35:3232/admin/output_result_show?result_id=${id}`
+    const url = `http://stiei-api.tallty.com/admin/output_result_show?result_id=${id}`
     return (
       <Admin>
         <div className={css.table_content}>
@@ -196,16 +196,16 @@ class StatisticsD extends Component {
           <div className={css.table_title}><span>{this.state.order_data.name}</span>考核成绩表</div>
           <Tabs defaultActiveKey="5" onChange={callback}>
             <TabPane className={css.tab_content} tab="领导打分数据统计" key="1">
-              <Table columns={columns} bordered dataSource={this.state.order_data.leader_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
+              <Table columns={columns} bordered dataSource={this.state.order_data.leader_evaluations} onRowClick={this.detail_cell} pagination={{ pageSize: 9 }} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="中层干部互评统计" key="2">
-              <Table columns={columns} bordered dataSource={this.state.order_data.middle_manager_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
+              <Table columns={columns} bordered dataSource={this.state.order_data.middle_manager_evaluations} onRowClick={this.detail_cell} pagination={{ pageSize: 9 }} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="职工打分数据统计" key="3">
-              <Table columns={columns} bordered dataSource={this.state.order_data.staff_evaluations} onRowClick={this.detail_cell} pagination={{pageSize: 9}} onChange={onChange} />
+              <Table columns={columns} bordered dataSource={this.state.order_data.staff_evaluations} onRowClick={this.detail_cell} pagination={{ pageSize: 9 }} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="数据比例分析" key="4">
-              <Table columns={columns2} bordered dataSource={this.state.persent_data} onRowClick={this.detail_cell} pagination={ false } onChange={onChange} />
+              <Table columns={columns2} bordered dataSource={this.state.persent_data} onRowClick={this.detail_cell} pagination={false} onChange={onChange} />
             </TabPane>
             <TabPane className={css.tab_content} tab="表单文件打印" key="5">
               <StepThree {...this.state} />

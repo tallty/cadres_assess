@@ -32,7 +32,7 @@ class Review extends Component {
   getEvaluation() {
     let id = this.props.location.query.id;
     Agent
-      .get(`http://114.55.172.35:3232/evaluations/${id}`)
+      .get(`http://stiei-api.tallty.com/evaluations/${id}`)
       .set('Accept', 'application/json')
       .set('Cache-control', 'no-cache')
       .set('X-User-Token', sessionStorage.token)
@@ -41,7 +41,7 @@ class Review extends Component {
         if (!err || err === null) {
           console.log("获取要评价的人员成功");
           console.dir(res.body);
-          this.setState({ 
+          this.setState({
             evaluation: res.body,
             complete: res.body.already_edited
           });
@@ -65,7 +65,7 @@ class Review extends Component {
           // 员工、中层干部打分
           this.otherEvalution(values);
         }
-      } 
+      }
     });
   }
 
@@ -88,16 +88,18 @@ class Review extends Component {
     console.log(upright_incorruptiable_str);
 
     Agent
-      .put(`http://114.55.172.35:3232/evaluations/${id}`)
+      .put(`http://stiei-api.tallty.com/evaluations/${id}`)
       .set('Accept', 'application/json')
       .set('X-User-Token', sessionStorage.token)
       .set('X-User-Jobnum', sessionStorage.number)
-      .send({evaluation: {
-        thought_morals: thought_morals_str,
-        duties: duties_str,
-        upright_incorruptiable: upright_incorruptiable_str,
-        evaluation_totality: params.total_count,
-      }})
+      .send({
+        evaluation: {
+          thought_morals: thought_morals_str,
+          duties: duties_str,
+          upright_incorruptiable: upright_incorruptiable_str,
+          evaluation_totality: params.total_count,
+        }
+      })
       .end((err, res) => {
         if (!err || err === null) {
           console.log("提交测评成功");
@@ -135,13 +137,15 @@ class Review extends Component {
   leaderEvalution(params) {
     let id = this.state.evaluation.id;
     Agent
-      .put(`http://114.55.172.35:3232/evaluations/${id}`)
+      .put(`http://stiei-api.tallty.com/evaluations/${id}`)
       .set('Accept', 'application/json')
       .set('X-User-Token', sessionStorage.token)
       .set('X-User-Jobnum', sessionStorage.number)
-      .send({evaluation: {
-        evaluation_totality: params.total_count,
-      }})
+      .send({
+        evaluation: {
+          evaluation_totality: params.total_count,
+        }
+      })
       .end((err, res) => {
         if (!err || err === null) {
           console.log("领导提交测评成功");
@@ -155,7 +159,7 @@ class Review extends Component {
       })
   }
 
-  getFormCell(evaluation, key){
+  getFormCell(evaluation, key) {
     let array = evaluation.content[key];
     let cells = [];
     array.forEach((item, i, obj) => {
@@ -172,12 +176,12 @@ class Review extends Component {
           </Col>
           <Col span={12} className={css.form_input}>
             <FormItem>
-              {this.props.form.getFieldDecorator(`${key}___${i}`, { 
+              {this.props.form.getFieldDecorator(`${key}___${i}`, {
                 rules: [{ type: 'number', required: required, message: "请填写评分项" }],
-                initialValue: value 
+                initialValue: value
               })(
-                <InputNumber min={0} max={99} disabled={this.state.complete}/>
-              )}
+                <InputNumber min={0} max={99} disabled={this.state.complete} />
+                )}
             </FormItem>
           </Col>
         </Row>
@@ -246,7 +250,7 @@ class Review extends Component {
                 </Row>
               </div>
               <div className={css.form_cell_body}>
-                { evaluation ? this.getFormCell(evaluation, DUTIES) : null }
+                {evaluation ? this.getFormCell(evaluation, DUTIES) : null}
               </div>
             </div>
             <div className={css.form_cell}>
@@ -269,12 +273,12 @@ class Review extends Component {
               </div>
               <div className={css.form_cell_body}>
                 <FormItem className={css.num_review}>
-                  {getFieldDecorator('total_count', { 
+                  {getFieldDecorator('total_count', {
                     rules: [{ type: 'number', required: true, message: "请填写总体评价" }],
-                    initialValue: total_count 
+                    initialValue: total_count
                   })(
                     <InputNumber min={0} max={99} disabled={complete} />
-                  )}<span>分</span>
+                    )}<span>分</span>
                 </FormItem>
               </div>
             </div>
@@ -282,10 +286,10 @@ class Review extends Component {
               <FormItem>
                 <Button type="primary" htmlType="submit">提交测评表</Button>
               </FormItem>
-              <Link to="/assess?step=2"> 
+              <Link to="/assess?step=2">
                 <Button type="ghost">返回待测评列表</Button>
               </Link>
-              <br/><br/>
+              <br /><br />
             </div>
           </Form>
         </div>

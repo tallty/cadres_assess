@@ -6,11 +6,11 @@ import { Link } from 'react-router'
 import { Icon, Button, Table, Modal, Message } from 'antd'
 
 class EvaluationCount extends Component {
-	state = {
-		data: [],
-		loading: true
-	};
-	columns = [{
+  state = {
+    data: [],
+    loading: true
+  };
+  columns = [{
     title: '工号',
     dataIndex: 'job_num',
     sorter: (a, b) => a.job_num - b.job_num,
@@ -25,22 +25,22 @@ class EvaluationCount extends Component {
   }];
 
   componentWillMount() {
-  	const year = this.props.location.query.year;
+    const year = this.props.location.query.year;
     this.getData(year);
   }
 
-  getData(year){
+  getData(year) {
     SuperAgent
-      .get(`http://114.55.172.35:3232/admin/evaluation_count?activity_year=${year}`)
+      .get(`http://stiei-api.tallty.com/admin/evaluation_count?activity_year=${year}`)
       .set('Accept', 'application/json')
       .set('X-Admin-Token', sessionStorage.admin_token)
       .set('X-Admin-Email', sessionStorage.admin_email)
-      .end( (err, res) => {
+      .end((err, res) => {
         if (!err || err === null) {
-        	console.log(res.body);
-          this.setState({ 
-          	data: res.body, 
-          	loading: false
+          console.log(res.body);
+          this.setState({
+            data: res.body,
+            loading: false
           });
         } else {
           Message.error("获取数据失败");
@@ -48,20 +48,20 @@ class EvaluationCount extends Component {
       })
   }
 
-	render() {
-		return (
-			<Admin>
-				<br/>
-				<div className={css.table_content}>
-					<Table columns={this.columns}
-	          bordered 
-	          dataSource={this.state.data} 
-	          loading={this.state.loading}
-	          pagination={{pageSize: 9}} />
-				</div>
-			</Admin>
-		);
-	}
+  render() {
+    return (
+      <Admin>
+        <br />
+        <div className={css.table_content}>
+          <Table columns={this.columns}
+            bordered
+            dataSource={this.state.data}
+            loading={this.state.loading}
+            pagination={{ pageSize: 9 }} />
+        </div>
+      </Admin>
+    );
+  }
 }
 
 export default EvaluationCount;
