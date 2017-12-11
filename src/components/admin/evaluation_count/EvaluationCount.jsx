@@ -4,16 +4,35 @@ import Admin from '../Admin';
 import css from './evaluation_count.less'
 import { Link } from 'react-router'
 import { Icon, Button, Table, Modal, Message } from 'antd'
+import { spawn } from 'child_process';
 
 class EvaluationCount extends Component {
   state = {
     data: [],
     loading: true
   };
+
   columns = [{
     title: '工号',
     dataIndex: 'job_num',
     sorter: (a, b) => a.job_num - b.job_num,
+  }, {
+    title: '姓名',
+    dataIndex: 'name',
+  }, {
+    title: ' 是否自评',
+    dataIndex: 'self_evaluation_edited',
+    render: (text, record, index) => this.renderselfEvaluation(record, index),
+    filters: [{
+      text: '已自评',
+      value: true
+    }, {
+      text: '未自评',
+      value: false
+    }],
+    onFilter: (value, record) => {
+      return String(record.self_evaluation_edited) === value;
+    }
   }, {
     title: '已评数',
     dataIndex: 'edited_count',
@@ -43,9 +62,15 @@ class EvaluationCount extends Component {
             loading: false
           });
         } else {
-          Message.error("获取数据失败");
+          Message.error('获取数据失败');
         }
       })
+  }
+
+  renderselfEvaluation(record) {
+    return record.self_evaluation_edited ?
+      <span className={css.text_green}>已自评</span> :
+      <span className={css.text_red}>未自评</span>;
   }
 
   render() {
