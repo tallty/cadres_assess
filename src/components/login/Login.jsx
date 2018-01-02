@@ -41,7 +41,7 @@ class Login extends Component {
   beginLogin(values) {
     // 开始登录
     SuperAgent
-      .post("http://stiei-api.tallty.com/users/sign_in")
+      .post('http://stiei-api.tallty.com/users/sign_in')
       .set('Accept', 'application/json')
       .set('Cache-control', 'no-cache')
       .send({ user: { job_num: values.number, password: values.password } })
@@ -61,14 +61,14 @@ class Login extends Component {
         } else {
           console.dir(err);
           this.setState({ loading: false });
-          Message.error("登录失败，请检查登录信息是否正确");
+          Message.error('登录失败，请检查登录信息是否正确');
         }
       })
   }
 
   getTimeLine() {
     SuperAgent
-      .get("http://stiei-api.tallty.com/home_info")
+      .get('http://stiei-api.tallty.com/home_info')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (!err || err === null) {
@@ -85,10 +85,10 @@ class Login extends Component {
           let str = JSON.stringify(obj);
           sessionStorage.setItem('timeline', str);
           console.log(timeline);
-          this.setState({ timeline: timeline });
+          this.setState({ timeline });
         } else {
           console.dir(err);
-          Message.error("获取考核时间表失败，请稍后重试。")
+          Message.error('获取考核时间表失败，请稍后重试。')
         }
       })
   }
@@ -98,7 +98,7 @@ class Login extends Component {
     if (value) {
       callback();
     } else {
-      callback("请输入登录账号");
+      callback('请输入登录账号');
     }
   }
 
@@ -107,7 +107,7 @@ class Login extends Component {
     if (value) {
       callback();
     } else {
-      callback("请输入登录密码");
+      callback('请输入登录密码');
     }
   }
 
@@ -130,9 +130,9 @@ class Login extends Component {
                 <div className={css.timeContent} style={{ marginTop: timeTop }}>
                   <p>{year} 年考核流程说明图</p>
                   <img src="src/images/timeline.svg" alt="时间线" />
-                  <div className={css.timeOne}>{first_begin.format("MM-DD")} —— {first_end.format("MM-DD")}</div>
-                  <div className={css.timeTwo}>{second_begin.format("MM-DD")} —— {second_end.format("MM-DD")}</div>
-                  <div className={css.timeThree}>{third_begin.format("MM-DD")} —— {third_end.format("MM-DD")}</div>
+                  <div className={css.timeOne}>{first_begin.format('MM-DD')} —— {first_end.format('MM-DD')}</div>
+                  <div className={css.timeTwo}>{second_begin.format('MM-DD')} —— {second_end.format('MM-DD')}</div>
+                  <div className={css.timeThree}>{third_begin.format('MM-DD')} —— {third_end.format('MM-DD')}</div>
                 </div>
               </Col>
 
@@ -141,12 +141,13 @@ class Login extends Component {
                   <p className={css.title}>登 录</p>
                   <Form onSubmit={this.handleSubmit.bind(this)}>
                     <FormItem className={css.input_item}
-                      hasFeedback >
+                      hasFeedback
+                    >
                       {getFieldDecorator('number', {
                         rules: [{
                           required: true, message: '请输入登录账号'
                         }, {
-                          validator: this.checkNumber.bind(this),
+                          validator: this.checkNumber.bind(this)
                         }]
                       })(
                         <Input placeholder="输入工号" type="text" />
@@ -154,12 +155,13 @@ class Login extends Component {
                       <Icon type="user" />
                     </FormItem>
                     <FormItem className={css.input_item}
-                      hasFeedback >
+                      hasFeedback
+                    >
                       {getFieldDecorator('password', {
                         rules: [{
-                          required: true, message: '请输入登录密码',
+                          required: true, message: '请输入登录密码'
                         }, {
-                          validator: this.checkPassword.bind(this),
+                          validator: this.checkPassword.bind(this)
                         }]
                       })(
                         <Input type="password" placeholder="输入登录密码" />
