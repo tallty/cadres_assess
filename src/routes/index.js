@@ -7,6 +7,7 @@ import Review from '../components/review/Review';
 import MobileLogin from '../components/mobile/MobileLogin';
 import MobileEvaluationList from '../components/mobile/MobileEvaluationList';
 import MobileEvaluate from '../components/mobile/MobileEvaluate';
+import countDown from '../components/common/countDown';
 
 import Admin from '../components/admin/Admin';
 import AdminLogIn from '../components/Admin/AdminLogIn';
@@ -49,7 +50,7 @@ export class Routes extends Component {
           {/* 考核表格 */}
           <Route path="/review" component={Review} onEnter={this.requireAuth} />
         </Route>
-
+        <Route path="/count_down" component={countDown} />
         {/*管理端路由信息*/}
         <Route path="/admin" component={AdminLogIn} />
         <Route path="/statistics" component={Statistics} onEnter={this.adminAuth} />
@@ -60,8 +61,8 @@ export class Routes extends Component {
 
         {/* 手机端互评 */}
         <Route path="/mobile_login" component={MobileLogin} />
-        <Route path="/mobile_evaluation_list" component={MobileEvaluationList} onEnter={this.mobileAuth}/>
-        <Route path="/mobile_evaluate" component={MobileEvaluate} onEnter={this.mobileAuth}/>
+        <Route path="/mobile_evaluation_list" component={MobileEvaluationList} onEnter={this.mobileAuth} />
+        <Route path="/mobile_evaluate" component={MobileEvaluate} onEnter={this.mobileAuth} />
       </Router>
 		)
   }
