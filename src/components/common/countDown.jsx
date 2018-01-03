@@ -8,7 +8,7 @@ class countDown extends Component {
   state = {
     times: '00:00:00',
     played: false,
-    initSeconds: 30,
+    initSeconds: 300,
     visible: false
   }
 
@@ -20,10 +20,8 @@ class countDown extends Component {
     clearInterval(countTime);
   }
 
-  getFormattedTime() {
+  getFormattedTime(totalSeconds = this.state.initSeconds) {
     const audio = document.getElementById('bgMusic');
-    audio.pause();
-    const totalSeconds = this.state.initSeconds;
     let seconds = parseInt(totalSeconds % 60, 10);
     let minutes = parseInt(totalSeconds / 60, 10) % 60;
     let hours = parseInt(totalSeconds / 3600, 10);
@@ -32,21 +30,26 @@ class countDown extends Component {
     minutes = minutes < 10 ? `0${minutes}` : minutes;
     hours = hours < 10 ? `0${hours}` : hours;
 
+    this.setState({
+      times: `${hours}:${minutes}:${seconds}`
+    });
+
     if (totalSeconds === 30) {
       audio.play();
       setTimeout(() => {
         audio.pause();
-      }, 2000);
+      }, 3000);
     }
 
-    if (totalSeconds < 0) {
+    if (totalSeconds <= 0) {
       clearInterval(countTime);
+      this.setState({
+        played: false
+      });
       audio.play();
       setTimeout(() => {
         audio.pause();
       }, 8000);
-    } else {
-      this.state.times = `${hours}:${minutes}:${seconds}`;
     }
   }
 
@@ -72,17 +75,13 @@ class countDown extends Component {
       this.setState({
         played: !this.state.played
       });
-      const that = this;
+      this.getFormattedTime();
+      let count = 1
       countTime = setInterval(() => {
-        var nums = this.state.initSeconds;
-        nums--;
-        this.setState({
-          initSeconds: nums
-        });
-        this.getFormattedTime();
-      },
-        1000
-      );
+        const totalSeconds = this.state.initSeconds - count;
+        this.getFormattedTime(totalSeconds);
+        count++;
+      }, 1000);
     }
   }
 
@@ -135,17 +134,18 @@ class countDown extends Component {
           </Popover>
           <div>
             <audio id="bgMusic" loop="loop">
-              <source src="/src/images/6503.mp3" type="audio/mpeg" />
+              <source src="/src/images/alarm.mp3" type="audio/mpeg" />
               您的浏览器不支持播放此音频。
             </audio>
           </div>
           <div className={css.realTime}>{times}</div>
           <div className={css.palyBtn}>
             <Tooltip placement="top" title="开始">
-              <Button onClick={this.goPlay.bind(this)} size="large" shape="circle" shape="circle" icon="play-circle" />
-            </Tooltip>
-            <Tooltip placement="top" title="暂停">
-              <Button onClick={this.pausePlay.bind(this)} size="large" shape="circle" shape="circle" icon="pause-circle" />
+              {
+                this.state.played
+                  ? <Button onClick={this.pausePlay.bind(this)} size="large" shape="circle" shape="circle" icon="pause-circle" />
+                  : <Button onClick={this.goPlay.bind(this)} size="large" shape="circle" shape="circle" icon="play-circle" />
+              }
             </Tooltip>
             <Tooltip placement="top" title="复位">
               <Button onClick={this.resetPlay.bind(this)} size="large" shape="circle" shape="circle" icon="reload" />
