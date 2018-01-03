@@ -8,11 +8,11 @@ class countDown extends Component {
   state = {
     times: '00:00:00',
     played: false,
-    initSeconds: 0,
+    initSeconds: 30,
     visible: false
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getFormattedTime();
   }
 
@@ -21,22 +21,30 @@ class countDown extends Component {
   }
 
   getFormattedTime() {
+    const audio = document.getElementById('bgMusic');
+    audio.pause();
     const totalSeconds = this.state.initSeconds;
-    var seconds = parseInt(totalSeconds % 60, 10);
-    var minutes = parseInt(totalSeconds / 60, 10) % 60;
-    var hours = parseInt(totalSeconds / 3600, 10);
+    let seconds = parseInt(totalSeconds % 60, 10);
+    let minutes = parseInt(totalSeconds / 60, 10) % 60;
+    let hours = parseInt(totalSeconds / 3600, 10);
 
     seconds = seconds < 10 ? `0${seconds}` : seconds;
     minutes = minutes < 10 ? `0${minutes}` : minutes;
     hours = hours < 10 ? `0${hours}` : hours;
 
-    // if (totalSeconds < 30 && totalSeconds > 0) {
-    //   const audio = document.getElementById('bgMusic');
-    //   audio.play();
-    // }
+    if (totalSeconds === 30) {
+      audio.play();
+      setTimeout(() => {
+        audio.pause();
+      }, 2000);
+    }
 
     if (totalSeconds < 0) {
       clearInterval(countTime);
+      audio.play();
+      setTimeout(() => {
+        audio.pause();
+      }, 8000);
     } else {
       this.state.times = `${hours}:${minutes}:${seconds}`;
     }
@@ -99,7 +107,12 @@ class countDown extends Component {
     const text = <span>设置倒计时长</span>;
     const content = (
       <div>
-        <Input className={css.timeInput} onChange={this.handleChange.bind(this)} placeholder="请输入倒计时秒数。。。" />
+        <Input
+          value={this.state.initSeconds}
+          className={css.timeInput}
+          onChange={this.handleChange.bind(this)}
+          placeholder="请输入倒计时秒数。。。"
+        />
         <Button onClick={this.hide.bind(this)} type="primary" size="small" icon="search">确定</Button>
       </div>
     );
@@ -121,8 +134,9 @@ class countDown extends Component {
             </div>
           </Popover>
           <div>
-            <audio id="bgMusic">
-              <source src="/src/images/6503.mp3" type="audio/mp3" />
+            <audio id="bgMusic" loop="loop">
+              <source src="/src/images/6503.mp3" type="audio/mpeg" />
+              您的浏览器不支持播放此音频。
             </audio>
           </div>
           <div className={css.realTime}>{times}</div>
