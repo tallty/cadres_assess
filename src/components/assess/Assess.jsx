@@ -31,8 +31,8 @@ export class Assess extends Component {
     let { year, first_begin, first_end, second_begin, second_end, third_begin, third_end } = timeline;
     let is_second = moment() >= second_begin && moment() <= second_end;
 
-    if (sessionStorage.user_type !== "middle_manager" || is_second) {
-      this.setState({ step: 2, timeline: timeline });
+    if (sessionStorage.user_type !== 'middle_manager' || is_second) {
+      this.setState({ step: 2, timeline });
     } else {
       this.getSelfEvaluation(timeline);
     }
@@ -50,12 +50,12 @@ export class Assess extends Component {
         if (!err || err === null) {
           let duties = res.body.content.duties;
           if (duties.length > 0) {
-            this.setState({ step: 2, timeline: timeline });
+            this.setState({ step: 2, timeline });
           } else {
-            this.setState({ step: 1, timeline: timeline });
+            this.setState({ step: 1, timeline });
           }
         } else {
-          Message.error("获取自我评价表失败，请稍后重试。");
+          Message.error('获取自我评价表失败，请稍后重试。');
         }
       })
   }
@@ -65,15 +65,16 @@ export class Assess extends Component {
     let { year, first_begin, first_end, second_begin, second_end, third_begin, third_end } = timeline;
     if (step === 1) {
       let is_actived = moment() >= first_begin && moment() <= first_end;
-      console.log("是否处于第一阶段的时间内：" + is_actived);
-      return <StepOne next={this.toNext.bind(this)} active={is_actived} year={parseInt(year)} />
+      console.log('是否处于第一阶段的时间内：' + is_actived);
+      // return <StepOne next={this.toNext.bind(this)} active={is_actived} year={parseInt(year)} />
+      return <StepOne next={this.toNext.bind(this)} active year={parseInt(year)} />
     } else if (step === 2) {
       let is_actived = moment() >= second_begin && moment() <= second_end;
-      console.log("是否处于第二阶段的时间内：" + is_actived);
+      console.log('是否处于第二阶段的时间内：' + is_actived);
       return <StepTwo next={this.toNext.bind(this)} active={is_actived} timeline={timeline} />
     } else if (step === 3) {
       let is_actived = moment() >= third_begin && moment() <= third_end;
-      console.log("是否处于第三阶段的时间内：" + is_actived);
+      console.log('是否处于第三阶段的时间内：' + is_actived);
       return <StepThree next={this.toNext.bind(this)} active={is_actived} />
     }
   }
@@ -97,9 +98,9 @@ export class Assess extends Component {
               {/* 进度条 */}
               <div className={css.steps}>
                 <Steps current={step - 1}>
-                  <Step title="提交审核登记表" description={`${first_begin.format("MM-DD")} —— ${first_end.format("MM-DD")}`} />
-                  <Step title="在线考核评分" description={`${second_begin.format("MM-DD")} —— ${second_end.format("MM-DD")}`} />
-                  <Step title="考核结果统计" description={`${third_begin.format("MM-DD")} —— ${third_end.format("MM-DD")}`} />
+                  <Step title="提交审核登记表" description={`${first_begin.format('MM-DD')} —— ${first_end.format('MM-DD')}`} />
+                  <Step title="在线考核评分" description={`${second_begin.format('MM-DD')} —— ${second_end.format('MM-DD')}`} />
+                  <Step title="考核结果统计" description={`${third_begin.format('MM-DD')} —— ${third_end.format('MM-DD')}`} />
                 </Steps>
               </div>
               {/* 分步操作 */}

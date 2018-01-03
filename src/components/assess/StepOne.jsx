@@ -49,7 +49,7 @@ class StepOne extends Component {
             info: res.body.info
           });
         } else {
-          Message.error("获取自我评价表失败，请稍后重试。");
+          Message.error('获取自我评价表失败，请稍后重试。');
         }
       })
   }
@@ -67,14 +67,15 @@ class StepOne extends Component {
         <div className={css.box} key={i + 1}>
           <div className={css.item0}>{i + 1}</div>
           <div className={css.item1}>
-            {getFieldDecorator("input" + i, { initialValue: input_value })(
+            {getFieldDecorator('input' + i, { initialValue: input_value })(
               <Input type="text"
-                placeholder={`自评项${i + 1}`}
+                placeholder={`自评项${i + 1}，22字以内`}
                 disabled={isAssessed}
-                onBlur={this.cacheInput.bind(this, i)} />
+                onBlur={this.cacheInput.bind(this, i)}
+              />
             )}
           </div>
-          {getFieldDecorator("group" + i, { initialValue: duty[1] })(
+          {getFieldDecorator('group' + i, { initialValue: duty[1] })(
             <RadioGroup disabled={isAssessed}>
               <Radio value="perfect" className={css.item0}></Radio>
               <Radio value="good" className={css.item0}></Radio>
@@ -89,7 +90,16 @@ class StepOne extends Component {
   }
 
   cacheInput(i, e) {
-    now_cache[i] = e.target.value;
+    if (e.target.value.length > 22) {
+      now_cache[i] = e.target.value.substring(0, 22);
+    } else {
+      now_cache[i] = e.target.value;
+    }
+
+    this.props.form.setFieldsValue({
+      [`input${i}`]: now_cache[i]
+    });
+
     if (e.target.value) {
       evaluation_cache[`${sessionStorage.number}`] = now_cache;
       localStorage.setItem('evaluation_cache', JSON.stringify(evaluation_cache));
@@ -103,13 +113,13 @@ class StepOne extends Component {
       let duties = this.validateSubmit(params);
       this.updateSelf(params, duties);
     } else {
-      alert("请完善评分");
+      alert('请完善评分');
     }
   }
 
   updateSelf(params, duties) {
     Agent
-      .put("http://stiei-api.tallty.com/middle_managers/self_evaluation")
+      .put('http://stiei-api.tallty.com/middle_managers/self_evaluation')
       .set('Accept', 'application/json')
       .set('X-User-Token', sessionStorage.token)
       .set('X-User-Jobnum', sessionStorage.number)
@@ -125,19 +135,19 @@ class StepOne extends Component {
           localStorage.setItem('evaluation_cache', JSON.stringify(evaluation_cache));
           // 跳转下一步
           this.props.next();
-          Message.success("提交自我评价意见成功");
+          Message.success('提交自我评价意见成功');
         } else {
-          Message.error("提交自我评价意见失败，请重试");
+          Message.error('提交自我评价意见失败，请重试');
         }
       })
   }
 
   validateSubmit(params) {
-    let cache = "";
+    let cache = '';
     if (params.job && params.total_assess) {
       for (let i = 0; i < 12; i++) {
-        if (params["input" + i] && params['group' + i]) {
-          cache += `${params["input" + i]}*,*${params['group' + i]}*;*`;
+        if (params['input' + i] && params['group' + i]) {
+          cache += `${params['input' + i]}*,*${params['group' + i]}*;*`;
         }
       }
       return cache;
@@ -155,7 +165,7 @@ class StepOne extends Component {
         let submit_btn = document.getElementById('submit_btn');
         submit_btn.click();
       },
-      onCancel() { },
+      onCancel() { }
     });
   }
 
@@ -163,7 +173,7 @@ class StepOne extends Component {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
+      wrapperCol: { span: 20 }
     };
     const { duties, info, total_assess } = this.state;
     const isAssessed = duties.length > 0;
@@ -189,7 +199,7 @@ class StepOne extends Component {
                 <div className={css.box} key={13}>
                   <div className={css.item0}><span>*</span> 13</div>
                   <div className={css.item1}>总体评价</div>
-                  {getFieldDecorator("total_assess", { initialValue: total_assess })(
+                  {getFieldDecorator('total_assess', { initialValue: total_assess })(
                     <RadioGroup disabled={isAssessed}>
                       <Radio value="perfect" className={css.item0}></Radio>
                       <Radio value="good" className={css.item0}></Radio>
@@ -204,7 +214,7 @@ class StepOne extends Component {
                   <div className={css.item1}>
                     {getFieldDecorator('job', {
                       initialValue: info.job,
-                      rules: [{ required: true }],
+                      rules: [{ required: true }]
                     })(
                       <Input type="text" placeholder="从事或分管工作" disabled={isAssessed} />
                       )}
