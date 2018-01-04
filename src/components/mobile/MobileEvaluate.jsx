@@ -17,7 +17,9 @@ var formData = [];
 class MobileEvaluate extends Component {
   state = {
     evaluation: null,
-    complete: false
+    complete: false,
+    formDisabled: true,
+    userLevel: ''
   }
 
   componentDidMount() {
@@ -28,7 +30,7 @@ class MobileEvaluate extends Component {
    * 获取评价详情
    */
   getEvaluation() {
-    let id = this.props.location.query.id;
+    const id = this.props.location.query.id;
     Agent
       .get(`http://stiei-api.tallty.com/evaluations/${id}`)
       .set('Accept', 'application/json')
@@ -37,14 +39,16 @@ class MobileEvaluate extends Component {
       .set('X-User-Jobnum', localStorage.number)
       .end((err, res) => {
         if (!err || err === null) {
-          console.log("获取要评价的人员成功");
+          const userType = localStorage.getItem('user_type');
           this.setState({
             evaluation: res.body,
-            complete: res.body.already_edited
+            complete: res.body.already_edited,
+            userLevel: userType,
+            formDisabled: res.body.already_edited && userType !== 'leader'
           });
         } else {
           this.setState({ evaluation: {} });
-          Message.error("获取评价人员信息失败");
+          Message.error('获取评价人员信息失败');
         }
       })
   }
@@ -57,7 +61,7 @@ class MobileEvaluate extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      let type = localStorage.getItem('user_type');
+      const type = localStorage.getItem('user_type');
       if (!err || err === null) {
         if (type === 'leader') {
           // 领导打总分即可
@@ -89,15 +93,15 @@ class MobileEvaluate extends Component {
           thought_morals: thought_morals_str,
           duties: duties_str,
           upright_incorruptiable: upright_incorruptiable_str,
-          evaluation_totality: params.total_count,
+          evaluation_totality: params.total_count
         }
       })
       .end((err, res) => {
         if (!err || err === null) {
           this.setState({ evaluation: res.body, complete: true });
-          Message.success("提交测评成功");
+          Message.success('提交测评成功');
         } else {
-          Message.error("提交测评失败");
+          Message.error('提交测评失败');
         }
       })
   }
@@ -127,42 +131,53 @@ class MobileEvaluate extends Component {
       .set('X-User-Jobnum', localStorage.number)
       .send({
         evaluation: {
-          evaluation_totality: params.total_count,
+          evaluation_totality: params.total_count
         }
       })
       .end((err, res) => {
         if (!err || err === null) {
           this.setState({ evaluation: res.body, complete: true });
-          Message.success("提交测评成功");
+          Message.success('提交测评成功');
         } else {
-          Message.error("提交测评失败");
+          Message.error('提交测评失败');
         }
       })
   }
 
   getFormCell(evaluation, key) {
-    let array = evaluation.content[key];
-    let cells = [];
+    const array = evaluation.content[key];
+    const cells = [];
     array.forEach((item, i, obj) => {
-      let value = parseInt(item[1]) === -1 ? null : parseInt(item[1]);
-      let required = localStorage.getItem('user_type') !== 'leader';
+      const value = parseInt(item[1], 10) === -1 ? null : parseInt(item[1], 10);
+      const required = this.state.userLevel !== 'leader';
       // 本页表单的key为动态指定，需保存表单的 key， value, 以便提交表单时， 根据key来获取value
-      let cache = { kind: key, key: item[0] };
+      const cache = { kind: key, key: item[0] };
       formData.push(cache);
       // 表单列表
       cells.push(
         <FormItem key={i}>
           <p className={css.input_label}>{item[0]}</p>
           {this.props.form.getFieldDecorator(`${item[0]}`, {
-            rules: [{ type: 'number', required: required, message: "请填写评分项" }],
+            rules: [{ type: 'number', required, message: '请填写评分项' }],
             initialValue: value
           })(
-            <Slider disabled={this.state.complete} max={99} min={0} />
+            <Slider disabled={this.state.formDisabled} max={99} min={0} />
             )}
         </FormItem>
       );
     })
     return cells;
+  }
+
+  setFormButton() {
+    const { complete, formDisabled } = this.state;
+    if (complete) {
+      return formDisabled
+        ? <Button type="primary" disabled>已提交</Button>
+        : <Button type="primary" htmlType="submit">更新测评表</Button>
+    } else {
+      return <Button type="primary" htmlType="submit">提交测评表</Button>
+    }
   }
 
   render() {
@@ -200,19 +215,15 @@ class MobileEvaluate extends Component {
                 <Card className={css.card} title="总体评价">
                   <FormItem className={css.num_review}>
                     {getFieldDecorator('total_count', {
-                      rules: [{ type: 'number', required: true, message: "请填写总体评价" }],
+                      rules: [{ type: 'number', required: true, message: '请填写总体评价' }],
                       initialValue: total_count
                     })(
-                      <Slider disabled={complete} max={99} min={0} />
+                      <Slider disabled={this.state.formDisabled} max={99} min={0} />
                       )}
                   </FormItem>
                 </Card>
                 <div className={css.submit_btn}>
-                  {
-                    complete ?
-                      <Button type="primary" disabled>已提交</Button> :
-                      <Button type="primary" htmlType="submit">提交测评表</Button>
-                  }
+                  { this.setFormButton() }
                 </div>
               </Form> : <Spiner />
           }
