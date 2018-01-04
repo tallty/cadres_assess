@@ -202,7 +202,7 @@ class MobileEvaluate extends Component {
         <div className={css.form_container}>
           {
             evaluation ?
-              <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+              <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                 <Card className={css.card} title="思想道德情况">
                   {evaluation ? this.getFormCell(evaluation, THOUGHT) : null}
                 </Card>

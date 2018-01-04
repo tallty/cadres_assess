@@ -13,7 +13,7 @@ const Option = Select.Option;
 class ListModal extends Component {
   state = {
     loading: false,
-    err_info: ""
+    err_info: ''
   }
 
   /**
@@ -68,7 +68,7 @@ class ListModal extends Component {
     let { time_line_year, first_range, second_range, third_range } = fromData;
     let method = this.props.activity.id ? 'put' : 'post';
     let id = this.props.activity.id ? this.props.activity.id : '';
-    let format = "YYYY-MM-DD";
+    let format = 'YYYY-MM-DD';
 
     SuperAgent(method, `http://stiei-api.tallty.com/admin/activities/${id}`)
       .set('Accept', 'application/json')
@@ -91,14 +91,14 @@ class ListModal extends Component {
           if (res.body.error) {
             this.setState({ err_info: res.body.error, loading: false })
           } else {
-            console.log("创建或更新考核活动情况：");
+            console.log('创建或更新考核活动情况：');
             console.dir(res.body);
             this.props.hideModal();
             // this.props.refreshData();
-            location.href = "/test_set";
+            location.href = '/test_set';
           }
         } else {
-          console.log("创建或更新考核活动失败");
+          console.log('创建或更新考核活动失败');
           this.setState({ loading: false });
         }
       })
@@ -123,7 +123,7 @@ class ListModal extends Component {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 6 },
-      wrapperCol: { span: 16 },
+      wrapperCol: { span: 16 }
     }
 
     // 表单默认值
@@ -134,10 +134,10 @@ class ListModal extends Component {
     let year_value = '';
 
     if (id) {
-      year_value = year + "";
-      first_range = [moment(first_begin, "YYYY-MM-DD"), moment(first_end, "YYYY-MM-DD")];
-      second_range = [moment(second_begin, "YYYY-MM-DD"), moment(second_end, "YYYY-MM-DD")];
-      third_range = [moment(third_begin, "YYYY-MM-DD"), moment(third_end, "YYYY-MM-DD")];
+      year_value = year + '';
+      first_range = [moment(first_begin, 'YYYY-MM-DD'), moment(first_end, 'YYYY-MM-DD')];
+      second_range = [moment(second_begin, 'YYYY-MM-DD'), moment(second_end, 'YYYY-MM-DD')];
+      third_range = [moment(third_begin, 'YYYY-MM-DD'), moment(third_end, 'YYYY-MM-DD')];
     }
 
     return (
@@ -148,24 +148,26 @@ class ListModal extends Component {
           visible={this.props.visible}
           onCancel={this.handleCancel.bind(this)}
           title={title}
-          footer={false}>
-          <Form horizontal onSubmit={this.handleOk.bind(this)}>
+          footer={false}
+        >
+          <Form layout="horizontal" onSubmit={this.handleOk.bind(this)}>
             <Row className={styles.modal_content}>
               <FormItem className={styles.form_item} labelCol={{ span: 5 }} help label="考核年度" {...formItemLayout}>
-                {getFieldDecorator("time_line_year", {
+                {getFieldDecorator('time_line_year', {
                   initialValue: year_value,
                   rules: [{ type: 'string', required: true, message: '请选择考核年度' }]
                 })(
                   <Select style={{ width: 200 }}
                     placeholder="请选择年份"
                     onChange={this.handleChange}
-                    notFoundContent="请选择考核年度">
+                    notFoundContent="请选择考核年度"
+                  >
                     {options}
                   </Select>
                   )}
               </FormItem>
               <FormItem label="上传登记表时间" labelCol={{ span: 5 }} help className={styles.form_item} {...formItemLayout}>
-                {getFieldDecorator("first_range", {
+                {getFieldDecorator('first_range', {
                   initialValue: first_range,
                   rules: [{ type: 'array', required: true, message: '请选择上传登记表时间' }]
                 })(
@@ -173,7 +175,7 @@ class ListModal extends Component {
                   )}
               </FormItem>
               <FormItem label="在线考核时间" labelCol={{ span: 5 }} help className={styles.form_item} {...formItemLayout}>
-                {getFieldDecorator("second_range", {
+                {getFieldDecorator('second_range', {
                   initialValue: second_range,
                   rules: [{ type: 'array', required: true, message: '请选择上传登记表时间' }]
                 })(
@@ -181,7 +183,7 @@ class ListModal extends Component {
                   )}
               </FormItem>
               <FormItem label="考核统计时间" labelCol={{ span: 5 }} help className={styles.form_item} {...formItemLayout}>
-                {getFieldDecorator("third_range", {
+                {getFieldDecorator('third_range', {
                   initialValue: third_range,
                   rules: [{ type: 'array', required: true, message: '请选择上传登记表时间' }]
                 })(
@@ -191,7 +193,7 @@ class ListModal extends Component {
               <div className={styles.tips_err}><label>{this.state.err_info}</label></div>
               <FormItem className={styles.form_submit}>
                 <Button type="primary" htmlType="submit" size="large" loading={this.state.loading} >
-                  {this.state.loading ? "正在提交..." : "提交"}
+                  {this.state.loading ? '正在提交...' : '提交'}
                 </Button>
               </FormItem>
             </Row>

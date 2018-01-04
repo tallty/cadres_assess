@@ -14,7 +14,7 @@ class AdminLogIn extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: ''
     }
   }
 
@@ -35,18 +35,18 @@ class AdminLogIn extends Component {
   // 管理员登录
   beginLogin(email, password) {
     SuperAgent
-      .post("http://stiei-api.tallty.com/admins/sign_in")
+      .post('http://stiei-api.tallty.com/admins/sign_in')
       .set('Accept', 'application/json')
       .set('Cache-control', 'no-cache')
-      .send({ 'admin': { 'email': email, 'password': password } })
+      .send({ 'admin': { email, password } })
       .end((err, res) => {
         if (!err || err === null) {
           sessionStorage.setItem('admin_email', email);
           sessionStorage.setItem('admin_token', res.body.authentication_token);
           this.props.router.replace('/test_set');
         } else {
-          console.log("admin登录失败");
-          Message.error("登录失败，请检查账号密码是否正确。");
+          console.log('admin登录失败');
+          Message.error('登录失败，请检查账号密码是否正确。');
         }
       })
   }
@@ -55,7 +55,7 @@ class AdminLogIn extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={css.background_pic}>
-        <Form horizontal onSubmit={this.handleSubmit.bind(this)} >
+        <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)} >
           <Row className={css.login_container}>
             <Col span={24} className={css.login_title}>
               <label>管理员登录</label>

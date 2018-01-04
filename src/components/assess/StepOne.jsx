@@ -193,7 +193,7 @@ class StepOne extends Component {
                 <div className={css.item0}>较差</div>
               </div>
               {/* form */}
-              <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+              <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                 {this.getFormItems()}
                 {/* 总体评价 */}
                 <div className={css.box} key={13}>

@@ -22,7 +22,7 @@ class Review extends Component {
   }
 
   componentDidMount() {
-    console.log("要评价的人员信息");
+    console.log('要评价的人员信息');
     console.dir(this.state.evaluation);
   }
 
@@ -39,15 +39,15 @@ class Review extends Component {
       .set('X-User-Jobnum', sessionStorage.number)
       .end((err, res) => {
         if (!err || err === null) {
-          console.log("获取要评价的人员成功");
+          console.log('获取要评价的人员成功');
           console.dir(res.body);
           this.setState({
             evaluation: res.body,
             complete: res.body.already_edited
           });
         } else {
-          console.log("获取要评价的人员失败");
-          Message.error("获取评价人员信息失败");
+          console.log('获取要评价的人员失败');
+          Message.error('获取评价人员信息失败');
         }
       })
   }
@@ -74,9 +74,9 @@ class Review extends Component {
    */
   otherEvalution(params) {
     let id = this.props.location.query.id;
-    console.log("非领导测评, 获取的表单数据");
+    console.log('非领导测评, 获取的表单数据');
     console.log(params);
-    console.log("保存的kind 和 key");
+    console.log('保存的kind 和 key');
     console.log(formData);
 
     let thought_morals_str = this.formatApiString(params, THOUGHT);
@@ -97,18 +97,18 @@ class Review extends Component {
           thought_morals: thought_morals_str,
           duties: duties_str,
           upright_incorruptiable: upright_incorruptiable_str,
-          evaluation_totality: params.total_count,
+          evaluation_totality: params.total_count
         }
       })
       .end((err, res) => {
         if (!err || err === null) {
-          console.log("提交测评成功");
+          console.log('提交测评成功');
           console.dir(res.body);
           this.setState({ evaluation: res.body, complete: true });
-          Message.success("提交测评成功");
+          Message.success('提交测评成功');
         } else {
-          console.log("获取要评价的人员失败");
-          Message.error("提交测评失败");
+          console.log('获取要评价的人员失败');
+          Message.error('提交测评失败');
         }
       })
   }
@@ -118,7 +118,7 @@ class Review extends Component {
    * 根据tag找到需要的key, 输出成对应的字符串
    */
   formatApiString(params, kind) {
-    console.log("++++++++++++++")
+    console.log('++++++++++++++')
     console.log(params);
 
     let str = '';
@@ -143,18 +143,18 @@ class Review extends Component {
       .set('X-User-Jobnum', sessionStorage.number)
       .send({
         evaluation: {
-          evaluation_totality: params.total_count,
+          evaluation_totality: params.total_count
         }
       })
       .end((err, res) => {
         if (!err || err === null) {
-          console.log("领导提交测评成功");
+          console.log('领导提交测评成功');
           console.dir(res.body);
           this.setState({ evaluation: res.body, complete: true });
-          Message.success("提交测评成功");
+          Message.success('提交测评成功');
         } else {
-          console.log("领导获取要评价的人员失败");
-          Message.error("提交测评失败");
+          console.log('领导获取要评价的人员失败');
+          Message.error('提交测评失败');
         }
       })
   }
@@ -177,7 +177,7 @@ class Review extends Component {
           <Col span={12} className={css.form_input}>
             <FormItem>
               {this.props.form.getFieldDecorator(`${key}___${i}`, {
-                rules: [{ type: 'number', required: required, message: "请填写评分项" }],
+                rules: [{ type: 'number', required, message: '请填写评分项' }],
                 initialValue: value
               })(
                 <InputNumber min={0} max={99} disabled={this.state.complete} />
@@ -224,7 +224,7 @@ class Review extends Component {
             </div>
           */}
           {/* 评审表格 */}
-          <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+          <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
             <div className={css.form_cell}>
               <div className={css.form_cell_header}>
                 思想道德情况
@@ -274,7 +274,7 @@ class Review extends Component {
               <div className={css.form_cell_body}>
                 <FormItem className={css.num_review}>
                   {getFieldDecorator('total_count', {
-                    rules: [{ type: 'number', required: true, message: "请填写总体评价" }],
+                    rules: [{ type: 'number', required: true, message: '请填写总体评价' }],
                     initialValue: total_count
                   })(
                     <InputNumber min={0} max={99} disabled={complete} />
