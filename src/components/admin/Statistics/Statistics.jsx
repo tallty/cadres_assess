@@ -21,37 +21,37 @@ class Statistics extends Component {
     visible: false,
     logic_record: {},
     logic_index: null,
-    logic_tag: "",
+    logic_tag: '',
     modal_loading: false
   };
   columns = [{
     title: '序号',
-    dataIndex: 'index',
+    dataIndex: 'index'
   }, {
     title: '干部姓名',
-    dataIndex: 'name',
+    dataIndex: 'name'
   }, {
     title: '领导评分',
     dataIndex: 'average_score_for_leader',
-    sorter: (a, b) => a.average_score_for_leader - b.average_score_for_leader,
+    sorter: (a, b) => a.average_score_for_leader - b.average_score_for_leader
   }, {
     title: '中层互评',
     dataIndex: 'average_score_for_middle_manager',
-    sorter: (a, b) => a.average_score_for_middle_manager - b.average_score_for_middle_manager,
+    sorter: (a, b) => a.average_score_for_middle_manager - b.average_score_for_middle_manager
   }, {
     title: '员工评分',
     dataIndex: 'average_score_for_staff',
-    sorter: (a, b) => a.average_score_for_staff - b.average_score_for_staff,
+    sorter: (a, b) => a.average_score_for_staff - b.average_score_for_staff
   }, {
     title: '总分',
     dataIndex: 'average_score_for_all',
-    sorter: (a, b) => a.average_score_for_all - b.average_score_for_all,
+    sorter: (a, b) => a.average_score_for_all - b.average_score_for_all
   }, {
     title: '考核等级',
-    dataIndex: 'output_of_level_of_average_score_for_all',
+    dataIndex: 'output_of_level_of_average_score_for_all'
   }, {
     title: '评鉴等级',
-    dataIndex: 'final_result',
+    dataIndex: 'final_result'
   }, {
     title: '操作',
     dataIndex: '',
@@ -102,9 +102,9 @@ class Statistics extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        if (this.state.logic_tag === "评鉴") {
+        if (this.state.logic_tag === '评鉴') {
           this.setEvaluateByAdministrator(values);
-        } else if (this.state.logic_tag === "考核") {
+        } else if (this.state.logic_tag === '考核') {
           this.setLevelByAdministrator(values);
         }
       }
@@ -125,9 +125,9 @@ class Statistics extends Component {
           let item = data[logic_index];
           item.final_result = values.level;
           console.log(data);
-          this.setState({ data: data, modal_loading: false, visible: false });
+          this.setState({ data, modal_loading: false, visible: false });
         } else {
-          Message.error("评鉴失败，请重试");
+          Message.error('评鉴失败，请重试');
           this.setState({ modal_loading: false });
         }
       })
@@ -147,16 +147,16 @@ class Statistics extends Component {
           let item = data[logic_index];
           item.output_of_level_of_average_score_for_all = values.level;
           console.log(data);
-          this.setState({ data: data, modal_loading: false, visible: false });
+          this.setState({ data, modal_loading: false, visible: false });
         } else {
-          Message.error("设置考核失败，请重试");
+          Message.error('设置考核失败，请重试');
           this.setState({ modal_loading: false });
         }
       })
   }
 
   getQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]);
     return null;
@@ -177,9 +177,9 @@ class Statistics extends Component {
         if (!err || err === null) {
           let data = this.formatData(res.body.table);
           console.log(data);
-          this.setState({ data: data, loading: false });
+          this.setState({ data, loading: false });
         } else {
-          Message.error("获取统计数据失败");
+          Message.error('获取统计数据失败');
         }
       })
   }
@@ -200,12 +200,14 @@ class Statistics extends Component {
     const url = `http://stiei-api.tallty.com/admin/output_result_index?activity_year=${this.props.location.query.year}`;
     const formItemLayout = {
       labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
+      wrapperCol: { span: 14 }
     };
     return (
       <Admin>
         <div className={css.table_content}>
-          <div className={css.table_title}><span>{this.props.location.query.year}</span>考核统计结果列表</div>
+          <div className={css.table_title}>
+            <span>{this.props.location.query.year}</span>考核统计结果列表
+          </div>
           <div><a href={url}><Button type="primary" icon="download" >下载总表</Button></a></div>
           <br />
           <Table columns={this.columns}
@@ -213,15 +215,17 @@ class Statistics extends Component {
             dataSource={this.state.data}
             loading={this.state.loading}
             pagination={{ pageSize: 9 }}
-            onChange={this.onChange} />
+            onChange={this.onChange}
+          />
 
           <Modal title="考核人员等级设置" visible={this.state.visible}
             onCancel={this.handleCancel.bind(this)}
-            footer={false}>
+            footer={false}
+          >
             <Form onSubmit={this.handleSubmit.bind(this)}>
               <FormItem {...formItemLayout} label="设置等级">
                 {getFieldDecorator('level', {
-                  rules: [{ required: true, message: '请输入等级！' }],
+                  rules: [{ required: true, message: '请输入等级！' }]
                 })(
                   <Select multiple={false} placeholder="请选择等级">
                     <Option value="优秀">优秀</Option>
