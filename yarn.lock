@@ -124,7 +124,7 @@ ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^2.0.1:
+antd@^2.13.11:
   version "2.13.11"
   resolved "http://registry.npm.taobao.org/antd/download/antd-2.13.11.tgz#59c0c1e79db07092fa6ee8d00f77668e88c72fb0"
   dependencies:
@@ -1330,8 +1330,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000784"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000784.tgz#1be95012d9489c7719074f81aee57dbdffe6361b"
+  version "1.0.30000787"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000787.tgz#ca07a281be536a88bd7fac96ba895f3cf53f811b"
 
 caseless@~0.12.0:
   version "0.12.0"

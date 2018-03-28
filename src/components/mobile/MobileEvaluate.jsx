@@ -153,6 +153,7 @@ class MobileEvaluate extends Component {
       // 本页表单的key为动态指定，需保存表单的 key， value, 以便提交表单时， 根据key来获取value
       const cache = { kind: key, key: item[0] };
       formData.push(cache);
+      console.log(item);
       // 表单列表
       cells.push(
         <FormItem key={i}>

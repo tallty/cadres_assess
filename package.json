@@ -2,7 +2,7 @@
   "private": true,
   "entry": {},
   "dependencies": {
-    "antd": "^2.0.1",
+    "antd": "^2.13.11",
     "classnames": "^2.2.3",
     "es3ify-loader": "^0.2.0",
     "moment": "^2.16.0",
